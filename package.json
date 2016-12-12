@@ -36,5 +36,12 @@
     "react": "^15.0.0",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/supasate/connected-react-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/supasate/connected-react-router/issues"
   }
 }
