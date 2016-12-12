@@ -1,13 +1,14 @@
 {
   "name": "connected-react-router",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "A redux-saga friendly react router",
   "main": "lib/index.js",
   "author": "Supasate Choochaisri",
   "license": "MIT",
   "files": [
     "*.md",
-    "*.js"
+    "*.js",
+    "lib"
   ],
   "scripts": {
     "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
