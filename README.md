@@ -96,6 +96,9 @@ Now, it's ready to work!
 
 *Note: Use `AppContainer` for functional component hot reloading. It's optional.*
 
+## Examples
+See [examples](https://github.com/supasate/connected-react-router/tree/master/examples) folder
+
 ## How to navigate with Redux action
 ### with store.dispatch
 ```js
@@ -129,11 +132,28 @@ export function* login(username, password) {
 }
 ```
 
+## How nested children access the router state (e.g. URL path)
+The router state can be accessed directly with `react-redux`'s `connect`
+```js
+import { connect } from 'react-redux'
+
+const Child = ({ path }) => (
+  <div>
+    Child receives path {path}.
+  </div>
+)
+
+const mapStateToProps = state => ({
+  path: state.router.location.pathname,
+})
+
+export default connect(mapStateToProps)(Child)
+```
+
 ## Cautions
 This is experimental project. It relies on several alpha and beta things (i.e. react-hot-loader v3 and react-router v4). Anything can be changed. Bugs are certainly waiting for you to wake them up. Please use it at your own risk.
 
 ## Todos
-- Add examples
 - Add tests
 - Make it work with time travel feature of Redux DevTools
 
