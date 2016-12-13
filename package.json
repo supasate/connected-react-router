@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
-    "build": "npm run build:commonjs"
+    "build": "npm run build:commonjs",
+    "lint": "eslint ."
   },
   "dependencies": {
     "react-router": "^4.0.0-alpha"
