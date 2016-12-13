@@ -165,4 +165,4 @@ Connected React Router is based on several awesome people' ideas
 - The idea of uni-directional flow (history -> store -> router -> components) is from [a @lourd's comment](https://github.com/reactjs/react-router-redux/pull/460#issuecomment-260999726)
 
 ## License
-MIT License
+[MIT License](https://github.com/supasate/connected-react-router/blob/master/LICENSE.md)
