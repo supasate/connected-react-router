@@ -96,7 +96,8 @@ Now, it's ready to work!
 
 *Note: Use `AppContainer` for functional component hot reloading. It's optional.*
 
-## Examples
+Examples
+--------
 See [examples](https://github.com/supasate/connected-react-router/tree/master/examples) folder
 
 ## How to navigate with Redux action
@@ -150,19 +151,30 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Child)
 ```
 
-## Cautions
+Build
+-----
+```bash
+npm run build
+```
+Generated files will be in `lib` folder.
+
+Cautions
+--------
 This is still an experimental project. It relies on several alpha and beta things (i.e. react-hot-loader v3 and react-router v4). Anything can be changed. Bugs are certainly waiting for you to wake them up. Please use it at your own risk.
 
-## Todos
+Todos
+-----
 - Add tests
 - Make it work with time travel feature of Redux DevTools
 
-## Acknowledge
+Acknowledge
+-----------
 Connected React Router is based on several awesome people' ideas
 - Several parts of Connected React Router is based on [react-router-redux v4](https://github.com/reactjs/react-router-redux/tree/v4.0.7).
 - A [PR](https://github.com/reactjs/react-router-redux/pull/460) by @timdorr to make react-router-redux v5 to integrate React Router v4 contains several ideas to drive Connected React Router.
 - The ConnectedRouter component is inspired by [App component by @cherijs](https://github.com/lourd/react-router4-redux-example/blob/master/src/App.js) with history synchronization enhancement.
 - The idea of uni-directional flow (history -> store -> router -> components) is from [a @lourd's comment](https://github.com/reactjs/react-router-redux/pull/460#issuecomment-260999726)
 
-## License
+License
+-------
 [MIT License](https://github.com/supasate/connected-react-router/blob/master/LICENSE.md)
