@@ -8,7 +8,7 @@ Main features
 
 :gift: Support [React Router v4](https://github.com/ReactTraining/react-router/tree/v4)
 
-:sunny: Support Hot reloading while preserving state (with [react-hot-reload v3](https://github.com/gaearon/react-hot-loader/tree/next))
+:sunny: Support functional component hot reloading while preserving state (with [react-hot-reload v3](https://github.com/gaearon/react-hot-loader/tree/next))
 
 :tada: Dispatching history methods (push, replace, go, goBack, goForward) are available for both [redux-thunk](https://github.com/gaearon/redux-thunk) and [redux-saga](https://github.com/yelouafi/redux-saga)
 
@@ -79,18 +79,18 @@ import { AppContainer } from 'react-hot-loader' // react-hot-loader v3
 import { ConnectedRouter } from 'connected-react-router'
 ...
 ReactDOM.render(
-  <AppContainer>
+  <AppContainer> { /* AppContainer for hot reloading v3 */ }
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <div>
-          { /* ... your usual react-router v4 routing ... */ }
+      <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
+        <div> { /* your usual react-router v4 routing */ }
           <Match exactly pattern="/" render={() => (<div>Match</div>)} />
-          <Miss render={() => (<div>Miss</div> />
+          <Miss render={() => (<div>Miss</div>)} />
         </div>
       </ConnectedRouter>
     </Provider>
   </AppContainer>,
-  document.getElementById('react-root'),
+  document.getElementById('react-root')
+)
 ```
 Now, it's ready to work!
 
@@ -151,7 +151,7 @@ export default connect(mapStateToProps)(Child)
 ```
 
 ## Cautions
-This is experimental project. It relies on several alpha and beta things (i.e. react-hot-loader v3 and react-router v4). Anything can be changed. Bugs are certainly waiting for you to wake them up. Please use it at your own risk.
+This is still an experimental project. It relies on several alpha and beta things (i.e. react-hot-loader v3 and react-router v4). Anything can be changed. Bugs are certainly waiting for you to wake them up. Please use it at your own risk.
 
 ## Todos
 - Add tests
