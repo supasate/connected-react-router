@@ -13,6 +13,9 @@ class ConnectedRouter extends Component {
   constructor(props) {
     super(props)
 
+    // Make router.location state available on page load
+    props.onLocationChanged(props.history.location, props.history.action)
+
     this.unlisten = props.history.listen((location, action) => {
       props.onLocationChanged(location, action)
     })
