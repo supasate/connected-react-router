@@ -1,4 +1,3 @@
-export syncHistoryWithStore from './sync'
 export { LOCATION_CHANGE } from './actions'
 export routerReducer from './reducer'
 

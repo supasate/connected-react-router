@@ -1,7 +1,7 @@
 import { AppContainer } from 'react-hot-loader'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { createBrowserHistory } from 'history'
-import { routerMiddleware, syncHistoryWithStore } from 'connected-react-router'
+import { routerMiddleware } from 'connected-react-router'
 import { Provider } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -18,8 +18,6 @@ const store = createStore(
     ),
   ),
 )
-
-syncHistoryWithStore(history, store)
 
 const renderWithHotReload = (AppComponent) => {
   ReactDOM.render(

@@ -43,11 +43,11 @@ const rootReducer = combineReducers({
 ### Step 2
 
 Create a `history` object and create redux store with `routerMiddleware`.
-Supply the `history` object to `routerMiddleware` and call `syncHistoryWithStore` with created `history` and `store`.
+Supply the `history` object to `routerMiddleware`.
 ```js
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware, syncHistoryWithStore } from 'connected-react-router'
+import { routerMiddleware } from 'connected-react-router'
 
 const history = createBrowserHistory()
 
@@ -61,8 +61,6 @@ const store = createStore(
     ),
   ),
 )
-
-syncHistoryWithStore(history, store)
 ```
 
 ### Step 3
