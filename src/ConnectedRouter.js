@@ -13,9 +13,6 @@ class ConnectedRouter extends Component {
   constructor(props) {
     super(props)
 
-    // Make router.location state available on page load
-    props.onLocationChanged(props.history.location, props.history.action)
-
     this.unlisten = props.history.listen((location, action) => {
       props.onLocationChanged(location, action)
     })
@@ -26,12 +23,12 @@ class ConnectedRouter extends Component {
   }
 
   render() {
-    const { history, basename, children } = this.props
+    const { action, location, history, basename, children } = this.props
 
     return (
       <StaticRouter
-        action={history.action}
-        location={history.location}
+        action={action}
+        location={location}
         basename={basename}
         onPush={history.push}
         onReplace={history.replace}
@@ -46,6 +43,7 @@ class ConnectedRouter extends Component {
 ConnectedRouter.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
+  action: PropTypes.string,
   basename: PropTypes.string,
   children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
   onLocationChanged: PropTypes.func.isRequired,
