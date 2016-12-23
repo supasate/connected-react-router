@@ -28,9 +28,9 @@ Usage
 -----
 ### Step 1
 
-Create a `history` object and wrap the root reducer with `connectRouter`
-Create redux store with `routerMiddleware`.
-Supply the `history` object to `routerMiddleware`.
+Create a `history` object.
+Wrap the root reducer with `connectRouter` and supply the `history` object.
+Create redux store with `routerMiddleware` and supply the `history` object.
 ```js
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
