@@ -28,31 +28,18 @@ Usage
 -----
 ### Step 1
 
-In your root reducer, mount `routerReducer` as `router`.
-``` js
-import { combineReducers } from 'redux'
-import { routerReducer } from 'connected-react-router'
-
-const rootReducer = combineReducers({
-  // ... other reducers ...
-  router: routerReducer, // **Must** mounted as `router`
-})
-```
-
-
-### Step 2
-
-Create a `history` object and create redux store with `routerMiddleware`.
-Supply the `history` object to `routerMiddleware`.
+Create a `history` object.
+Wrap the root reducer with `connectRouter` and supply the `history` object.
+Create redux store with `routerMiddleware` and supply the `history` object.
 ```js
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware } from 'connected-react-router'
+import { routerMiddleware, connectRouter } from 'connected-react-router'
 
 const history = createBrowserHistory()
 
 const store = createStore(
-  rootReducer,
+  connectRouter(history)(rootReducer),
   initialState,
   compose(
     applyMiddleware(
@@ -63,7 +50,7 @@ const store = createStore(
 )
 ```
 
-### Step 3
+### Step 2
 
 Wrap your react-router v4 routing with `ConnectedRouter` and pass `history` object as a prop.
 Place `ConnectedRouter` as children of `react-redux`'s `Provider`.

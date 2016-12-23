@@ -1,5 +1,5 @@
 export { LOCATION_CHANGE } from './actions'
-export routerReducer from './reducer'
+export connectRouter from './reducer'
 
 export {
   CALL_HISTORY_METHOD,
