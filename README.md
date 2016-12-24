@@ -34,10 +34,11 @@ Usage
 
 
 ```js
+...
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware, connectRouter } from 'connected-react-router'
-
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+...
 const history = createBrowserHistory()
 
 const store = createStore(
@@ -59,8 +60,7 @@ const store = createStore(
 - Place `ConnectedRouter` as children of `react-redux`'s `Provider`.
 
 ```js
-import React from 'react'
-import ReactDOM from 'react-dom'
+...
 import { Provider } from 'react-redux'
 import { Match, Miss } from 'react-router' // react-router v4
 import { ConnectedRouter } from 'connected-react-router'
