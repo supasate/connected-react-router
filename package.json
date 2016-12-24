@@ -13,7 +13,8 @@
   "scripts": {
     "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
     "build": "npm run build:commonjs",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest --config ./.jestrc"
   },
   "dependencies": {
     "react-router": "^4.0.0-alpha"
