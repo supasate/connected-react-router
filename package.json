@@ -14,7 +14,8 @@
     "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
     "build": "npm run build:commonjs",
     "lint": "eslint .",
-    "test": "jest --config ./.jestrc"
+    "test": "jest --config ./.jestrc",
+    "posttest": "npm run lint"
   },
   "dependencies": {
     "react-router": "^4.0.0-alpha"
