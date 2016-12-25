@@ -23,7 +23,7 @@
     "webpack-hot-middleware": "^2.13.2"
   },
   "dependencies": {
-    "connected-react-router": "^1.0.0-alpha",
+    "connected-react-router": "^2.0.0-alpha.1",
     "history": "^4.4.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
