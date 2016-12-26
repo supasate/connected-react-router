@@ -9,13 +9,11 @@ import { onLocationChanged } from './actions'
  * Then, store will pass props to component to render.
  * This creates uni-directional flow from history->store->router->components.
  */
-class ConnectedRouter extends Component {
+export class ConnectedRouter extends Component {
   constructor(props) {
     super(props)
 
-    this.unlisten = props.history.listen((location, action) => {
-      props.onLocationChanged(location, action)
-    })
+    this.unlisten = props.history.listen(props.onLocationChanged)
   }
 
   componentWillUnmount() {
@@ -41,7 +39,9 @@ class ConnectedRouter extends Component {
 }
 
 ConnectedRouter.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    listen: PropTypes.func.isRequired,
+  }).isRequired,
   location: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   action: PropTypes.string,
   basename: PropTypes.string,
