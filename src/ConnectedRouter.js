@@ -42,8 +42,11 @@ ConnectedRouter.propTypes = {
   history: PropTypes.shape({
     listen: PropTypes.func.isRequired,
   }).isRequired,
-  location: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
-  action: PropTypes.string,
+  location: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]).isRequired,
+  action: PropTypes.string.isRequired,
   basename: PropTypes.string,
   children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
   onLocationChanged: PropTypes.func.isRequired,

@@ -1,14 +1,9 @@
-// jest.mock('history')
-
 import React from 'react'
 import { createMemoryHistory } from 'history'
 import { ConnectedRouter } from '../src/ConnectedRouter'
 import { shallow } from 'enzyme'
 
 describe('ConnectedRouter', () => {
-
-  // TEMPORARY: action and location are required for StaticProps but
-  //   are currently not required in ConnectedRouter
   const minProps = {
     action: 'PUSH',
     location: {},
