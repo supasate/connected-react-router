@@ -13,7 +13,9 @@ export class ConnectedRouter extends Component {
   constructor(props) {
     super(props)
 
-    this.unlisten = props.history.listen(props.onLocationChanged)
+    this.unlisten = props.history.listen((location, action) => {
+      props.onLocationChanged(location, action)
+    })
   }
 
   componentWillUnmount() {
