@@ -67,4 +67,24 @@ describe('Middleware', () => {
     })
     expect(history.goForward).toBeCalled()
   })
+
+  it('passes to next middleware if action type is not CALL_HISTORY_METHOD', () => {
+    const spy = jest.fn()
+    const nextMiddleware = store => next => action => { // eslint-disable-line no-unused-vars
+      spy(action)
+    }
+    const history = {}
+    const middlewares = [routerMiddleware(history), nextMiddleware]
+    const mockStore = configureStore(middlewares)
+    const store = mockStore()
+    const action = {
+      type: 'NOT_HANDLE_ACTION',
+      payload: {
+        text: 'Hello',
+      },
+    }
+
+    store.dispatch(action)
+    expect(spy).toBeCalledWith(action)
+  })
 })
