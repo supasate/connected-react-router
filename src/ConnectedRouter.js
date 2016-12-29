@@ -73,6 +73,8 @@ ConnectedRouter.contextTypes = {
 ConnectedRouter.propTypes = {
   history: PropTypes.shape({
     listen: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
+    push: PropTypes.func.isRequired,
   }).isRequired,
   location: PropTypes.oneOfType([
     PropTypes.object,

@@ -1,22 +1,40 @@
-import React from 'react'
+import React, { Children, Component, PropTypes } from 'react'
+import configureStore from 'redux-mock-store'
 import { createMemoryHistory } from 'history'
+import { Match } from 'react-router'
 import { ConnectedRouter } from '../src/ConnectedRouter'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 
 describe('ConnectedRouter', () => {
   let props
+  let store
 
   beforeEach(() => {
     props = {
       action: 'POP',
-      location: {},
+      location: {
+        pathname: '/path/to/somewhere',
+      },
       history: createMemoryHistory(),
       onLocationChanged: jest.fn(),
     }
+    const mockStore = configureStore()
+    store = mockStore({
+      router: {
+        action: 'POP',
+        location: props.history.location,
+      },
+    })
   })
 
   it('calls `props.onLocationChanged()` when location changes.', () => {
-    shallow(<ConnectedRouter {...props} />)
+    mount(
+      <ContextWrapper store={store}>
+        <ConnectedRouter {...props}>
+          <Match pattern="/" render={() => <div>Home</div>} />
+        </ConnectedRouter>
+      </ContextWrapper>
+    )
 
     expect(props.onLocationChanged.mock.calls)
       .toHaveLength(0)
@@ -29,7 +47,13 @@ describe('ConnectedRouter', () => {
   })
 
   it('unlistens the history object when unmounted.', () => {
-    const wrapper = shallow(<ConnectedRouter {...props} />)
+    const wrapper = mount(
+      <ContextWrapper store={store}>
+        <ConnectedRouter {...props}>
+          <Match pattern="/" render={() => <div>Home</div>} />
+        </ConnectedRouter>
+      </ContextWrapper>
+    )
 
     expect(props.onLocationChanged.mock.calls)
       .toHaveLength(0)
@@ -47,3 +71,36 @@ describe('ConnectedRouter', () => {
       .toHaveLength(1)
   })
 })
+
+class ContextWrapper extends Component {
+  getChildContext() {
+    return {
+      store: this.store
+    }
+  }
+
+  constructor(props, context) {
+    super(props, context)
+
+    this.store = props.store
+  }
+
+  render() {
+    return Children.only(this.props.children)
+  }
+}
+
+const storeShape = PropTypes.shape({
+  subscribe: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  getState: PropTypes.func.isRequired
+})
+
+ContextWrapper.propTypes = {
+  store: storeShape.isRequired,
+  children: PropTypes.element.isRequired,
+}
+
+ContextWrapper.childContextTypes = {
+  store: storeShape.isRequired,
+}
