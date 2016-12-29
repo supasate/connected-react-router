@@ -23,5 +23,8 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-  ]
+  ],
+  resolveLoader: {
+    fallback: path.resolve(__dirname, 'node_modules'),
+  },
 }
