@@ -28,7 +28,7 @@ describe('ConnectedRouter', () => {
       .toHaveLength(2)
   })
 
-  it('cleans up location changes listener when unmounts.', () => {
+  it('unlistens the history object when unmounted.', () => {
     const wrapper = shallow(<ConnectedRouter {...props} />)
 
     expect(props.onLocationChanged.mock.calls)
