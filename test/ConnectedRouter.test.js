@@ -4,57 +4,46 @@ import { ConnectedRouter } from '../src/ConnectedRouter'
 import { shallow } from 'enzyme'
 
 describe('ConnectedRouter', () => {
-  const minProps = {
-    action: 'PUSH',
-    location: {},
-  }
+  let props
+
+  beforeEach(() => {
+    props = {
+      action: 'POP',
+      location: {},
+      history: createMemoryHistory(),
+      onLocationChanged: jest.fn(),
+    }
+  })
 
   it('calls `props.onLocationChanged()` when location changes.', () => {
-    const mockHistory = createMemoryHistory()
-    const handleLocationChanged = jest.fn()
+    shallow(<ConnectedRouter {...props} />)
 
-    shallow(
-      <ConnectedRouter
-        {...minProps}
-        history={mockHistory}
-        onLocationChanged={handleLocationChanged}
-      />
-    )
-
-    expect(handleLocationChanged.mock.calls)
+    expect(props.onLocationChanged.mock.calls)
       .toHaveLength(0)
 
-    mockHistory.push('/new-location')
-    mockHistory.push('/new-location-2')
+    props.history.push('/new-location')
+    props.history.push('/new-location-2')
 
-    expect(handleLocationChanged.mock.calls)
+    expect(props.onLocationChanged.mock.calls)
       .toHaveLength(2)
   })
 
   it('cleans up location changes listener when unmounts.', () => {
-    const mockHistory = createMemoryHistory()
-    const handleLocationChanged = jest.fn()
-    const rendered = shallow(
-      <ConnectedRouter
-        {...minProps}
-        history={mockHistory}
-        onLocationChanged={handleLocationChanged}
-      />
-    )
+    const wrapper = shallow(<ConnectedRouter {...props} />)
 
-    expect(handleLocationChanged.mock.calls)
+    expect(props.onLocationChanged.mock.calls)
       .toHaveLength(0)
 
-    mockHistory.push('/new-location')
+    props.history.push('/new-location')
 
-    expect(handleLocationChanged.mock.calls)
+    expect(props.onLocationChanged.mock.calls)
       .toHaveLength(1)
 
-    rendered.unmount()
+    wrapper.unmount()
 
-    mockHistory.push('/new-location-after-unmount')
+    props.history.push('/new-location-after-unmounted')
 
-    expect(handleLocationChanged.mock.calls)
+    expect(props.onLocationChanged.mock.calls)
       .toHaveLength(1)
   })
 })
