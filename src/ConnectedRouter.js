@@ -9,7 +9,8 @@ import { onLocationChanged } from './actions'
  * Then, store will pass props to component to render.
  * This creates uni-directional flow from history->store->router->components.
  */
-class ConnectedRouter extends Component {
+
+export class ConnectedRouter extends Component {
   constructor(props, context) {
     super(props)
 
@@ -70,9 +71,16 @@ ConnectedRouter.contextTypes = {
 }
 
 ConnectedRouter.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
-  action: PropTypes.string,
+  history: PropTypes.shape({
+    listen: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  location: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]).isRequired,
+  action: PropTypes.string.isRequired,
   basename: PropTypes.string,
   children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
   onLocationChanged: PropTypes.func.isRequired,
