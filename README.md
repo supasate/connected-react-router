@@ -92,15 +92,15 @@ FAQ
 - [How to get current URL path](#how-to-get-current-url-path)
 - [How to support functional component hot reloading](#how-to-support-functional-component-hot-reloading)
 
-## How to navigate with Redux action
-### with store.dispatch
+### How to navigate with Redux action
+#### with store.dispatch
 ```js
 import { push } from 'connected-react-router'
 
 store.dispatch(push('/path/to/somewhere'))
 ```
 
-### in redux thunk
+#### in redux thunk
 ```js
 import { push } from 'connected-react-router'
 
@@ -112,7 +112,7 @@ export const login = (username, password) => (dispatch) => {
 }
 
 ```
-### in redux saga
+#### in redux saga
 ```js
 import { push } from 'connected-react-router'
 import { put, call } from 'redux-saga/effects'
@@ -125,7 +125,7 @@ export function* login(username, password) {
 }
 ```
 
-## How to get current URL path
+### How to get current URL path
 The current URL path can be accessed directry from the router state with `react-redux`'s `connect`.
 ```js
 import { connect } from 'react-redux'
@@ -143,7 +143,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Child)
 ```
 
-## How to support functional component hot reloading
+### How to support functional component hot reloading
 1) Separate main app component to another file.
 
 `App.js`
@@ -213,13 +213,9 @@ Cautions
 --------
 This is still an experimental project. It relies on several alpha and beta things (i.e. react-hot-loader v3 and react-router v4). Anything can be changed. Bugs are certainly waiting for you to wake them up. Please use it at your own risk.
 
-Acknowledge
------------
-Connected React Router is based on several awesome people' ideas
-- Several parts of Connected React Router is based on [react-router-redux v4](https://github.com/reactjs/react-router-redux/tree/v4.0.7).
-- A [PR](https://github.com/reactjs/react-router-redux/pull/460) by @timdorr to make react-router-redux v5 to integrate React Router v4 contains several ideas to drive Connected React Router.
-- The ConnectedRouter component is inspired by [App component by @cherijs](https://github.com/lourd/react-router4-redux-example/blob/master/src/App.js) with history synchronization enhancement.
-- The idea of uni-directional flow (history -> store -> router -> components) is from [a @lourd's comment](https://github.com/reactjs/react-router-redux/pull/460#issuecomment-260999726)
+Contributors
+------------
+See [Contributors](https://github.com/supasate/connected-react-router/graphs/contributors) and [Acknowledge](https://github.com/supasate/connected-react-router/blob/master/ACKNOWLEDGE.md).
 
 License
 -------
