@@ -90,7 +90,8 @@ FAQ
 ---
 - [How to navigate with Redux action](#how-to-navigate-with-redux-action)
 - [How to get current URL path](#how-to-get-current-url-path)
-- [How to support functional component hot reloading](#how-to-support-functional-component-hot-reloading)
+- [How to hot reload functional components](#how-to-hot-reload-functional-components)
+- [How to hot reload reducers](#how-to-hot-reload-reducers)
 
 ### How to navigate with Redux action
 #### with store.dispatch
@@ -143,7 +144,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Child)
 ```
 
-### How to support functional component hot reloading
+### How to hot reload functional components
 1) Separate main app component to another file.
 
 `App.js`
@@ -201,6 +202,20 @@ if (module.hot) {
 }
 ```
 Now, when you change any component that `App` depends on, it will trigger hot reloading without losing redux state. Thanks [react-hot-loader v3](https://github.com/gaearon/react-hot-loader/tree/next)!
+
+### How to hot reload reducers
+Detect change and replace with a new root reducer with router state
+
+`index.js`
+``` js
+...
+if (module.hot) {
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = require('./reducers').default
+    store.replaceReducer(connectRouter(history)(nextRootReducer)) // Need connectRouter to mount router state
+  })
+}
+```
 
 Build
 -----

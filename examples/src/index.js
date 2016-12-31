@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import rootReducer from './reducers/root'
+import rootReducer from './reducers'
 
 const history = createBrowserHistory()
 
@@ -33,10 +33,17 @@ const renderWithHotReload = (AppComponent) => {
 
 renderWithHotReload(App)
 
-// For functional component hot reloading
+// Hot reloading
 if (module.hot) {
+  // Reload components
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default
     renderWithHotReload(NextApp)
+  })
+
+  // Reload reducers
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = require('./reducers').default
+    store.replaceReducer(connectRouter(history)(nextRootReducer))
   })
 }
