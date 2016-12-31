@@ -1,18 +1,20 @@
-Connected React Router [![Build Status](https://travis-ci.org/supasate/connected-react-router.svg?branch=master)](https://travis-ci.org/supasate/connected-react-router) 
+Connected React Router [![Build Status](https://travis-ci.org/supasate/connected-react-router.svg?branch=master)](https://travis-ci.org/supasate/connected-react-router)
 ======================
 A Redux binding for React Router v4
 
 Main features
 -------------
-:sparkles: Synchronize router state with redux store with uni-directional flow (history -> store -> router -> components)
+:sparkles: Synchronize router state with redux store with uni-directional flow (history -> store -> router -> components).
 
-:gift: Support [React Router v4](https://github.com/ReactTraining/react-router/tree/v4)
+:gift: Support [React Router v4](https://github.com/ReactTraining/react-router/tree/v4).
 
-:sunny: Support functional component hot reloading while preserving state (with [react-hot-reload v3](https://github.com/gaearon/react-hot-loader/tree/next))
+:sunny: Support functional component hot reloading while preserving state (with [react-hot-reload v3](https://github.com/gaearon/react-hot-loader/tree/next)).
 
-:tada: Dispatching history methods (push, replace, go, goBack, goForward) are available for both [redux-thunk](https://github.com/gaearon/redux-thunk) and [redux-saga](https://github.com/yelouafi/redux-saga)
+:tada: Dispatching history methods (`push`, `replace`, `go`, `goBack`, `goForward`) work for both [redux-thunk](https://github.com/gaearon/redux-thunk) and [redux-saga](https://github.com/yelouafi/redux-saga).
 
-:snowman: Nested children can access routing state such as current location directly with redux's `connect`
+:snowman: Nested children can access routing state such as current location directly with `react-redux`'s `connect`.
+
+:clock9: Support time traveling in Redux DevTools.
 
 Installation
 -----------
@@ -210,10 +212,6 @@ Generated files will be in `lib` folder.
 Cautions
 --------
 This is still an experimental project. It relies on several alpha and beta things (i.e. react-hot-loader v3 and react-router v4). Anything can be changed. Bugs are certainly waiting for you to wake them up. Please use it at your own risk.
-
-Todos
------
-- Add tests
 
 Acknowledge
 -----------
