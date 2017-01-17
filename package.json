@@ -1,6 +1,6 @@
 {
   "name": "connected-react-router",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.3",
   "description": "A Redux binding for React Router v4",
   "main": "lib/index.js",
   "author": "Supasate Choochaisri",
