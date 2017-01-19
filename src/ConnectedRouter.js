@@ -18,14 +18,29 @@ export class ConnectedRouter extends Component {
 
     // Subscribe to store changes
     this.unsubscribe = context.store.subscribe(() => {
-      const locationInStore = context.store.getState().router.location.pathname
-      const locationInHistory = props.history.location.pathname
+      // Extract store's location
+      const {
+        pathname: pathnameInStore,
+        search: searchInStore,
+        hash: hashInStore,
+      } = context.store.getState().router.location
+  
+      // Extract history's location
+      const {
+        pathname: pathnameInHistory,
+        search: searchInHistory,
+        hash: hashInHistory,
+      } = props.history.location
 
       // If we do time travelling, the location in store is changed but location in history is not changed
-      if (locationInHistory !== locationInStore) {
+      if (pathnameInHistory !== pathnameInStore || searchInHistory !== searchInStore || hashInHistory !== hashInStore) {
         this.inTimeTravelling = true
         // Update history's location to match store's location
-        props.history.push(locationInStore)
+        props.history.push({
+          pathname: pathnameInStore,
+          search: searchInStore,
+          hash: hashInStore,
+        })
       }
     })
 
