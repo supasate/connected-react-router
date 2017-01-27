@@ -20,30 +20,28 @@ const store = createStore(
   ),
 )
 
-const renderWithHotReload = (AppComponent) => {
+const render = () => {
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
-        <AppComponent history={history} />
+        <App history={history} />
       </Provider>
     </AppContainer>,
     document.getElementById('react-root')
   )
 }
 
-renderWithHotReload(App)
+render()
 
 // Hot reloading
 if (module.hot) {
   // Reload components
   module.hot.accept('./App', () => {
-    const NextApp = require('./App').default
-    renderWithHotReload(NextApp)
+    render()
   })
 
   // Reload reducers
   module.hot.accept('./reducers', () => {
-    const nextRootReducer = require('./reducers').default
-    store.replaceReducer(connectRouter(history)(nextRootReducer))
+    store.replaceReducer(connectRouter(history)(rootReducer))
   })
 }

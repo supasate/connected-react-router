@@ -18,9 +18,9 @@
     "babel-preset-stage-0": "^6.16.0",
     "express": "^4.14.0",
     "react-hot-loader": "^3.0.0-beta",
-    "webpack": "^1.14.0",
-    "webpack-dev-middleware": "^1.8.4",
-    "webpack-hot-middleware": "^2.13.2"
+    "webpack": "^2.2.0",
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-hot-middleware": "^2.15.0"
   },
   "dependencies": {
     "connected-react-router": "^2.0.0-alpha.1",
