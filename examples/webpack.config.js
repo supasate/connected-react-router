@@ -14,10 +14,10 @@ module.exports = {
     publicPath: '/dist/',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?/,
-        loader: 'babel'
+        loader: 'babel-loader'
       }
     ],
   },
@@ -25,6 +25,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
   ],
   resolveLoader: {
-    fallback: path.resolve(__dirname, 'node_modules'),
+    modules: [
+      'node_modules',
+    ],
   },
 }
