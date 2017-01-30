@@ -1,7 +1,7 @@
 import React, { Children, Component, PropTypes } from 'react'
 import configureStore from 'redux-mock-store'
 import { createMemoryHistory } from 'history'
-import { Match } from 'react-router'
+import { Route } from 'react-router'
 import { ConnectedRouter } from '../src/ConnectedRouter'
 import { mount } from 'enzyme'
 
@@ -31,7 +31,7 @@ describe('ConnectedRouter', () => {
     mount(
       <ContextWrapper store={store}>
         <ConnectedRouter {...props}>
-          <Match pattern="/" render={() => <div>Home</div>} />
+          <Route path="/" render={() => <div>Home</div>} />
         </ConnectedRouter>
       </ContextWrapper>
     )
@@ -50,7 +50,7 @@ describe('ConnectedRouter', () => {
     const wrapper = mount(
       <ContextWrapper store={store}>
         <ConnectedRouter {...props}>
-          <Match pattern="/" render={() => <div>Home</div>} />
+          <Route path="/" render={() => <div>Home</div>} />
         </ConnectedRouter>
       </ContextWrapper>
     )

@@ -16,6 +16,10 @@ Main features
 
 :clock9: Support time traveling in Redux DevTools.
 
+> Note:
+> - `connected-react-router@4.0.0-beta` supports new `react-router@4.0.0-beta` (with `<Route>` and `<Switch>`)
+> - For old `react-router@4.0.0-alpha` (with `<Match>` and `<Miss>`), you need `connected-react-router@2.0.0-alpha.5`
+
 Installation
 -----------
 Using [npm](https://www.npmjs.com/):
@@ -64,15 +68,17 @@ const store = createStore(
 ```js
 ...
 import { Provider } from 'react-redux'
-import { Match, Miss } from 'react-router' // react-router v4
+import { Route, Switch } from 'react-router' // react-router v4
 import { ConnectedRouter } from 'connected-react-router'
 ...
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
       <div> { /* your usual react-router v4 routing */ }
-        <Match exactly pattern="/" render={() => (<div>Match</div>)} />
-        <Miss render={() => (<div>Miss</div>)} />
+        <Switch>
+          <Route exact path="/" render={() => (<div>Match</div>)} />
+          <Route render={() => (<div>Miss</div>)} />
+        </Switch>
       </div>
     </ConnectedRouter>
   </Provider>,
@@ -150,14 +156,16 @@ export default connect(mapStateToProps)(Child)
 `App.js`
 ``` js
 import React from 'react'
-import { Match, Miss } from 'react-router' /* react-router v4 */
+import { Route, Switch } from 'react-router' /* react-router v4 */
 import { ConnectedRouter } from 'connected-react-router'
 
 const App = ({ history }) => ( /* receive history object via props */
   <ConnectedRouter history={history}>
     <div>
-      <Match exactly pattern="/" render={() => (<div>Match</div>)} />
-      <Miss render={() => (<div>Miss</div>)} />
+      <Switch>
+        <Route exact path="/" render={() => (<div>Match</div>)} />
+        <Route render={() => (<div>Miss</div>)} />
+      </Switch>
     </div>
   </ConnectedRouter>
 )

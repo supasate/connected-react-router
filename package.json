@@ -1,6 +1,6 @@
 {
   "name": "connected-react-router",
-  "version": "2.0.0-alpha.5",
+  "version": "4.0.0-beta.1",
   "description": "A Redux binding for React Router v4",
   "main": "lib/index.js",
   "author": "Supasate Choochaisri",
@@ -19,7 +19,7 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "react-router": "^4.0.0-alpha"
+    "react-router": "^4.0.0-beta"
   },
   "peerDependencies": {
     "react": "^15.0.0",

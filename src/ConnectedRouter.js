@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { StaticRouter } from 'react-router'
+import { Router } from 'react-router'
 import { onLocationChanged } from './actions'
 
 /*
@@ -24,7 +24,7 @@ export class ConnectedRouter extends Component {
         search: searchInStore,
         hash: hashInStore,
       } = context.store.getState().router.location
-  
+
       // Extract history's location
       const {
         pathname: pathnameInHistory,
@@ -61,19 +61,12 @@ export class ConnectedRouter extends Component {
   }
 
   render() {
-    const { action, location, history, basename, children } = this.props
+    const { history, children } = this.props
 
     return (
-      <StaticRouter
-        action={action}
-        location={location}
-        basename={basename}
-        onPush={history.push}
-        onReplace={history.replace}
-        blockTransitions={history.block}
-      >
+      <Router history={history}>
         { children }
-      </StaticRouter>
+      </Router>
     )
   }
 }
