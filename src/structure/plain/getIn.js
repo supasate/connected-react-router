@@ -1,3 +1,4 @@
+/* Code from github.com/erikras/redux-form by Erik Rasmussen */
 import toPath from 'lodash.topath'
 
 const getIn = (state, field) => {

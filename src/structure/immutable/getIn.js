@@ -1,3 +1,4 @@
+/* Code from github.com/erikras/redux-form by Erik Rasmussen */
 import { Iterable } from 'immutable'
 import toPath from 'lodash.topath'
 import plainGetIn from '../plain/getIn'
