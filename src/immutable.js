@@ -1,5 +1,5 @@
 import createAll from './createAll'
-import plainStructure from './structure/plain'
+import immutableStructure from './structure/immutable'
 
 export const {
   LOCATION_CHANGE,
@@ -13,4 +13,4 @@ export const {
   ConnectedRouter,
   connectRouter,
   routerMiddleware,
-} = createAll(plainStructure)
+} = createAll(immutableStructure)
