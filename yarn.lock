@@ -418,6 +418,10 @@ babel-plugin-jest-hoist@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-17.0.2.tgz#213488ce825990acd4c30f887dca09fffeb45235"
 
+babel-plugin-rewire@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-rewire/-/babel-plugin-rewire-1.0.0.tgz#398d4dc7a01d6c682e221b197398c370731b3dd3"
+
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -3370,6 +3374,10 @@ restore-cursor@^1.0.1:
   dependencies:
     exit-hook "^1.0.0"
     onetime "^1.0.0"
+
+rewire@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/rewire/-/rewire-2.5.2.tgz#6427de7b7feefa7d36401507eb64a5385bc58dc7"
 
 right-align@^0.1.1:
   version "0.1.3"
