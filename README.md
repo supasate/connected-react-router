@@ -16,6 +16,8 @@ Main features
 
 :clock9: Support time traveling in Redux DevTools.
 
+:gem: Support [Immutable.js](https://facebook.github.io/immutable-js/)
+
 > Note:
 > - `connected-react-router@4.0.0-beta` supports new `react-router@4.0.0-beta` (with `<Route>` and `<Switch>`)
 > - For old `react-router@4.0.0-alpha` (with `<Match>` and `<Miss>`), you need `connected-react-router@2.0.0-alpha.5`
@@ -98,6 +100,7 @@ FAQ
 - [How to get current URL path](#how-to-get-current-url-path)
 - [How to hot reload functional components](#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
+- [How to support Immutable.js](#how-to-support-immutablejs)
 
 ### How to navigate with Redux action
 #### with store.dispatch
@@ -243,6 +246,35 @@ if (module.hot) {
     */
   })
 }
+```
+
+### How to support Immutable.js
+1) Use `combineReducers` from `redux-immutable` to create the root reducer.
+```js
+import { combineReducers } from 'redux-immutable'
+...
+const rootReducer = combineReducers({
+  ...
+})
+...
+```
+
+2) Import `ConnectedRouter`, `routerMiddleware`, and `connectRouter` from `connected-react-router/immutable` instead of `connected-react-router`.
+```js
+import { ConnectedRouter, routerMiddleware, connectRouter } from 'connected-react-router/immutable'
+```
+
+3) (Optional) Initialize state with `Immutabel.Map()`
+```js
+import Immutable from 'immutable'
+...
+const initialState = Immutable.Map()
+...
+const store = createStore(
+  connectRouter(history)(rootReducer),
+  initialState,
+  ...
+)
 ```
 
 Build
