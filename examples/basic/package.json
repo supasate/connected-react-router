@@ -1,7 +1,7 @@
 {
-  "name": "connected-react-router-example",
+  "name": "connected-react-router-example-basic",
   "version": "1.0.0",
-  "description": "An example for Connected React Router",
+  "description": "A basic example for Connected React Router",
   "main": "src/index.js",
   "scripts": {
     "dev": "node server.js",
