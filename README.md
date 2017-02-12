@@ -284,10 +284,6 @@ npm run build
 ```
 Generated files will be in `lib` folder.
 
-Cautions
---------
-This is still an experimental project. It relies on several alpha and beta things (i.e. react-hot-loader v3 and react-router v4). Anything can be changed. Bugs are certainly waiting for you to wake them up. Please use it at your own risk.
-
 Contributors
 ------------
 See [Contributors](https://github.com/supasate/connected-react-router/graphs/contributors) and [Acknowledge](https://github.com/supasate/connected-react-router/blob/master/ACKNOWLEDGE.md).
