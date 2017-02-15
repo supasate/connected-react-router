@@ -8,11 +8,14 @@
   "files": [
     "*.md",
     "*.js",
-    "lib"
+    "lib",
+    "umd"
   ],
   "scripts": {
     "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
-    "build": "npm run build:commonjs",
+    "build:umd": "NODE_ENV=development webpack src/index.js umd/ConnectedReactRouter.js",
+    "build:umd:min": "NODE_ENV=production webpack -p src/index.js umd/ConnectedReactRouter.min.js",
+    "build": "npm run build:commonjs & npm run build:umd & npm run build:umd:min",
     "lint": "eslint .",
     "test": "jest --config ./.jestrc",
     "test:watch": "npm run test -- --watch",
@@ -33,6 +36,7 @@
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
     "babel-jest": "^17.0.2",
+    "babel-loader": "^6.3.1",
     "babel-plugin-rewire": "^1.0.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
@@ -51,7 +55,8 @@
     "redux": "^3.6.0",
     "redux-immutable": "^3.0.11",
     "redux-mock-store": "^1.2.1",
-    "rewire": "^2.5.2"
+    "rewire": "^2.5.2",
+    "webpack": "^2.2.1"
   },
   "repository": {
     "type": "git",
