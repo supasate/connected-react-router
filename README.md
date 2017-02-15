@@ -97,7 +97,7 @@ See [examples](https://github.com/supasate/connected-react-router/tree/master/ex
 FAQ
 ---
 - [How to navigate with Redux action](#how-to-navigate-with-redux-action)
-- [How to get current URL path](#how-to-get-current-url-path)
+- [How to get current browser location (URL)](#how-to-get-current-browser-location-url)
 - [How to hot reload functional components](#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
 - [How to support Immutable.js](#how-to-support-immutablejs)
@@ -135,19 +135,31 @@ export function* login(username, password) {
 }
 ```
 
-### How to get current URL path
-The current URL path can be accessed directry from the router state with `react-redux`'s `connect`.
+### How to get current browser location (URL)
+The current browser location can be accessed directry from the router state with `react-redux`'s `connect`.
+The location object composes of pathname, search (query string), and hash.
 ```js
 import { connect } from 'react-redux'
 
-const Child = ({ path }) => (
+const Child = ({ pathname, search, hash }) => (
   <div>
-    Child receives path {path}.
+    Child receives
+    <div>
+      pathname: {pathname}
+    </div>
+    <div>
+      search: {search}
+    </div>
+    <div>
+      hash: {hash}
+    </div>
   </div>
 )
 
 const mapStateToProps = state => ({
-  path: state.router.location.pathname,
+  pathname: state.router.location.pathname,
+  search: state.router.location.search,
+  hash: state.router.location.hash,
 })
 
 export default connect(mapStateToProps)(Child)
