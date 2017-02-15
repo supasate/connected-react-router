@@ -1084,10 +1084,12 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-connected-react-router@^4.0.0-beta:
-  version "4.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/connected-react-router/-/connected-react-router-4.0.0-beta.2.tgz#115e894c1c664fdc4ca0cb5a8826146b7142389d"
+connected-react-router@^4.0.0-beta.3:
+  version "4.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/connected-react-router/-/connected-react-router-4.0.0-beta.3.tgz#f1b38944ee56860f2e56d2474ff7b3d89c8fe4b7"
   dependencies:
+    immutable "^3.8.1"
+    lodash.topath "^4.5.2"
     react-router "^4.0.0-beta.3"
 
 console-browserify@^1.1.0:
@@ -1948,6 +1950,10 @@ loader-utils@^0.2.11, loader-utils@^0.2.16:
 lodash-es@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
+
+lodash.topath@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
 
 lodash@^4.14.0, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.6.1:
   version "4.17.4"
