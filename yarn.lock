@@ -3620,6 +3620,20 @@ redeyed@~1.0.0:
   dependencies:
     esprima "~3.0.0"
 
+redux-devtools-instrument@^1.0.1:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/redux-devtools-instrument/-/redux-devtools-instrument-1.8.0.tgz#db1840ed3d8152af6792913698e3424c119de9aa"
+  dependencies:
+    lodash "^4.2.0"
+    symbol-observable "^1.0.2"
+
+redux-devtools@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/redux-devtools/-/redux-devtools-3.3.2.tgz#f427f71964e2b3785b68834b6e4fe99d8da75b5e"
+  dependencies:
+    lodash "^4.2.0"
+    redux-devtools-instrument "^1.0.1"
+
 redux-immutable@^3.0.11:
   version "3.0.11"
   resolved "https://registry.yarnpkg.com/redux-immutable/-/redux-immutable-3.0.11.tgz#ba7b00361904f2034e7841741bd4a6be66eea1ac"
