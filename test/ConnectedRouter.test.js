@@ -1,5 +1,7 @@
 import React, { Children, Component, PropTypes } from 'react'
 import configureStore from 'redux-mock-store'
+import { createStore, combineReducers } from 'redux'
+import { ActionCreators, instrument } from 'redux-devtools'
 import { createMemoryHistory } from 'history'
 import { Route } from 'react-router'
 import { mount } from 'enzyme'
@@ -7,10 +9,12 @@ import createConnectedRouter from '../src/ConnectedRouter'
 import { onLocationChanged } from '../src/actions'
 import plainStructure from '../src/structure/plain'
 import immutableStructure from '../src/structure/immutable'
+import { connectRouter, ConnectedRouter } from '../src'
 
 describe('ConnectedRouter', () => {
   let props
   let store
+  let history
   let onLocationChangedSpy
 
   beforeEach(() => {
@@ -20,13 +24,16 @@ describe('ConnectedRouter', () => {
     )
     createConnectedRouter.__Rewire__('onLocationChanged', onLocationChangedSpy)
 
+    // Reset history
+    history = createMemoryHistory()
+
     // Mock props
     props = {
       action: 'POP',
       location: {
         pathname: '/path/to/somewhere',
       },
-      history: createMemoryHistory(),
+      history,
     }
 
     // Mock store
@@ -63,8 +70,8 @@ describe('ConnectedRouter', () => {
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(0)
 
-      props.history.push('/new-location')
-      props.history.push('/new-location-2')
+      history.push('/new-location')
+      history.push('/new-location-2')
 
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(2)
@@ -89,7 +96,7 @@ describe('ConnectedRouter', () => {
 
       wrapper.unmount()
 
-      props.history.push('/new-location-after-unmounted')
+      history.push('/new-location-after-unmounted')
 
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(1)
@@ -115,8 +122,8 @@ describe('ConnectedRouter', () => {
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(0)
 
-      props.history.push('/new-location')
-      props.history.push('/new-location-2')
+      history.push('/new-location')
+      history.push('/new-location-2')
 
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(2)
@@ -134,17 +141,80 @@ describe('ConnectedRouter', () => {
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(0)
 
-      props.history.push('/new-location')
+      history.push('/new-location')
 
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(1)
 
       wrapper.unmount()
 
-      props.history.push('/new-location-after-unmounted')
+      history.push('/new-location-after-unmounted')
 
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(1)
+    })
+  })
+
+  describe('Redux DevTools', () => {
+    let devToolsStore
+
+    beforeEach(() => {
+      // Set initial URL before syncing
+      history.push('/foo')
+
+      // Create redux store with router state
+      store = createStore(
+        connectRouter(history)(combineReducers({ test: (state = 'test') => (state) })),
+        instrument()
+      )
+      devToolsStore = store.liftedStore
+    })
+
+    it('resets to the initial url', () => {
+      mount(
+        <ContextWrapper store={store}>
+          <ConnectedRouter {...props}>
+            <div>Test</div>
+          </ConnectedRouter>
+        </ContextWrapper>
+      )
+
+      let currentPath
+      const historyUnsubscribe = history.listen(location => {
+        currentPath = location.pathname
+      })
+
+      history.push('/bar')
+      devToolsStore.dispatch(ActionCreators.reset())
+
+      expect(currentPath).toEqual('/foo')
+
+      historyUnsubscribe()
+    })
+
+    it('handles toggle after history change', () => {
+      mount(
+        <ContextWrapper store={store}>
+          <ConnectedRouter {...props}>
+            <div>Test</div>
+          </ConnectedRouter>
+        </ContextWrapper>
+      )
+
+      let currentPath
+      const historyUnsubscribe = history.listen(location => {
+        currentPath = location.pathname
+      })
+
+      history.push('/foo2') // DevTools action #1
+      history.push('/foo3') // DevTools action #2
+
+      // When we toggle an action, the devtools will revert the action
+      // and we therefore expect the history to update to the previous path
+      devToolsStore.dispatch(ActionCreators.toggleAction(2))
+      expect(currentPath).toEqual('/foo2')
+
+      historyUnsubscribe()
     })
   })
 })
