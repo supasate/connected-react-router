@@ -34,7 +34,7 @@ const createConnectedRouter = (structure) => {
         } = props.history.location
 
         // If we do time travelling, the location in store is changed but location in history is not changed
-        if (pathnameInHistory !== pathnameInStore || searchInHistory !== searchInStore || hashInHistory !== hashInStore) {
+        if (props.allowTimetravel && (pathnameInHistory !== pathnameInStore || searchInHistory !== searchInStore || hashInHistory !== hashInStore)) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
           props.history.push({
@@ -93,6 +93,11 @@ const createConnectedRouter = (structure) => {
     basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
     onLocationChanged: PropTypes.func.isRequired,
+    allowTimetravel : PropTypes.bool.isRequired,
+  }
+
+  ConnectedRouter.defaultProps = {
+    allowTimetravel : true,
   }
 
   const mapStateToProps = state => ({
