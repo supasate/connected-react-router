@@ -23,13 +23,13 @@
     "webpack-hot-middleware": "^2.15.0"
   },
   "dependencies": {
-    "connected-react-router": "^4.0.0-beta",
+    "connected-react-router": "^4.0.0",
     "history": "^4.4.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",
-    "react-router": "^4.0.0-beta",
-    "react-router-dom": "next",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
     "redux": "^3.6.0"
   }
 }
