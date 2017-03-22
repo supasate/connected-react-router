@@ -18,9 +18,6 @@ Main features
 
 :gem: Support [Immutable.js](https://facebook.github.io/immutable-js/)
 
-> Note:
-> - `connected-react-router@4.0.0-beta` supports new `react-router@4.0.0-beta` (with `<Route>` and `<Switch>`)
-> - For old `react-router@4.0.0-alpha` (with `<Match>` and `<Miss>`), you need `connected-react-router@2.0.0-alpha.5`
 
 Installation
 -----------

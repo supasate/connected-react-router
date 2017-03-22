@@ -10,7 +10,6 @@
   "author": "Supasate Choochaisri",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
     "babel-core": "^6.20.0",
     "babel-loader": "^6.2.9",
     "babel-preset-es2015": "^6.18.0",
@@ -23,14 +22,14 @@
     "webpack-hot-middleware": "^2.15.0"
   },
   "dependencies": {
-    "connected-react-router": "^4.0.0-beta.3",
+    "connected-react-router": "^4.0.0",
     "history": "^4.4.1",
     "immutable": "^3.8.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",
-    "react-router": "^4.0.0-beta",
-    "react-router-dom": "next",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
     "redux": "^3.6.0",
     "redux-immutable": "^3.0.11"
   }
