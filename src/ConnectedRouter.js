@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { StaticRouter } from 'react-router'
 import { onLocationChanged } from './actions'
@@ -62,12 +63,14 @@ export class ConnectedRouter extends Component {
 
   render() {
     const { action, location, history, basename, children } = this.props
+    const context = {}
 
     return (
       <StaticRouter
         action={action}
         location={location}
         basename={basename}
+        context={context}
         onPush={history.push}
         onReplace={history.replace}
         blockTransitions={history.block}

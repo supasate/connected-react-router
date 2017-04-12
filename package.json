@@ -1,6 +1,6 @@
 {
   "name": "connected-react-router",
-  "version": "2.0.0-alpha.5",
+  "version": "4.0.0",
   "description": "A Redux binding for React Router v4",
   "main": "lib/index.js",
   "author": "Supasate Choochaisri",
@@ -19,11 +19,11 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "react-router": "^4.0.0-alpha"
+    "react-router": "^4.1.0"
   },
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-redux": "^4.4.6 || ^5.0.0",
+    "react": "^15.5.4",
+    "react-redux": "^4.4.8 || ^5.0.4",
     "redux": "^3.6.0"
   },
   "devDependencies": {
@@ -34,15 +34,16 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-1": "^6.16.0",
-    "enzyme": "^2.7.0",
+    "enzyme": "^2.8.1",
     "eslint": "^3.12.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.8.0",
     "jest": "^17.0.2",
-    "react": "^15.0.0",
-    "react-addons-test-utils": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-redux": "^4.4.6",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^4.4.8",
+    "react-test-renderer": "^15.5.4",
     "redux": "^3.6.0",
     "redux-mock-store": "^1.2.1"
   },
