@@ -25,11 +25,12 @@
   "dependencies": {
     "connected-react-router": "^4.0.0",
     "history": "^4.4.1",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "react-redux": "^4.4.6",
-    "react-router": "^4.0.0",
-    "react-router-dom": "^4.0.0",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^4.4.8",
+    "react-router": "^4.1.0",
+    "react-router-dom": "^4.1.0",
     "redux": "^3.6.0"
   }
 }

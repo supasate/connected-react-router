@@ -24,11 +24,11 @@
   "dependencies": {
     "immutable": "^3.8.1",
     "lodash.topath": "^4.5.2",
-    "react-router": "^4.0.0"
+    "react-router": "^4.1.0"
   },
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-redux": "^4.4.6 || ^5.0.0",
+    "react": "^15.5.4",
+    "react-redux": "^4.4.8 || ^5.0.4",
     "redux": "^3.6.0"
   },
   "devDependencies": {
@@ -43,15 +43,16 @@
     "babel-preset-stage-1": "^6.16.0",
     "babel-template": "^6.2.0",
     "babel-types": "^6.2.0",
-    "enzyme": "^2.7.0",
+    "enzyme": "^2.8.1",
     "eslint": "^3.12.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.8.0",
     "jest": "^17.0.2",
-    "react": "^15.0.0",
-    "react-addons-test-utils": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-redux": "^4.4.6",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^4.4.8",
+    "react-test-renderer": "^15.5.4",
     "redux": "^3.6.0",
     "redux-devtools": "^3.3.2",
     "redux-immutable": "^3.0.11",

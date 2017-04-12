@@ -1,4 +1,5 @@
-import React, { Children, Component, PropTypes } from 'react'
+import React, { Children, Component } from 'react'
+import PropTypes from 'prop-types'
 import configureStore from 'redux-mock-store'
 import { createStore, combineReducers } from 'redux'
 import { ActionCreators, instrument } from 'redux-devtools'
