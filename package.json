@@ -3,6 +3,7 @@
   "version": "4.1.0",
   "description": "A Redux binding for React Router v4",
   "main": "lib/index.js",
+  "types": "./index.d.ts",
   "author": "Supasate Choochaisri",
   "license": "MIT",
   "files": [
@@ -32,6 +33,8 @@
     "redux": "^3.6.0"
   },
   "devDependencies": {
+    "@types/history": "^4.5.0",
+    "@types/react": "^15.0.23",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
