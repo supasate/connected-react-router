@@ -1,0 +1,37 @@
+{
+  "name": "connected-react-router-example-typescript",
+  "version": "1.0.0",
+  "description": "A basic example for Connected React Router with TypeScript",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "author": "Supasate Choochaisri",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/history": "^4.5.0",
+    "@types/react": "^15.0.23",
+    "@types/react-dom": "^15.5.0",
+    "@types/react-hot-loader": "^3.0.1",
+    "@types/react-redux": "^4.4.40",
+    "@types/react-router": "^4.0.4",
+    "@types/react-router-dom": "^4.0.4",
+    "@types/webpack-env": "^1.13.0",
+    "react-hot-loader": "^3.0.0-beta",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.3.1",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "connected-react-router": "^4.1.0",
+    "history": "^4.6.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0"
+  }
+}
