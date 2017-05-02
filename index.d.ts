@@ -7,6 +7,16 @@ declare module 'connected-react-router' {
     history: History
   }
 
+  export interface RouterState {
+    location: {
+      pathname: string,
+      search: string,
+      hash: string,
+      key: string,
+    },
+    action: 'POP' | 'PUSH'
+  }
+
   export const LOCATION_CHANGE: string
   export const CALL_HISTORY_METHOD: string
 
