@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { RouterState } from 'connected-react-router'
 import counterReducer from './counter'
 
 const rootReducer = combineReducers({
@@ -7,13 +8,7 @@ const rootReducer = combineReducers({
 
 export interface State {
   count: number
-  router: {
-    location: {
-      pathname: string
-      search: string
-      hash: string
-    }
-  }
+  router: RouterState
 }
 
 export default rootReducer
