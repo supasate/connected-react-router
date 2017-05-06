@@ -18,6 +18,8 @@ Main features
 
 :gem: Support [Immutable.js](https://facebook.github.io/immutable-js/)
 
+:muscle: Support TypeScript
+
 
 Installation
 -----------
