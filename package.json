@@ -1,6 +1,6 @@
 {
   "name": "connected-react-router",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "A Redux binding for React Router v4",
   "main": "lib/index.js",
   "types": "./index.d.ts",
@@ -9,6 +9,7 @@
   "files": [
     "*.md",
     "*.js",
+    "*.ts",
     "lib",
     "umd"
   ],
