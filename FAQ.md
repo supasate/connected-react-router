@@ -2,6 +2,7 @@
 ----------------------------
 - [How to navigate with Redux action](#how-to-navigate-with-redux-action)
 - [How to get current browser location (URL)](#how-to-get-current-browser-location-url)
+- [How to set Router props e.g. basename, initialEntries, etc.](#how-to-set-router-props-eg-basename-initialentries-etc)
 - [How to hot reload functional components](#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
 - [How to support Immutable.js](#how-to-support-immutablejs)
@@ -67,6 +68,35 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(Child)
+```
+
+### How to set Router props e.g. basename, initialEntries, etc.
+You can pass props to `create*History` functions of your choice (`createBrowserHistory`, `createHashHistory`, `createMemoryHistory`)
+
+```js
+import { createBrowserHistory } from 'history'
+
+const history = createBrowserHistory({
+  basename: '/prefix/',
+})
+```
+
+```js
+import { createHashHistory } from 'history'
+
+const history = createHashHistory({
+  hashType: 'slash',
+  getUserConfirmation: (message, callback) => callback(window.confirm(message))
+})
+```
+
+```js
+import { createMemoryHistory } from 'history'
+
+const history = createMemoryHistory({
+  initialEntries={[ '/one', '/two', { pathname: '/three' } ]}
+  initialIndex={1}
+})
 ```
 
 ### How to hot reload functional components
