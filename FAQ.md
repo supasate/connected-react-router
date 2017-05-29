@@ -94,8 +94,8 @@ const history = createHashHistory({
 import { createMemoryHistory } from 'history'
 
 const history = createMemoryHistory({
-  initialEntries={[ '/one', '/two', { pathname: '/three' } ]}
-  initialIndex={1}
+  initialEntries: [ '/one', '/two', { pathname: '/three' } ],
+  initialIndex: 1
 })
 ```
 
