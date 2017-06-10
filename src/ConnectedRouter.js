@@ -26,7 +26,7 @@ const createConnectedRouter = (structure) => {
           pathname: pathnameInStore,
           search: searchInStore,
           hash: hashInStore,
-        } = toJS(getIn(context.store.getState(), 'router.location'))
+        } = toJS(getIn(context.store.getState(), ['router', 'location']))
         // Extract history's location
         const {
           pathname: pathnameInHistory,
@@ -97,8 +97,8 @@ const createConnectedRouter = (structure) => {
   }
 
   const mapStateToProps = state => ({
-    action: getIn(state, 'router.action'),
-    location: getIn(state, 'router.location'),
+    action: getIn(state, ['router', 'action']),
+    location: getIn(state, ['router', 'location']),
   })
 
   const mapDispatchToProps = dispatch => ({

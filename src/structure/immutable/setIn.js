@@ -1,8 +1,5 @@
 /* Code from github.com/erikras/redux-form by Erik Rasmussen */
 import { List, Map } from 'immutable'
-import toPath from 'lodash.topath'
-
-const arrayPattern = /\[(\d+)\]/
 
 const undefinedArrayMerge = (previous, next) =>
   next !== undefined
@@ -23,12 +20,7 @@ const mergeLists = (original, value) =>
  * the setIn function uses `{}` to mark an unset value instead of
  * undefined (which is the case for list / arrays).
  */
-export default function setIn(state, field, value) {
-  const path = toPath(field)
-  if (!field || typeof field !== 'string' || !arrayPattern.test(field)) {
-    return state.setIn(path, value)
-  }
-
+export default function setIn(state, path, value) {
   return state.withMutations(mutable => {
     for (let pathIndex = 0; pathIndex < path.length - 1; ++pathIndex) {
       const nextPart = path[pathIndex + 1]
