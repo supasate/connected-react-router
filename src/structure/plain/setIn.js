@@ -1,5 +1,4 @@
 /* Code from github.com/erikras/redux-form by Erik Rasmussen */
-import toPath from 'lodash.topath'
 
 const setInWithPath = (state, value, path, pathIndex) => {
   if (pathIndex >= path.length) {
@@ -27,6 +26,6 @@ const setInWithPath = (state, value, path, pathIndex) => {
   }
 }
 
-const setIn = (state, field, value) => setInWithPath(state, value, toPath(field), 0)
+const setIn = (state, field, value) => setInWithPath(state, value, field, 0)
 
 export default setIn
