@@ -136,7 +136,7 @@ const render = () => { // this function will be reused
   ReactDOM.render(
     <AppContainer> { /* AppContainer for hot reloading v3 */ }
       <Provider store={store}>
-        <AppComponent history={history} /> { /* pass history object as props */ }
+        <App history={history} /> { /* pass history object as props */ }
       </Provider>
     </AppContainer>,
     document.getElementById('react-root')
