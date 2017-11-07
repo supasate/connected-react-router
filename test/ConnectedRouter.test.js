@@ -1,16 +1,22 @@
+import 'raf/polyfill'
 import React, { Children, Component } from 'react'
 import PropTypes from 'prop-types'
 import configureStore from 'redux-mock-store'
 import { createStore, combineReducers } from 'redux'
 import { ActionCreators, instrument } from 'redux-devtools'
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 import { createMemoryHistory } from 'history'
 import { Route } from 'react-router'
-import { mount } from 'enzyme'
 import createConnectedRouter from '../src/ConnectedRouter'
 import { onLocationChanged } from '../src/actions'
 import plainStructure from '../src/structure/plain'
 import immutableStructure from '../src/structure/immutable'
 import { connectRouter, ConnectedRouter } from '../src'
+
+Enzyme.configure({ adapter: new Adapter() })
+
+const { mount } = Enzyme
 
 describe('ConnectedRouter', () => {
   let props
