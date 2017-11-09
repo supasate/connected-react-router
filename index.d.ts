@@ -17,7 +17,7 @@ declare module 'connected-react-router' {
     action: 'POP' | 'PUSH'
   }
 
-  export const LOCATION_CHANGE: string
+  export const LOCATION_CHANGE: '@@router/LOCATION_CHANGE'
   export const CALL_HISTORY_METHOD: string
 
   export function push(path: Path, state?: LocationState): Action
