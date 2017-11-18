@@ -1,5 +1,6 @@
 test:
   override:
-    - yarn lint
-    - yarn test --coverage
-    - cat ./coverage/lcov.info | ./node_modules/.bin/
+    - yarn test --verbose --runInBand --ci --coverage --coverageDirectory=$CIRCLE_ARTIFACTS
+
+    # Send coverage report
+    - cat $CIRCLE_ARTIFACTS/lcov.info | ./node_modules/.bin/coveralls
