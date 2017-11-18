@@ -1,6 +1,9 @@
+dependencies:
+  override:
+    - yarn
 test:
   override:
-    - npm test -- --verbose --runInBand --ci --coverage --coverageDirectory=$CIRCLE_ARTIFACTS
+    - yarn test --verbose --runInBand --ci --coverage --coverageDirectory=$CIRCLE_ARTIFACTS
 
     # Send coverage report
     - cat $CIRCLE_ARTIFACTS/lcov.info | ./node_modules/.bin/coveralls
