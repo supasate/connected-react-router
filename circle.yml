@@ -1,0 +1,5 @@
+test:
+  override:
+    - yarn lint
+    - yarn test --coverage
+    - cat ./coverage/lcov.info | ./node_modules/.bin/
