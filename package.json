@@ -20,8 +20,7 @@
     "build": "npm run build:commonjs & npm run build:umd & npm run build:umd:min",
     "lint": "eslint .",
     "test": "jest --config ./.jestrc",
-    "test:watch": "npm run test -- --watch",
-    "posttest": "npm run lint"
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "immutable": "^3.8.1",
