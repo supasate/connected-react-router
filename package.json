@@ -29,7 +29,7 @@
   },
   "peerDependencies": {
     "react": "^15.5.4 || ^16.0.0",
-    "react-redux": "^4.4.8 || ^5.0.4",
+    "react-redux": "^4.4.8 || ^5.0.7",
     "redux": "^3.6.0 || ^4.0.0"
   },
   "devDependencies": {
