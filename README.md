@@ -6,7 +6,7 @@ Main features
 -------------
 :sparkles: Synchronize router state with redux store with uni-directional flow (history -> store -> router -> components).
 
-:gift: Support [React Router v4](https://github.com/ReactTraining/react-router/tree/v4).
+:gift: Support [React Router v4](https://github.com/ReactTraining/react-router).
 
 :sunny: Support functional component hot reloading while preserving state (with [react-hot-reload v3](https://github.com/gaearon/react-hot-loader/tree/next)).
 
