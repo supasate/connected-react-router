@@ -1,19 +1,14 @@
 declare module 'connected-react-router' {
   import * as React from 'react'
   import { Action, Middleware, Reducer } from 'redux'
-  import { History, Path, LocationState, LocationDescriptorObject } from 'history'
+  import { History, Path, Location, LocationState, LocationDescriptorObject } from 'history'
 
   interface ConnectedRouterProps {
     history: History
   }
 
   export interface RouterState {
-    location: {
-      pathname: string,
-      search: string,
-      hash: string,
-      key: string,
-    },
+    location: Location
     action: 'POP' | 'PUSH'
   }
 
