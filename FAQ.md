@@ -210,7 +210,7 @@ const rootReducer = combineReducers({
 import { ConnectedRouter, routerMiddleware, connectRouter } from 'connected-react-router/immutable'
 ```
 
-3) (Optional) Initialize state with `Immutabel.Map()`
+3) (Optional) Initialize state with `Immutable.Map()`
 ```js
 import Immutable from 'immutable'
 ...
