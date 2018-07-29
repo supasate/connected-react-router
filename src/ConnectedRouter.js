@@ -46,15 +46,19 @@ const createConnectedRouter = (structure) => {
         }
       })
 
-      // Listen to history changes
-      this.unlisten = props.history.listen((location, action) => {
+      const handleLocationChange = (location, action) => {
         // Dispatch onLocationChanged except when we're in time travelling
         if (!this.inTimeTravelling) {
           props.onLocationChanged(location, action)
         } else {
           this.inTimeTravelling = false
         }
-      })
+      }
+
+      // Listen to history changes
+      this.unlisten = props.history.listen(handleLocationChange)
+      // Dispatch a location change action for the initial location
+      handleLocationChange(props.history.location, props.history.action)
     }
 
     componentWillUnmount() {
@@ -82,6 +86,7 @@ const createConnectedRouter = (structure) => {
 
   ConnectedRouter.propTypes = {
     history: PropTypes.shape({
+      action: PropTypes.string.isRequired,
       listen: PropTypes.func.isRequired,
       location: PropTypes.object.isRequired,
       push: PropTypes.func.isRequired,
