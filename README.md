@@ -20,8 +20,6 @@ Main features
 
 :muscle: Support TypeScript
 
-:electric_plug: Support server-side rendering ([Tutorial on Medium](https://medium.com/@cereallarceny/server-side-rendering-in-create-react-app-with-all-the-goodies-without-ejecting-4c889d7db25e) | [Sample codebase](https://github.com/cereallarceny/cra-ssr))
-
 
 Installation
 -----------
@@ -103,6 +101,7 @@ See [examples](https://github.com/supasate/connected-react-router/tree/master/ex
 - [How to hot reload functional components](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-hot-reload-reducers)
 - [How to support Immutable.js](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-support-immutablejs)
+- [How to implement server-side rendering](https://medium.com/@cereallarceny/server-side-rendering-in-create-react-app-with-all-the-goodies-without-ejecting-4c889d7db25e) ([sample codebase](https://github.com/cereallarceny/cra-ssr))
 
 Build
 -----
