@@ -20,6 +20,8 @@ Main features
 
 :muscle: Support TypeScript
 
+:electric_plug: Support server-side rendering ([Tutorial on Medium](https://medium.com/@cereallarceny/server-side-rendering-in-create-react-app-with-all-the-goodies-without-ejecting-4c889d7db25e) | [Sample codebase](https://github.com/cereallarceny/cra-ssr))
+
 
 Installation
 -----------
