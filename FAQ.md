@@ -1,7 +1,7 @@
 # Frequently Asked Questions
 ----------------------------
 - [How to navigate with Redux action](#how-to-navigate-with-redux-action)
-- [How to get current browser location (URL)](#how-to-get-current-browser-location-url)
+- [How to get the current browser location (URL)](#how-to-get-current-browser-location-url)
 - [How to set Router props e.g. basename, initialEntries, etc.](#how-to-set-router-props-eg-basename-initialentries-etc)
 - [How to hot reload functional components](#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
@@ -40,9 +40,9 @@ export function* login(username, password) {
 }
 ```
 
-### How to get current browser location (URL)
-The current browser location can be accessed directry from the router state with `react-redux`'s `connect`.
-The location object composes of pathname, search (query string), and hash.
+### How to get the current browser location (URL)
+The current browser location can be accessed directly from the router state with `react-redux`'s `connect`.
+The location object is comprised of pathname, search (query string), and hash.
 ```js
 import { connect } from 'react-redux'
 
@@ -70,8 +70,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Child)
 ```
 
-### How to set Router props e.g. basename, initialEntries, etc.
-You can pass props to `create*History` functions of your choice (`createBrowserHistory`, `createHashHistory`, `createMemoryHistory`)
+### How to set Router props (e.g. basename, initialEntries, etc.)
+You can pass props to the `create*History` functions of your choice (`createBrowserHistory`, `createHashHistory`, `createMemoryHistory`)
 
 ```js
 import { createBrowserHistory } from 'history'
@@ -100,7 +100,7 @@ const history = createMemoryHistory({
 ```
 
 ### How to hot reload functional components
-1) Separate main app component to another file.
+1) Save the main app component in its own file.
 
 `App.js`
 ``` js
