@@ -4,15 +4,15 @@ A Redux binding for React Router v4
 
 Main features
 -------------
-:sparkles: Synchronize router state with redux store with uni-directional flow (history -> store -> router -> components).
+:sparkles: Synchronize router state with redux store through uni-directional flow (i.e. history -> store -> router -> components).
 
 :gift: Support [React Router v4](https://github.com/ReactTraining/react-router).
 
 :sunny: Support functional component hot reloading while preserving state (with [react-hot-reload](https://github.com/gaearon/react-hot-loader)).
 
-:tada: Dispatching history methods (`push`, `replace`, `go`, `goBack`, `goForward`) work for both [redux-thunk](https://github.com/gaearon/redux-thunk) and [redux-saga](https://github.com/yelouafi/redux-saga).
+:tada: Dispatching of history methods (`push`, `replace`, `go`, `goBack`, `goForward`) works for both [redux-thunk](https://github.com/gaearon/redux-thunk) and [redux-saga](https://github.com/yelouafi/redux-saga).
 
-:snowman: Nested children can access routing state such as current location directly with `react-redux`'s `connect`.
+:snowman: Nested children can access routing state such as the current location directly with `react-redux`'s `connect`.
 
 :clock9: Support time traveling in Redux DevTools.
 
@@ -37,7 +37,7 @@ Usage
 
 - Create a `history` object.
 - Wrap the root reducer with `connectRouter` and supply the `history` object to get a new root reducer.
-- Use `routerMiddleware(history)` if you want to dispatch history actions (ex. to change URL with `push('/path/to/somewhere')`).
+- Use `routerMiddleware(history)` if you want to dispatch history actions (e.g. to change URL with `push('/path/to/somewhere')`).
 
 
 ```js
@@ -63,8 +63,8 @@ const store = createStore(
 ### Step 2
 
 
-- Wrap your react-router v4 routing with `ConnectedRouter` and pass `history` object as a prop.
-- Place `ConnectedRouter` as children of `react-redux`'s `Provider`.
+- Wrap your react-router v4 routing with `ConnectedRouter` and pass the `history` object as a prop.
+- Place `ConnectedRouter` as a child of `react-redux`'s `Provider`.
 
 ```js
 ...
@@ -91,12 +91,12 @@ Now, it's ready to work!
 
 Examples
 --------
-See [examples](https://github.com/supasate/connected-react-router/tree/master/examples) folder
+See the [examples](https://github.com/supasate/connected-react-router/tree/master/examples) folder
 
 [FAQ](https://github.com/supasate/connected-react-router/tree/master/FAQ.md)
 -----
 - [How to navigate with Redux action](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-navigate-with-redux-action)
-- [How to get current browser location (URL)](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-get-current-browser-location-url)
+- [How to get the current browser location (URL)](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-get-current-browser-location-url)
 - [How to set Router props e.g. basename, initialEntries, etc.](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-set-router-props-eg-basename-initialentries-etc)
 - [How to hot reload functional components](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-hot-reload-reducers)
@@ -107,7 +107,7 @@ Build
 ```bash
 npm run build
 ```
-Generated files will be in `lib` folder.
+Generated files will be in the `lib` folder.
 
 Contributors
 ------------
