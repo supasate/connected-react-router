@@ -6,10 +6,15 @@ declare module 'connected-react-router' {
   interface ConnectedRouterProps {
     history: History
   }
+  
+  export enum RouterAction {
+    POP = 'POP',
+    PUSH = 'PUSH'
+  }
 
   export interface RouterState {
     location: Location
-    action: 'POP' | 'PUSH'
+    action: RouterAction.POP | RouterAction.PUSH
   }
 
   export const LOCATION_CHANGE: string
