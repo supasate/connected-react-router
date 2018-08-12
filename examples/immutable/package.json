@@ -22,7 +22,7 @@
     "webpack-hot-middleware": "^2.15.0"
   },
   "dependencies": {
-    "connected-react-router": "^4.0.0",
+    "connected-react-router": "^4.4.0",
     "history": "^4.4.1",
     "immutable": "^3.8.1",
     "prop-types": "^15.5.8",
