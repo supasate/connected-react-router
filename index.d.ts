@@ -7,14 +7,14 @@ declare module 'connected-react-router' {
     history: History
   }
   
-  export enum RouterAction {
+  export enum RouterActionType {
     POP = 'POP',
     PUSH = 'PUSH'
   }
 
   export interface RouterState {
     location: Location
-    action: RouterAction.POP | RouterAction.PUSH
+    action: RouterActionType.POP | RouterActionType.PUSH
   }
 
   export const LOCATION_CHANGE: string
