@@ -12,6 +12,7 @@ import createConnectedRouter from '../src/ConnectedRouter'
 import { onLocationChanged } from '../src/actions'
 import plainStructure from '../src/structure/plain'
 import immutableStructure from '../src/structure/immutable'
+import seamlessImmutableStructure from '../src/structure/seamless-immutable'
 import { connectRouter, ConnectedRouter } from '../src'
 
 Enzyme.configure({ adapter: new Adapter() })
@@ -159,6 +160,58 @@ describe('ConnectedRouter', () => {
 
       expect(onLocationChangedSpy.mock.calls)
         .toHaveLength(2)
+    })
+  })
+
+  describe('with seamless immutable structure', () => {
+    let ConnectedRouter
+
+    beforeEach(() => {
+      ConnectedRouter = createConnectedRouter(seamlessImmutableStructure)
+    })
+
+    it('calls `props.onLocationChanged()` when location changes.', () => {
+      mount(
+        <ContextWrapper store={store}>
+          <ConnectedRouter {...props}>
+            <Route path="/" render={() => <div>Home</div>} />
+          </ConnectedRouter>
+        </ContextWrapper>
+      )
+
+      expect(onLocationChangedSpy.mock.calls)
+        .toHaveLength(0)
+
+      history.push('/new-location')
+      history.push('/new-location-2')
+
+      expect(onLocationChangedSpy.mock.calls)
+        .toHaveLength(2)
+    })
+
+    it('unlistens the history object when unmounted.', () => {
+      const wrapper = mount(
+        <ContextWrapper store={store}>
+          <ConnectedRouter {...props}>
+            <Route path="/" render={() => <div>Home</div>} />
+          </ConnectedRouter>
+        </ContextWrapper>
+      )
+
+      expect(onLocationChangedSpy.mock.calls)
+        .toHaveLength(0)
+
+      history.push('/new-location')
+
+      expect(onLocationChangedSpy.mock.calls)
+        .toHaveLength(1)
+
+      wrapper.unmount()
+
+      history.push('/new-location-after-unmounted')
+
+      expect(onLocationChangedSpy.mock.calls)
+        .toHaveLength(1)
     })
   })
 

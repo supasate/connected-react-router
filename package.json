@@ -24,7 +24,9 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "immutable": "^3.8.1"
+    "immutable": "^3.8.1",
+    "redux-seamless-immutable": "^0.4.0",
+    "seamless-immutable": "^7.1.3"
   },
   "peerDependencies": {
     "react": "^15.5.4 || ^16.0.0",
