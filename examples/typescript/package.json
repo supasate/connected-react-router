@@ -2,7 +2,7 @@
   "name": "connected-react-router-example-typescript",
   "version": "1.0.0",
   "description": "A basic example for Connected React Router with TypeScript",
-  "main": "src/index.ts",
+  "main": "src/index.tsx",
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack"
