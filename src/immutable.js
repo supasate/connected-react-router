@@ -13,4 +13,5 @@ export const {
   ConnectedRouter,
   connectRouter,
   routerMiddleware,
+  routerReducer
 } = createAll(immutableStructure)
