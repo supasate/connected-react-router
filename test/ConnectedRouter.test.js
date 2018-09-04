@@ -39,9 +39,9 @@ describe('ConnectedRouter', () => {
     props = {
       action: 'POP',
       location: {
-        pathname: '/path/to/somewhere'
+        pathname: '/path/to/somewhere',
       },
-      history
+      history,
     }
 
     // Mock store
@@ -49,7 +49,7 @@ describe('ConnectedRouter', () => {
     store = mockStore({
       router: {
         action: 'POP',
-        location: props.history.location
+        location: props.history.location,
       }
     })
   })
@@ -287,12 +287,12 @@ class ContextWrapper extends Component {
 const storeShape = PropTypes.shape({
   subscribe: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
-  getState: PropTypes.func.isRequired
+  getState: PropTypes.func.isRequired,
 })
 
 ContextWrapper.propTypes = {
   store: storeShape.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 }
 
 ContextWrapper.childContextTypes = {
