@@ -29,6 +29,7 @@ declare module 'connected-react-router' {
   export function push(location: LocationDescriptorObject): RouterAction;
   export function replace(path: Path, state?: LocationState): RouterAction;
   export function replace(location: LocationDescriptorObject): RouterAction;
+  export function createMatchSelector(state: LocationState): object;
   export function go(n: number): RouterAction
   export function goBack(): RouterAction
   export function goForward(): RouterAction
