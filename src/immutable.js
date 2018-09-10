@@ -13,4 +13,7 @@ export const {
   ConnectedRouter,
   connectRouter,
   routerMiddleware,
+  getLocation,
+  getAction,
+  createMatchSelector,
 } = createAll(immutableStructure)
