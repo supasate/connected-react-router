@@ -1,1 +1,1 @@
-module.exports = require('./lib/seamless-immutable');
+module.exports = require('./lib/seamless-immutable')
