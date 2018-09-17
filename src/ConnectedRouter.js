@@ -67,12 +67,12 @@ const createConnectedRouter = (structure) => {
     }
 
     render() {
-      const { history, children } = this.props
+      const { history, children, RouterComponent, ...restProps } = this.props
 
       return (
-        <Router history={history}>
+        <RouterComponent history={history} {...restProps}>
           { children }
-        </Router>
+        </RouterComponent>
       )
     }
   }
@@ -99,6 +99,11 @@ const createConnectedRouter = (structure) => {
     basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
     onLocationChanged: PropTypes.func.isRequired,
+    RouterComponent: PropTypes.func,
+  }
+
+  ConnectedRouter.defaultProps = {
+    RouterComponent: Router,
   }
 
   const mapStateToProps = state => ({
