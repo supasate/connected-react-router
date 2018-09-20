@@ -7,7 +7,7 @@ declare module 'connected-react-router' {
     history: History
   }
   
-  export type RouterActionType = 'POP' | 'PUSH';
+  export type RouterActionType = 'POP' | 'PUSH' | 'REPLACE';
   
   export interface LocationChangeAction {
     type: typeof LOCATION_CHANGE;
