@@ -7,11 +7,8 @@ declare module 'connected-react-router' {
     history: History
   }
   
-  export enum RouterActionType {
-    POP = 'POP',
-    PUSH = 'PUSH'
-  }
-
+  export type RouterActionType = 'POP' | 'PUSH';
+  
   export interface LocationChangeAction {
     type: typeof LOCATION_CHANGE;
     payload: RouterState;
@@ -19,7 +16,7 @@ declare module 'connected-react-router' {
 
   export interface RouterState {
     location: Location
-    action: RouterActionType.POP | RouterActionType.PUSH
+    action: RouterActionType
   }
 
   export const LOCATION_CHANGE: '@@router/LOCATION_CHANGE'
