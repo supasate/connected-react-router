@@ -10,18 +10,9 @@
   version "10.3.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.2.tgz#3840ec6c12556fdda6e0e6d036df853101d732a4"
 
-"@types/prop-types@*":
-  version "15.5.5"
-  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.5.tgz#17038dd322c2325f5da650a94d5f9974943625e3"
-  dependencies:
-    "@types/react" "*"
-
-"@types/react@*", "@types/react@^16.0.0":
-  version "16.4.13"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.13.tgz#1385f5dc3486aa493849a32ccce626a817543e28"
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^2.2.0"
+"@types/react@^15.0.23":
+  version "15.6.16"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.6.16.tgz#35f62d2f34e1fa3af390b7fb70d0ff88ff3c5d22"
 
 abab@^1.0.3:
   version "1.0.4"
@@ -1493,10 +1484,6 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.2.37.tgz#541097234cb2513c83ceed3acddc27ff27987d54"
   dependencies:
     cssom "0.3.x"
-
-csstype@^2.2.0:
-  version "2.5.6"
-  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.6.tgz#2ae1db2319642d8b80a668d2d025c6196071e788"
 
 d@1:
   version "1.0.0"
