@@ -40,7 +40,7 @@ const createConnectRouter = (structure) => {
     }
   }
 
-  return connectRouter
+  return {connectRouter, routerReducer}
 }
 
 export default createConnectRouter

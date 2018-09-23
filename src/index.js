@@ -16,4 +16,5 @@ export const {
   getLocation,
   getAction,
   createMatchSelector,
+  routerReducer
 } = createAll(plainStructure)
