@@ -209,9 +209,7 @@ describe('ConnectedRouter', () => {
 
       // Create redux store with router state
       store = createStore(
-        connectRouter(history)(
-          combineReducers({ test: (state = 'test') => state })
-        ),
+        combineReducers({ test: (state = 'test') => state, router: connectRouter(history) }),
         instrument()
       )
       devToolsStore = store.liftedStore
