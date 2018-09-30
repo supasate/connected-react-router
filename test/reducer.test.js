@@ -69,6 +69,29 @@ describe('connectRouter', () => {
       }
       expect(nextState).toEqual(expectedState)
     })
+
+    it('does not change state ref when action does not trigger any reducers', () => {
+      const rootReducer = combineReducers({
+        router: connectRouter(mockHistory)
+      })
+
+      const currentState = {
+        router: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+          },
+          action: 'POP',
+        },
+      }
+      const action = {
+        type: "DUMMY_ACTION",
+        payload: "dummy payload"
+      }
+      const nextState = rootReducer(currentState, action)
+      expect(nextState).toBe(currentState)
+    })
   })
 
   describe('with immutable structure', () => {
