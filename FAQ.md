@@ -184,40 +184,53 @@ if (module.hot) {
          ["es2015", { "modules": false }]
        ]
     */
-    store.replaceReducer(connectRouter(history)(rootReducer))
+    store.replaceReducer(rootReducer(history))
 
     /* For Webpack 1.x
     const nextRootReducer = require('./reducers').default
-    store.replaceReducer(connectRouter(history)(nextRootReducer))
+    store.replaceReducer(nextRootReducer(history))
     */
   })
 }
 ```
 
 ### How to support Immutable.js
-1) Use `combineReducers` from `redux-immutable` to create the root reducer.
+1) Create your root reducer as a function that takes `history` and returns reducer. Use `combineReducers` from `redux-immutable` to return the root reducer.
+
+2) Import `connectRouter` from `connected-react-router/immutable` and add router reducer to root reducer
 ```js
 import { combineReducers } from 'redux-immutable'
+import { connectRouter } from 'connected-react-router/immutable'
 ...
-const rootReducer = combineReducers({
+const rootReducer = (history) => combineReducers({
+  router: connectRouter(history),
   ...
 })
 ...
 ```
 
-2) Import `ConnectedRouter`, `routerMiddleware`, and `connectRouter` from `connected-react-router/immutable` instead of `connected-react-router`.
+2) Import `ConnectedRouter` and `routerMiddleware` from `connected-react-router/immutable` instead of `connected-react-router`.
 ```js
-import { ConnectedRouter, routerMiddleware, connectRouter } from 'connected-react-router/immutable'
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router/immutable'
 ```
 
-3) (Optional) Initialize state with `Immutable.Map()`
+3) Create your root reducer with router reducer by passing `history` to `rootReducer` function
+```js
+const store = createStore(
+  rootReducer(history),
+  initialState,
+  ...
+)
+```
+
+4) (Optional) Initialize state with `Immutable.Map()`
 ```js
 import Immutable from 'immutable'
 ...
 const initialState = Immutable.Map()
 ...
 const store = createStore(
-  connectRouter(history)(rootReducer),
+  rootReducer(history),
   initialState,
   ...
 )

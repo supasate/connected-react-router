@@ -36,20 +36,32 @@ Usage
 ### Step 1
 
 - Create a `history` object.
-- Wrap the root reducer with `connectRouter` and supply the `history` object to get a new root reducer.
+- Create root reducer as a function that takes `history` as an argument and returns reducer.
+- Add router reducer into root reducer by passing `history` to `connectRouter`.
 - Use `routerMiddleware(history)` if you want to dispatch history actions (e.g. to change URL with `push('/path/to/somewhere')`).
 
 
 ```js
+// reducers.js
+import { combineReducers } from "redux";
+import { connectRouter } from 'connected-react-router'
+
+export default (history) => combineReducers({
+  router: connectRouter(history),
+  ... // rest of your reducers
+})
+
+// configureStore.js
 ...
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
+import createRootReducer from "./reducers";
 ...
 const history = createBrowserHistory()
 
 const store = createStore(
-  connectRouter(history)(rootReducer), // new root reducer with router state
+  createRootReducer(history), // root reducer with router state
   initialState,
   compose(
     applyMiddleware(
