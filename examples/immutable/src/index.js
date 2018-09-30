@@ -14,7 +14,7 @@ const history = createBrowserHistory()
 const initialState = Immutable.Map()
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
-  connectRouter(history)(rootReducer),
+  rootReducer(history),
   initialState,
   composeEnhancer(
     applyMiddleware(
@@ -45,6 +45,6 @@ if (module.hot) {
 
   // Reload reducers
   module.hot.accept('./reducers', () => {
-    store.replaceReducer(connectRouter(history)(rootReducer))
+    store.replaceReducer(rootReducer(history))
   })
 }
