@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/history": "^4.5.0",
-    "@types/react": "^15.0.23",
+    "@types/react": "*",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
