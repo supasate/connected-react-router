@@ -23,7 +23,7 @@ declare module 'connected-react-router' {
   }
 
   export const LOCATION_CHANGE: '@@router/LOCATION_CHANGE'
-  export const CALL_HISTORY_METHOD: string
+  export const CALL_HISTORY_METHOD: '@@router/CALL_HISTORY_METHOD'
 
   export function push(path: Path, state?: LocationState): RouterAction;
   export function push(location: LocationDescriptorObject): RouterAction;
