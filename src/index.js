@@ -12,6 +12,7 @@ export const {
   routerActions,
   ConnectedRouter,
   connectRouter,
+  routerReducer,
   routerMiddleware,
   getLocation,
   getAction,
