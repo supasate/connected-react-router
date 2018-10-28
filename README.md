@@ -42,7 +42,8 @@ Usage
 
 ```js
 ...
-import { createBrowserHistory } from 'history'
+// import createHistory from 'history/createMemoryHistory' // chrome extension or electron
+import createHistory from 'history/createBrowserHistory'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 ...
