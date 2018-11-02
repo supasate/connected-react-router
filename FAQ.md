@@ -1,7 +1,7 @@
 # Frequently Asked Questions
 ----------------------------
 - [How to navigate with Redux action](#how-to-navigate-with-redux-action)
-- [How to get the current browser location (URL)](#how-to-get-current-browser-location-url)
+- [How to get the current browser location (URL)](#how-to-get-the-current-browser-location-url)
 - [How to set Router props e.g. basename, initialEntries, etc.](#how-to-set-router-props-eg-basename-initialentries-etc)
 - [How to hot reload functional components](#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
