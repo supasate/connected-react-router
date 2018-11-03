@@ -30,10 +30,11 @@ describe('connectRouter', () => {
       }
       const rootReducer = combineReducers({
         mock: mockReducer,
+        router: connectRouter(mockHistory)
       })
 
-      const rootReducerWithRouter = connectRouter(mockHistory)(rootReducer)
       const currentState = {
+        mock: {},
         router: {
           location: {
             pathname: '/',
@@ -54,7 +55,7 @@ describe('connectRouter', () => {
           action: 'PUSH',
         }
       }
-      const nextState = rootReducerWithRouter(currentState, action)
+      const nextState = rootReducer(currentState, action)
       const expectedState = {
         mock: {},
         router: {
@@ -68,6 +69,29 @@ describe('connectRouter', () => {
       }
       expect(nextState).toEqual(expectedState)
     })
+
+    it('does not change state ref when action does not trigger any reducers', () => {
+      const rootReducer = combineReducers({
+        router: connectRouter(mockHistory)
+      })
+
+      const currentState = {
+        router: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+          },
+          action: 'POP',
+        },
+      }
+      const action = {
+        type: "DUMMY_ACTION",
+        payload: "dummy payload"
+      }
+      const nextState = rootReducer(currentState, action)
+      expect(nextState).toBe(currentState)
+    })
   })
 
   describe('with immutable structure', () => {
@@ -80,10 +104,11 @@ describe('connectRouter', () => {
       }
       const rootReducer = combineReducersImmutable({
         mock: mockReducer,
+        router: connectRouterImmutable(mockHistory)
       })
 
-      const rootReducerWithRouter = connectRouterImmutable(mockHistory)(rootReducer)
       const currentState = Immutable.fromJS({
+        mock: {},
         router: {
           location: {
             pathname: '/',
@@ -104,7 +129,7 @@ describe('connectRouter', () => {
           action: 'PUSH',
         }
       }
-      const nextState = rootReducerWithRouter(currentState, action)
+      const nextState = rootReducer(currentState, action)
       const expectedState = Immutable.fromJS({
         mock: {},
         router: {
@@ -130,10 +155,11 @@ describe('connectRouter', () => {
       }
       const rootReducer = combineReducersSeamlessImmutable({
         mock: mockReducer,
+        router: connectRouterSeamlessImmutable(mockHistory)
       })
 
-      const rootReducerWithRouter = connectRouterSeamlessImmutable(mockHistory)(rootReducer)
       const currentState = {
+        mock: {},
         router: {
           location: {
             pathname: '/',
@@ -154,7 +180,7 @@ describe('connectRouter', () => {
           action: 'PUSH',
         }
       }
-      const nextState = rootReducerWithRouter(currentState, action)
+      const nextState = rootReducer(currentState, action)
       const expectedState = {
         mock: {},
         router: {

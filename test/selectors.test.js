@@ -1,4 +1,4 @@
-import { createStore } from "redux"
+import { createStore, combineReducers } from "redux"
 import { createBrowserHistory } from 'history'
 import { connectRouter, getLocation, createMatchSelector, getAction } from '../src'
 import { onLocationChanged } from '../src/actions'
@@ -16,8 +16,10 @@ describe("selectors", () => {
   let store
 
   beforeEach(() => {
-    const history = createBrowserHistory() 
-    const reducer = connectRouter(history)(() => {})
+    const history = createBrowserHistory()
+    const reducer = combineReducers({
+      router: connectRouter(history)
+    })
     store = createStore(reducer)
   })
 
