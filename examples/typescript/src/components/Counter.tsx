@@ -26,7 +26,7 @@ const mapStateToProps = (state: State) => ({
   count: state.count,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<State>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   increment: () => dispatch(increment()),
   decrement: () => dispatch(decrement()),
 })
