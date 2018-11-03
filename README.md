@@ -43,7 +43,7 @@ Usage
 
 ```js
 // reducers.js
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 
 export default (history) => combineReducers({
@@ -55,8 +55,8 @@ export default (history) => combineReducers({
 ...
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
-import { connectRouter, routerMiddleware } from 'connected-react-router'
-import createRootReducer from "./reducers";
+import { routerMiddleware } from 'connected-react-router'
+import createRootReducer from './reducers'
 ...
 const history = createBrowserHistory()
 
