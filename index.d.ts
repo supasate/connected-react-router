@@ -67,7 +67,7 @@ declare module 'connected-react-router' {
   > {}
 
   export function connectRouter(history: History)
-    : Reducer<{ router: RouterState }>
+    : Reducer<RouterState>
 
   export function routerMiddleware(history: History): Middleware;
 }
