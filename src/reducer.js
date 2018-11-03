@@ -11,16 +11,16 @@ const createConnectRouter = (structure) => {
       location: history.location,
       action: history.action,
     })
-    
-    /**
-   * This reducer will update the state with the most recent location history
-   * has transitioned to.
-   */
+
+    /*
+    * This reducer will update the state with the most recent location history
+    * has transitioned to.
+    */
     return (state = initialRouterState, { type, payload } = {}) => {
       if (type === LOCATION_CHANGE) {
         return merge(state, payload)
       }
-  
+
       return state
     }
   }
