@@ -75,12 +75,12 @@ describe('ConnectedRouter', () => {
         </ContextWrapper>
       )
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(0)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
 
       history.push('/new-location')
       history.push('/new-location-2')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(3)
     })
 
     it('unlistens the history object when unmounted.', () => {
@@ -92,17 +92,17 @@ describe('ConnectedRouter', () => {
         </ContextWrapper>
       )
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(0)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
 
       props.history.push('/new-location')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
 
       wrapper.unmount()
 
       history.push('/new-location-after-unmounted')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
     })
   })
 
@@ -122,12 +122,12 @@ describe('ConnectedRouter', () => {
         </ContextWrapper>
       )
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(0)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
 
       history.push('/new-location')
       history.push('/new-location-2')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(3)
     })
 
     it('unlistens the history object when unmounted.', () => {
@@ -139,17 +139,17 @@ describe('ConnectedRouter', () => {
         </ContextWrapper>
       )
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(0)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
 
       history.push('/new-location')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
 
       wrapper.unmount()
 
       history.push('/new-location-after-unmounted')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
     })
   })
 
@@ -169,12 +169,12 @@ describe('ConnectedRouter', () => {
         </ContextWrapper>
       )
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(0)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
 
       history.push('/new-location')
       history.push('/new-location-2')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(3)
     })
 
     it('unlistens the history object when unmounted.', () => {
@@ -186,17 +186,17 @@ describe('ConnectedRouter', () => {
         </ContextWrapper>
       )
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(0)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
 
       history.push('/new-location')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
 
       wrapper.unmount()
 
       history.push('/new-location-after-unmounted')
 
-      expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
     })
   })
 
@@ -256,7 +256,7 @@ describe('ConnectedRouter', () => {
 
       // When we toggle an action, the devtools will revert the action
       // and we therefore expect the history to update to the previous path
-      devToolsStore.dispatch(ActionCreators.toggleAction(2))
+      devToolsStore.dispatch(ActionCreators.toggleAction(3))
       expect(currentPath).toEqual('/foo2')
 
       historyUnsubscribe()
