@@ -57,6 +57,8 @@ const createConnectedRouter = (structure) => {
 
       // Listen to history changes
       this.unlisten = props.history.listen(handleLocationChange)
+      // Dispatch a location change action for the initial location
+      handleLocationChange(props.history.location, props.history.action)
     }
 
     componentWillUnmount() {
