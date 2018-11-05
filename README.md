@@ -39,7 +39,7 @@ Usage
 
 - Create a `history` object.
 - Create root reducer as a function that takes `history` as an argument and returns reducer.
-- Add router reducer into root reducer by passing `history` to `connectRouter`.
+- Add `router` reducer into root reducer by passing `history` to `connectRouter`. Note: The key MUST be `router`.
 - Use `routerMiddleware(history)` if you want to dispatch history actions (e.g. to change URL with `push('/path/to/somewhere')`).
 
 
