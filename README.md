@@ -1,4 +1,4 @@
-> Breaking change in v5.0.0! Please see the [release note](https://github.com/supasate/connected-react-router/releases/tag/v5.0.0).
+> Breaking change in v5.0.0! Please read [How to migrate from v4 to v5](https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-migrate-from-v4-to-v5).
 
 Connected React Router [![Build Status](https://travis-ci.org/supasate/connected-react-router.svg?branch=master)](https://travis-ci.org/supasate/connected-react-router) [![Open Source Helpers](https://www.codetriage.com/supasate/connected-react-router/badges/users.svg)](https://www.codetriage.com/supasate/connected-react-router)
 ======================
@@ -116,6 +116,7 @@ See the [examples](https://github.com/supasate/connected-react-router/tree/maste
 - [How to hot reload reducers](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-hot-reload-reducers)
 - [How to support Immutable.js](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-support-immutablejs)
 - [How to implement server-side rendering](https://medium.com/@cereallarceny/server-side-rendering-in-create-react-app-with-all-the-goodies-without-ejecting-4c889d7db25e) ([sample codebase](https://github.com/cereallarceny/cra-ssr))
+- [How to migrate from v4 to v5](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-migrate-from-v4-to-v5)
 
 Build
 -----

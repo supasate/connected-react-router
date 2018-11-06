@@ -6,6 +6,7 @@
 - [How to hot reload functional components](#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
 - [How to support Immutable.js](#how-to-support-immutablejs)
+- [How to migrate from v4 to v5](#how-to-migrate-from-v4-to-v5)
 
 ### How to navigate with Redux action
 #### with store.dispatch
@@ -234,4 +235,59 @@ const store = createStore(
   initialState,
   ...
 )
+```
+
+### How to migrate from v4 to v5
+It's easy to migrate from v4 to v5.
+1. In your root reducer file, instead of exporting a root reducer, you need to export a function accepting a `history` object and returning a root reducer with `router` key. The value of the `router` key is `connectedRouter(history)`.
+
+```diff
+  // reducers.js
+
+  import { combineReducers } from 'redux'
++ import { connectRouter } from 'connected-react-router'
+
+- export default combineReducers({
++ export default (history) => combineReducers({
++   router: connectRouter(history),
+    ...
+  })
+```
+
+2. In `createStore` function, change to use the new function creating a root reducer.
+```diff
+  // configureStore.js
+  ...
+  import { createBrowserHistory } from 'history'
+  import { applyMiddleware, compose, createStore } from 'redux'
+- import { connectRouter, routerMiddleware } from 'connected-react-router'
++ import { routerMiddleware } from 'connected-react-router'
+- import rootReducer from './reducers'
++ import createRootReducer from './reducers'
+
+  const history = createBrowserHistory()
+
+  const store = createStore(
+-   connectRouter(history)(rootReducer),
++   createRootReducer(history),
+    initialState,
+    compose(
+      applyMiddleware(
+        routerMiddleware(history),
+      ),
+    ),
+  )
+```
+
+3. For reducers hot reloading, similarly, change to use the new function creating a root reducer.
+```diff
+  // For Webpack 2.x
+- store.replaceReducer(connectRouter(history)(rootReducer))
++ store.replaceReducer(createRootReducer(history))
+
+  // For Webpack 1.x
+- const nextRootReducer = require('./reducers').default
+- store.replaceReducer(connectRouter(history)(nextRootReducer))
++ const nextCreateRootReducer = require('./reducers').default
++ store.replaceReducer(nextCreateRootReducer(history))
 ```
