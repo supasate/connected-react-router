@@ -40,13 +40,13 @@ declare module 'connected-react-router' {
 
   export type RouterAction = LocationChangeAction | CallHistoryMethodAction;
 
-  export function push(path: Path, state?: LocationState): RouterAction;
-  export function push(location: LocationDescriptorObject): RouterAction;
-  export function replace(path: Path, state?: LocationState): RouterAction;
-  export function replace(location: LocationDescriptorObject): RouterAction;
-  export function go(n: number): RouterAction;
-  export function goBack(): RouterAction;
-  export function goForward(): RouterAction;
+  export function push(path: Path, state?: LocationState): CallHistoryMethodAction;
+  export function push(location: LocationDescriptorObject): CallHistoryMethodAction;
+  export function replace(path: Path, state?: LocationState): CallHistoryMethodAction;
+  export function replace(location: LocationDescriptorObject): CallHistoryMethodAction;
+  export function go(n: number): CallHistoryMethodAction;
+  export function goBack(): CallHistoryMethodAction;
+  export function goForward(): CallHistoryMethodAction;
 
   export const routerActions: {
     push: typeof push;
