@@ -16,6 +16,22 @@ import { push } from 'connected-react-router'
 store.dispatch(push('/path/to/somewhere'))
 ```
 
+#### with react-redux
+```js
+import { push } from 'connected-react-router'
+
+// in component render:
+<div onClick={() => {
+
+  /** do something before redirection */
+  props.push('/home');
+
+}}>login</div>
+
+// connect the action:
+export default connect(null, { push })(Component);
+```
+
 #### in redux thunk
 ```js
 import { push } from 'connected-react-router'
