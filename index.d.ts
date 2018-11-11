@@ -14,11 +14,6 @@ declare module 'connected-react-router' {
   }
   
   export type RouterActionType = 'POP' | 'PUSH' | 'REPLACE';
-  
-  export interface LocationChangeAction {
-    type: typeof LOCATION_CHANGE;
-    payload: RouterState;
-  }
 
   export interface RouterState {
     location: Location
