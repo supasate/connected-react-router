@@ -18,5 +18,10 @@
       2,
       "never"
     ]
+  },
+  "settings": {
+    "react": {
+      "version": "16.0"
+    }
   }
 }
