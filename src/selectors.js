@@ -1,15 +1,19 @@
 import { matchPath } from "react-router"
-import isObject from 'lodash/isObject'
 
 const createSelectors = (structure) => {
-  const { get, toJS } = structure
+  const { getIn, toJS } = structure
+
+  const _getLocation = state => getIn(state, ['location'])
+  const _getAction = state => getIn(state, ['action'])
+  const isRouter = (value) => value != null && typeof value === 'object' && _getLocation(value) && _getAction(value)
+
   const getRouter = state => {
-    const router = toJS(get(state, 'router'))
-    if (!isObject(router)) { throw 'Could not find router reducer in state tree. Are you sure it is mounted under "router"?' }
+    const router = toJS(getIn(state, ['router']))
+    if (!isRouter(router)) { throw 'Could not find router reducer in state tree, it must be mounted under "router"' }
     return router
   }
-  const getLocation = state => toJS(get(getRouter(state), 'location'))
-  const getAction = state => toJS(get(getRouter(state), 'action'))
+  const getLocation = state => toJS(_getLocation(getRouter(state)))
+  const getAction = state => toJS(_getAction(getRouter(state)))
 
   // It only makes sense to recalculate the `matchPath` whenever the pathname
   // of the location changes. That's why `createMatchSelector` memoizes
@@ -33,7 +37,7 @@ const createSelectors = (structure) => {
     }
   }
 
-  return {getLocation, getAction, createMatchSelector}
+  return {getLocation, getAction, getRouter, createMatchSelector}
 }
 
 export default createSelectors
