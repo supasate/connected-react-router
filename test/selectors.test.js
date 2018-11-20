@@ -34,7 +34,7 @@ describe("selectors", () => {
     it("throws helpful error", () => {
       store.dispatch(push('/'))
       const state = store.getState()
-      expect(() => getLocation(state)).toThrowError('Could not find router reducer in state tree, it must be mounted under "router"')
+      expect(() => getLocation(state)).toThrowError(/^Could not find router reducer in state tree, it must be mounted under "router"$/)
     })
   })
 
@@ -49,7 +49,7 @@ describe("selectors", () => {
     it("throws helpful error", () => {
       store.dispatch(push('/'))
       const state = store.getState()
-      expect(() => getLocation(state)).toThrowError('ould not find router reducer in state tree, it must be mounted under "router"')
+      expect(() => getLocation(state)).toThrowError(/^Could not find router reducer in state tree, it must be mounted under "router"$/)
     })
   })
 
