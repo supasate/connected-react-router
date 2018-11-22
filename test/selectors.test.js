@@ -23,6 +23,36 @@ describe("selectors", () => {
     store = createStore(reducer)
   })
 
+  describe("when router not found under 'router' key", () => {
+    beforeEach(() => {
+      const reducer = combineReducers({
+        notTheRouter: connectRouter(history)
+      })
+      store = createStore(reducer)
+    })
+
+    it("throws helpful error", () => {
+      store.dispatch(push('/'))
+      const state = store.getState()
+      expect(() => getLocation(state)).toThrowError(/^Could not find router reducer in state tree, it must be mounted under "router"$/)
+    })
+  })
+
+  describe("when something else found under 'router' key", () => {
+    beforeEach(() => {
+      const reducer = combineReducers({
+        router: () => ({ some: 'thing' })
+      })
+      store = createStore(reducer)
+    })
+
+    it("throws helpful error", () => {
+      store.dispatch(push('/'))
+      const state = store.getState()
+      expect(() => getLocation(state)).toThrowError(/^Could not find router reducer in state tree, it must be mounted under "router"$/)
+    })
+  })
+
   describe("getLocation", () => {
     it("gets the location from the state", () => {
       const location = { pathname: "/", hash: '', search: '' }

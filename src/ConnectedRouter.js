@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Router } from 'react-router'
 import { onLocationChanged } from './actions'
+import createSelectors from './selectors'
 
 const createConnectedRouter = (structure) => {
-  const { getIn, toJS } = structure
+  const { getIn } = structure
+  const { getRouter, getLocation } = createSelectors(structure)
   /*
    * ConnectedRouter listens to a history object passed from props.
    * When history is changed, it dispatches action to redux store.
@@ -26,7 +28,7 @@ const createConnectedRouter = (structure) => {
           pathname: pathnameInStore,
           search: searchInStore,
           hash: hashInStore,
-        } = toJS(getIn(context.store.getState(), ['router', 'location']))
+        } = getLocation(context.store.getState())
         // Extract history's location
         const {
           pathname: pathnameInHistory,
@@ -102,8 +104,8 @@ const createConnectedRouter = (structure) => {
   }
 
   const mapStateToProps = state => ({
-    action: getIn(state, ['router', 'action']),
-    location: getIn(state, ['router', 'location']),
+    action: getIn(getRouter(state), ['action']),
+    location: getIn(getRouter(state), ['location']),
   })
 
   const mapDispatchToProps = dispatch => ({
