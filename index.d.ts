@@ -12,7 +12,7 @@ declare module 'connected-react-router' {
   interface ConnectedRouterProps {
     history: History;
   }
-  
+
   export type RouterActionType = 'POP' | 'PUSH' | 'REPLACE';
 
   export interface RouterState {
@@ -43,12 +43,18 @@ declare module 'connected-react-router' {
   export function goBack(): CallHistoryMethodAction;
   export function goForward(): CallHistoryMethodAction;
 
+  export type Push = typeof push;
+  export type Replace = typeof replace;
+  export type Go = typeof go;
+  export type GoBack = typeof goBack;
+  export type GoForward = typeof goForward;
+
   export const routerActions: {
-    push: typeof push;
-    replace: typeof replace;
-    go: typeof go;
-    goBack: typeof goBack;
-    goForward: typeof goForward;
+    push: Push;
+    replace: Replace;
+    go: Go;
+    goBack: GoBack;
+    goForward: GoForward;
   };
 
   export interface LocationActionPayload {
