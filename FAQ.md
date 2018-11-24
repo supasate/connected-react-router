@@ -7,6 +7,7 @@
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
 - [How to support Immutable.js](#how-to-support-immutablejs)
 - [How to migrate from v4 to v5](#how-to-migrate-from-v4-to-v5)
+- [How to use your own context with react-redux](#how-to-use-your-own-context-with-react-redux)
 
 ### How to navigate with Redux action
 #### with store.dispatch
@@ -306,4 +307,18 @@ It's easy to migrate from v4 to v5.
 - store.replaceReducer(connectRouter(history)(nextRootReducer))
 + const nextCreateRootReducer = require('./reducers').default
 + store.replaceReducer(nextCreateRootReducer(history))
+```
+
+### How to Use Your Own Context with react-redux
+With react-redux v6.0.0, you can pass your own context to `<Provider>` component. So, you need to pass the same context as props to `<ConnectedRouter>` component.
+```js
+const customContext = React.createContext(null) // your own context
+
+ReactDOM.render(
+  <Provider store={store} context={customContext}>
+    <ConnectedRouter history={history} context={customContext}>
+      ...
+    </ConnectedRouter>
+  </Provider>
+)
 ```
