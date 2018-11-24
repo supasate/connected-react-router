@@ -18,8 +18,7 @@ const store = createStore(
   initialState,
   composeEnhancer(
     applyMiddleware(
-      routerMiddleware(history
-      )
+      routerMiddleware(history)
     )
   )
 )
