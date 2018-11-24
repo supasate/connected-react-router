@@ -1,7 +1,7 @@
 import { AppContainer } from 'react-hot-loader'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { createBrowserHistory } from 'history'
-import { routerMiddleware, connectRouter } from 'connected-react-router/immutable'
+import { routerMiddleware } from 'connected-react-router/immutable'
 import { Provider } from 'react-redux'
 import Immutable from 'immutable'
 import React from 'react'
