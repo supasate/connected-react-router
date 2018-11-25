@@ -28,7 +28,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-redux": "6.0.0-beta.2",
+    "react-redux": "~6.0.0-beta.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
