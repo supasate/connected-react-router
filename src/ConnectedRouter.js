@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect, ReactReduxContext } from 'react-redux'
 import { Router } from 'react-router'
 import { onLocationChanged } from './actions'
 import createSelectors from './selectors'
@@ -16,19 +16,19 @@ const createConnectedRouter = (structure) => {
    */
 
   class ConnectedRouter extends Component {
-    constructor(props, context) {
+    constructor(props) {
       super(props)
 
       this.inTimeTravelling = false
 
       // Subscribe to store changes
-      this.unsubscribe = context.store.subscribe(() => {
+      this.unsubscribe = props.store.subscribe(() => {
         // Extract store's location
         const {
           pathname: pathnameInStore,
           search: searchInStore,
           hash: hashInStore,
-        } = getLocation(context.store.getState())
+        } = getLocation(props.store.getState())
         // Extract history's location
         const {
           pathname: pathnameInHistory,
@@ -79,14 +79,11 @@ const createConnectedRouter = (structure) => {
     }
   }
 
-  ConnectedRouter.contextTypes = {
+  ConnectedRouter.propTypes = {
     store: PropTypes.shape({
       getState: PropTypes.func.isRequired,
       subscribe: PropTypes.func.isRequired,
     }).isRequired,
-  }
-
-  ConnectedRouter.propTypes = {
     history: PropTypes.shape({
       action: PropTypes.string.isRequired,
       listen: PropTypes.func.isRequired,
@@ -112,7 +109,25 @@ const createConnectedRouter = (structure) => {
     onLocationChanged: (location, action) => dispatch(onLocationChanged(location, action))
   })
 
-  return connect(mapStateToProps, mapDispatchToProps)(ConnectedRouter)
+  const ConnectedRouterWithContext = props => {
+    const Context = props.context || ReactReduxContext
+
+    if (Context == null) {
+      throw 'Please upgrade to react-redux v6'
+    }
+
+    return (
+      <Context.Consumer>
+        {({ store }) => <ConnectedRouter store={store} {...props} />}
+      </Context.Consumer>
+    )
+  }
+
+  ConnectedRouterWithContext.propTypes = {
+    context: PropTypes.object,
+  }
+
+  return connect(mapStateToProps, mapDispatchToProps)(ConnectedRouterWithContext)
 }
 
 export default createConnectedRouter
