@@ -121,6 +121,7 @@ See the [examples](https://github.com/supasate/connected-react-router/tree/maste
 - [How to support Immutable.js](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-support-immutablejs)
 - [How to implement server-side rendering](https://medium.com/@cereallarceny/server-side-rendering-in-create-react-app-with-all-the-goodies-without-ejecting-4c889d7db25e) ([sample codebase](https://github.com/cereallarceny/cra-ssr))
 - [How to migrate from v4 to v5](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-migrate-from-v4-to-v5)
+- [How to use your own context with react-redux](https://github.com/supasate/connected-react-router/tree/master/FAQ.md#how-to-use-your-own-context-with-react-redux)
 
 Build
 -----
