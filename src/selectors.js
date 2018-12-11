@@ -15,6 +15,8 @@ const createSelectors = (structure) => {
   }
   const getLocation = state => toJS(getIn(getRouter(state), ['location']))
   const getAction = state => toJS(getIn(getRouter(state), ['action']))
+  const getSearch = state => toJS(getIn(getRouter(state), ['location', 'search']))
+  const getHash = state => toJS(getIn(getRouter(state), ['location', 'hash']))
 
   // It only makes sense to recalculate the `matchPath` whenever the pathname
   // of the location changes. That's why `createMatchSelector` memoizes
@@ -38,7 +40,7 @@ const createSelectors = (structure) => {
     }
   }
 
-  return {getLocation, getAction, getRouter, createMatchSelector}
+  return {getLocation, getAction, getRouter, getSearch, getHash, createMatchSelector}
 }
 
 export default createSelectors
