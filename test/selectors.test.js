@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from "redux"
 import { createBrowserHistory } from 'history'
-import { connectRouter, getLocation, createMatchSelector, getAction } from '../src'
+import { connectRouter, getLocation, createMatchSelector, getAction, getSearch, getHash } from '../src'
 import { onLocationChanged } from '../src/actions'
 
 const push = pathname => onLocationChanged(
@@ -68,6 +68,40 @@ describe("selectors", () => {
       store.dispatch(push('/'))
       const state = store.getState()
       expect(getAction(state)).toBe(action)
+    })
+  })
+
+  describe("getSearch", () => {
+    it("gets the current search from state", () => {
+      const push = ({search}) => onLocationChanged(
+        {
+          pathname: '/',
+          search,
+          hash: '',
+        },
+        'PUSH'
+      )
+      const search = "?query=hello"
+      store.dispatch(push({search}))
+      const state = store.getState()
+      expect(getSearch(state)).toBe(search)
+    })
+  })
+
+  describe("getHash", () => {
+    it("gets the current search from state", () => {
+      const push = ({hash}) => onLocationChanged(
+        {
+          pathname: '/',
+          search: '',
+          hash,
+        },
+        'PUSH'
+      )
+      const hash = "#test"
+      store.dispatch(push({hash}))
+      const state = store.getState()
+      expect(getHash(state)).toBe(hash)
     })
   })
 
