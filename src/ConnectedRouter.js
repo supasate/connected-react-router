@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect, ReactReduxContext } from 'react-redux'
 import { Router } from 'react-router'
@@ -15,7 +15,7 @@ const createConnectedRouter = (structure) => {
    * This creates uni-directional flow from history->store->router->components.
    */
 
-  class ConnectedRouter extends Component {
+  class ConnectedRouter extends PureComponent {
     constructor(props) {
       super(props)
 
