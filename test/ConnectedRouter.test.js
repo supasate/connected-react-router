@@ -134,7 +134,7 @@ describe('ConnectedRouter', () => {
 
       mount(
         <MockProvider store={store}>
-          <ConnectedRouter history={history}>
+          <ConnectedRouter {...props}>
               <Route path="/" component={RenderCounter} />
           </ConnectedRouter>
         </MockProvider>
