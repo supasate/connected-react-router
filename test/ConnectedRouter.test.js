@@ -123,6 +123,25 @@ describe('ConnectedRouter', () => {
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(3)
     })
+
+    it('only renders once when mounted', () => {
+      let renderCount = 0
+
+      const RenderCounter = () => {
+        renderCount++
+        return null
+      }
+
+      mount(
+        <MockProvider store={store}>
+          <ConnectedRouter history={history}>
+              <Route path="/" render={() => <RenderCounter />} />
+          </ConnectedRouter>
+        </MockProvider>
+      )
+
+      expect(renderCount).toBe(1)
+    })
   })
 
   describe('with immutable structure', () => {
