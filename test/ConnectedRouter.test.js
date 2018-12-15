@@ -2,7 +2,7 @@ import 'raf/polyfill'
 import React, { Children, Component } from 'react'
 import PropTypes from 'prop-types'
 import configureStore from 'redux-mock-store'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { ActionCreators, instrument } from 'redux-devtools'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
@@ -14,7 +14,7 @@ import { onLocationChanged } from '../src/actions'
 import plainStructure from '../src/structure/plain'
 import immutableStructure from '../src/structure/immutable'
 import seamlessImmutableStructure from '../src/structure/seamless-immutable'
-import { connectRouter, ConnectedRouter } from '../src'
+import { connectRouter, ConnectedRouter, routerMiddleware } from '../src'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -124,7 +124,7 @@ describe('ConnectedRouter', () => {
       expect(onLocationChangedSpy.mock.calls).toHaveLength(3)
     })
 
-    it('only renders once when mounted', () => {
+    it('only renders one time when mounted', () => {
       let renderCount = 0
 
       const RenderCounter = () => {
@@ -135,14 +135,51 @@ describe('ConnectedRouter', () => {
       mount(
         <MockProvider store={store}>
           <ConnectedRouter history={history}>
-              <Route path="/" render={() => <RenderCounter />} />
+              <Route path="/" component={RenderCounter} />
           </ConnectedRouter>
         </MockProvider>
       )
 
       expect(renderCount).toBe(1)
     })
-  })
+
+    it('does not render again when non-related action is fired', () => {
+      // Initialize the render counter variable
+      let renderCount = 0
+
+      // Create redux store with router state
+      store = createStore(
+        combineReducers({
+          incrementReducer: (state = 0, action = {}) => {
+            if (action.type === 'testAction')
+              return ++state
+
+            return state
+          },
+          router: connectRouter(history)
+        }),
+        compose(applyMiddleware(routerMiddleware(history)))
+      )
+
+
+      const RenderCounter = () => {
+        renderCount++
+        return null
+      }
+
+      mount(
+        <MockProvider store={store}>
+          <ConnectedRouter {...props}>
+              <Route path="/" component={RenderCounter} />
+          </ConnectedRouter>
+        </MockProvider>
+      )
+
+      store.dispatch({ type: 'testAction' })
+      history.push('/new-location')
+      expect(renderCount).toBe(2)
+    })
+  }) 
 
   describe('with immutable structure', () => {
     let ConnectedRouter
