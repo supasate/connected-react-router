@@ -6,8 +6,7 @@ import { onLocationChanged } from './actions'
 import createSelectors from './selectors'
 
 const createConnectedRouter = (structure) => {
-  const { getIn } = structure
-  const { getRouter, getLocation } = createSelectors(structure)
+  const { getLocation } = createSelectors(structure)
   /*
    * ConnectedRouter listens to a history object passed from props.
    * When history is changed, it dispatches action to redux store.
@@ -90,20 +89,10 @@ const createConnectedRouter = (structure) => {
       location: PropTypes.object.isRequired,
       push: PropTypes.func.isRequired,
     }).isRequired,
-    location: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
-    ]).isRequired,
-    action: PropTypes.string.isRequired,
     basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
     onLocationChanged: PropTypes.func.isRequired,
   }
-
-  const mapStateToProps = state => ({
-    action: getIn(getRouter(state), ['action']),
-    location: getIn(getRouter(state), ['location']),
-  })
 
   const mapDispatchToProps = dispatch => ({
     onLocationChanged: (location, action) => dispatch(onLocationChanged(location, action))
@@ -127,7 +116,7 @@ const createConnectedRouter = (structure) => {
     context: PropTypes.object,
   }
 
-  return connect(mapStateToProps, mapDispatchToProps)(ConnectedRouterWithContext)
+  return connect(null, mapDispatchToProps)(ConnectedRouterWithContext)
 }
 
 export default createConnectedRouter
