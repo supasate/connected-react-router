@@ -15,31 +15,31 @@ const createConnectedRouter = (structure) => {
    */
 
   class ConnectedRouter extends PureComponent {
-    constructor(props) {
-      super(props)
+    componentDidMount() {
+      const { store, history, onLocationChanged } = this.props
 
       this.inTimeTravelling = false
 
-      // Subscribe to store changes
-      this.unsubscribe = props.store.subscribe(() => {
+      // Subscribe to store changes to check if we are in time travelling
+      this.unsubscribe = store.subscribe(() => {
         // Extract store's location
         const {
           pathname: pathnameInStore,
           search: searchInStore,
           hash: hashInStore,
-        } = getLocation(props.store.getState())
+        } = getLocation(store.getState())
         // Extract history's location
         const {
           pathname: pathnameInHistory,
           search: searchInHistory,
           hash: hashInHistory,
-        } = props.history.location
+        } = history.location
 
         // If we do time travelling, the location in store is changed but location in history is not changed
         if (pathnameInHistory !== pathnameInStore || searchInHistory !== searchInStore || hashInHistory !== hashInStore) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
-          props.history.push({
+          history.push({
             pathname: pathnameInStore,
             search: searchInStore,
             hash: hashInStore,
@@ -50,16 +50,16 @@ const createConnectedRouter = (structure) => {
       const handleLocationChange = (location, action) => {
         // Dispatch onLocationChanged except when we're in time travelling
         if (!this.inTimeTravelling) {
-          props.onLocationChanged(location, action)
+          onLocationChanged(location, action)
         } else {
           this.inTimeTravelling = false
         }
       }
 
       // Listen to history changes
-      this.unlisten = props.history.listen(handleLocationChange)
+      this.unlisten = history.listen(handleLocationChange)
       // Dispatch a location change action for the initial location
-      handleLocationChange(props.history.location, props.history.action)
+      handleLocationChange(history.location, history.action)
     }
 
     componentWillUnmount() {
