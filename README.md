@@ -130,6 +130,34 @@ npm run build
 ```
 Generated files will be in the `lib` folder.
 
+Development
+-----------
+When testing the example apps with `npm link` or `yarn link`, you should explicitly provide the same `Context` to both `Provider` and `ConnectedRouter` to make sure that the `ConnectedRouter` doesn't pick up a different `ReactReduxContext` from a different `node_modules` folder.
+
+In `index.js`.
+```js
+...
+import { Provider, ReactReduxContext } from 'react-redux'
+...
+      <Provider store={store} context={ReactReduxContext}>
+        <App history={history} context={ReactReduxContext} />
+      </Provider>
+...
+```
+
+In `App.js`,
+```js
+...
+const App = ({ history, context }) => {
+  return (
+    <ConnectedRouter history={history} context={context}>
+      { routes }
+    </ConnectedRouter>
+  )
+}
+...
+```
+
 Contributors
 ------------
 See [Contributors](https://github.com/supasate/connected-react-router/graphs/contributors) and [Acknowledge](https://github.com/supasate/connected-react-router/blob/master/ACKNOWLEDGE.md).
