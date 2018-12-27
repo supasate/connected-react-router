@@ -178,7 +178,7 @@ describe('ConnectedRouter', () => {
       history.push('/new-location')
       expect(renderCount).toBe(2)
     })
-  }) 
+  })
 
   describe('with immutable structure', () => {
     let ConnectedRouter
@@ -243,6 +243,62 @@ describe('ConnectedRouter', () => {
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(3)
     })
+
+    it('only renders one time when mounted', () => {
+      let renderCount = 0
+
+      const RenderCounter = () => {
+        renderCount++
+        return null
+      }
+
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter {...props}>
+              <Route path="/" component={RenderCounter} />
+          </ConnectedRouter>
+        </Provider>
+      )
+
+      expect(renderCount).toBe(1)
+    })
+
+    it('does not render again when non-related action is fired', () => {
+      // Initialize the render counter variable
+      let renderCount = 0
+
+      // Create redux store with router state
+      store = createStore(
+        combineReducers({
+          incrementReducer: (state = 0, action = {}) => {
+            if (action.type === 'testAction')
+              return ++state
+
+            return state
+          },
+          router: connectRouter(history)
+        }),
+        compose(applyMiddleware(routerMiddleware(history)))
+      )
+
+
+      const RenderCounter = () => {
+        renderCount++
+        return null
+      }
+
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter {...props}>
+              <Route path="/" component={RenderCounter} />
+          </ConnectedRouter>
+        </Provider>
+      )
+
+      store.dispatch({ type: 'testAction' })
+      history.push('/new-location')
+      expect(renderCount).toBe(2)
+    })
   })
 
   describe('with seamless immutable structure', () => {
@@ -289,6 +345,62 @@ describe('ConnectedRouter', () => {
       history.push('/new-location-after-unmounted')
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(2)
+    })
+
+    it('only renders one time when mounted', () => {
+      let renderCount = 0
+
+      const RenderCounter = () => {
+        renderCount++
+        return null
+      }
+
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter {...props}>
+              <Route path="/" component={RenderCounter} />
+          </ConnectedRouter>
+        </Provider>
+      )
+
+      expect(renderCount).toBe(1)
+    })
+
+    it('does not render again when non-related action is fired', () => {
+      // Initialize the render counter variable
+      let renderCount = 0
+
+      // Create redux store with router state
+      store = createStore(
+        combineReducers({
+          incrementReducer: (state = 0, action = {}) => {
+            if (action.type === 'testAction')
+              return ++state
+
+            return state
+          },
+          router: connectRouter(history)
+        }),
+        compose(applyMiddleware(routerMiddleware(history)))
+      )
+
+
+      const RenderCounter = () => {
+        renderCount++
+        return null
+      }
+
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter {...props}>
+              <Route path="/" component={RenderCounter} />
+          </ConnectedRouter>
+        </Provider>
+      )
+
+      store.dispatch({ type: 'testAction' })
+      history.push('/new-location')
+      expect(renderCount).toBe(2)
     })
   })
 
