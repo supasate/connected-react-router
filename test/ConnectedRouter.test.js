@@ -1,20 +1,19 @@
 import 'raf/polyfill'
-import React, { Children, Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import configureStore from 'redux-mock-store'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { ActionCreators, instrument } from 'redux-devtools'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { createMemoryHistory } from 'history'
 import { Route } from 'react-router'
-import { ReactReduxContext } from 'react-redux'
+import { Provider } from 'react-redux'
 import createConnectedRouter from '../src/ConnectedRouter'
 import { onLocationChanged } from '../src/actions'
 import plainStructure from '../src/structure/plain'
 import immutableStructure from '../src/structure/immutable'
 import seamlessImmutableStructure from '../src/structure/seamless-immutable'
-import { connectRouter, ConnectedRouter } from '../src'
+import { connectRouter, ConnectedRouter, routerMiddleware } from '../src'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -69,11 +68,11 @@ describe('ConnectedRouter', () => {
 
     it('calls `props.onLocationChanged()` when location changes.', () => {
       mount(
-        <MockProvider store={store}>
+        <Provider store={store}>
           <ConnectedRouter {...props}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
@@ -86,11 +85,11 @@ describe('ConnectedRouter', () => {
 
     it('unlistens the history object when unmounted.', () => {
       const wrapper = mount(
-        <MockProvider store={store}>
+        <Provider store={store}>
           <ConnectedRouter {...props}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
@@ -109,11 +108,11 @@ describe('ConnectedRouter', () => {
     it('supports custom context', () => {
       const context = React.createContext(null)
       mount(
-        <MockProvider store={store} context={context}>
+        <Provider store={store} context={context}>
           <ConnectedRouter {...props} context={context}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
@@ -123,7 +122,63 @@ describe('ConnectedRouter', () => {
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(3)
     })
-  })
+
+    it('only renders one time when mounted', () => {
+      let renderCount = 0
+
+      const RenderCounter = () => {
+        renderCount++
+        return null
+      }
+
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter {...props}>
+              <Route path="/" component={RenderCounter} />
+          </ConnectedRouter>
+        </Provider>
+      )
+
+      expect(renderCount).toBe(1)
+    })
+
+    it('does not render again when non-related action is fired', () => {
+      // Initialize the render counter variable
+      let renderCount = 0
+
+      // Create redux store with router state
+      store = createStore(
+        combineReducers({
+          incrementReducer: (state = 0, action = {}) => {
+            if (action.type === 'testAction')
+              return ++state
+
+            return state
+          },
+          router: connectRouter(history)
+        }),
+        compose(applyMiddleware(routerMiddleware(history)))
+      )
+
+
+      const RenderCounter = () => {
+        renderCount++
+        return null
+      }
+
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter {...props}>
+              <Route path="/" component={RenderCounter} />
+          </ConnectedRouter>
+        </Provider>
+      )
+
+      store.dispatch({ type: 'testAction' })
+      history.push('/new-location')
+      expect(renderCount).toBe(2)
+    })
+  }) 
 
   describe('with immutable structure', () => {
     let ConnectedRouter
@@ -134,11 +189,11 @@ describe('ConnectedRouter', () => {
 
     it('calls `props.onLocationChanged()` when location changes.', () => {
       mount(
-        <MockProvider store={store}>
+        <Provider store={store}>
           <ConnectedRouter {...props}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
@@ -151,11 +206,11 @@ describe('ConnectedRouter', () => {
 
     it('unlistens the history object when unmounted.', () => {
       const wrapper = mount(
-        <MockProvider store={store}>
+        <Provider store={store}>
           <ConnectedRouter {...props}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
@@ -174,11 +229,11 @@ describe('ConnectedRouter', () => {
     it('supports custom context', () => {
       const context = React.createContext(null)
       mount(
-        <MockProvider store={store} context={context}>
+        <Provider store={store} context={context}>
           <ConnectedRouter {...props} context={context}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
@@ -199,11 +254,11 @@ describe('ConnectedRouter', () => {
 
     it('calls `props.onLocationChanged()` when location changes.', () => {
       mount(
-        <MockProvider store={store}>
+        <Provider store={store}>
           <ConnectedRouter {...props}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
@@ -216,11 +271,11 @@ describe('ConnectedRouter', () => {
 
     it('unlistens the history object when unmounted.', () => {
       const wrapper = mount(
-        <MockProvider store={store}>
+        <Provider store={store}>
           <ConnectedRouter {...props}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       expect(onLocationChangedSpy.mock.calls).toHaveLength(1)
@@ -254,11 +309,11 @@ describe('ConnectedRouter', () => {
 
     it('resets to the initial url', () => {
       mount(
-        <MockProvider store={store}>
+        <Provider store={store}>
           <ConnectedRouter {...props}>
             <div>Test</div>
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       let currentPath
@@ -276,11 +331,11 @@ describe('ConnectedRouter', () => {
 
     it('handles toggle after history change', () => {
       mount(
-        <MockProvider store={store}>
+        <Provider store={store}>
           <ConnectedRouter {...props}>
             <div>Test</div>
           </ConnectedRouter>
-        </MockProvider>
+        </Provider>
       )
 
       let currentPath
@@ -300,36 +355,3 @@ describe('ConnectedRouter', () => {
     })
   })
 })
-
-// MockProvider mocks react-redux's Provider component
-class MockProvider extends Component {
-  constructor(props) {
-    super(props)
-    const { store } = props
-    this.state = {
-      storeState: store.getState(),
-      store,
-    }
-  }
-  render() {
-    const Context = this.props.context || ReactReduxContext
-
-    return (
-      <Context.Provider value={this.state}>
-        {Children.only(this.props.children)}
-      </Context.Provider>
-    )
-  }
-}
-
-const storeShape = PropTypes.shape({
-  subscribe: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  getState: PropTypes.func.isRequired,
-})
-
-MockProvider.propTypes = {
-  context: PropTypes.object,
-  store: storeShape.isRequired,
-  children: PropTypes.element.isRequired,
-}
