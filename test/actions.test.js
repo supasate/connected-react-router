@@ -21,6 +21,24 @@ describe('Actions', () => {
           hash: '',
         },
         action: 'POP',
+        isFirstRendering: false,
+      },
+    }
+    expect(actualAction).toEqual(expectedAction)
+  })
+
+  it('returns correct action when calling onLocationChanged() for the first rendering', () => {
+    const actualAction = onLocationChanged({ pathname: '/', search: '', hash: '' }, 'POP', true)
+    const expectedAction = {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: '/',
+          search: '',
+          hash: '',
+        },
+        action: 'POP',
+        isFirstRendering: true,
       },
     }
     expect(actualAction).toEqual(expectedAction)

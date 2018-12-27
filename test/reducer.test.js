@@ -92,6 +92,36 @@ describe('connectRouter', () => {
       const nextState = rootReducer(currentState, action)
       expect(nextState).toBe(currentState)
     })
+
+    it('does not change state ref when receiving LOCATION_CHANGE for the first rendering', () => {
+      const rootReducer = combineReducers({
+        router: connectRouter(mockHistory)
+      })
+      const currentState = {
+        router: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+          },
+          action: 'POP',
+        },
+      }
+      const action = {
+        type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+          },
+          action: 'POP',
+          isFirstRendering: true,
+        }
+      }
+      const nextState = rootReducer(currentState, action)
+      expect(nextState).toBe(currentState)
+    })
   })
 
   describe('with immutable structure', () => {
@@ -143,6 +173,36 @@ describe('connectRouter', () => {
       })
       expect(nextState).toEqual(expectedState)
     })
+
+    it('does not change state ref when receiving LOCATION_CHANGE for the first rendering', () => {
+      const rootReducer = combineReducers({
+        router: connectRouter(mockHistory)
+      })
+      const currentState = {
+        router: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+          },
+          action: 'POP',
+        },
+      }
+      const action = {
+        type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+          },
+          action: 'POP',
+          isFirstRendering: true,
+        }
+      }
+      const nextState = rootReducer(currentState, action)
+      expect(nextState).toBe(currentState)
+    })
   })
 
   describe('with seamless immutable structure', () => {
@@ -193,6 +253,36 @@ describe('connectRouter', () => {
         },
       }
       expect(nextState).toEqual(expectedState)
+    })
+
+    it('does not change state ref when receiving LOCATION_CHANGE for the first rendering', () => {
+      const rootReducer = combineReducers({
+        router: connectRouter(mockHistory)
+      })
+      const currentState = {
+        router: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+          },
+          action: 'POP',
+        },
+      }
+      const action = {
+        type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+          },
+          action: 'POP',
+          isFirstRendering: true,
+        }
+      }
+      const nextState = rootReducer(currentState, action)
+      expect(nextState).toBe(currentState)
     })
   })
 })
