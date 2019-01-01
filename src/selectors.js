@@ -40,7 +40,14 @@ const createSelectors = (structure) => {
     }
   }
 
-  return {getLocation, getAction, getRouter, getSearch, getHash, createMatchSelector}
+  return {
+    getLocation,
+    getAction,
+    getRouter,
+    getSearch,
+    getHash,
+    createMatchSelector,
+  }
 }
 
 export default createSelectors
