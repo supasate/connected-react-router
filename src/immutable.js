@@ -8,4 +8,4 @@ export { default as routerMiddleware } from "./middleware"
 
 export const ConnectedRouter = /*#__PURE__*/ createConnectedRouter(immutableStructure)
 export const connectRouter = /*#__PURE__*/ createConnectRouter(immutableStructure)
-export const { getLocation, getAction, createMatchSelector } = /*#__PURE__*/ createSelectors(immutableStructure)
+export const { getLocation, getAction, getHash, getSearch, createMatchSelector } = /*#__PURE__*/ createSelectors(immutableStructure)
