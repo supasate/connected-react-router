@@ -64,18 +64,22 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
 import createRootReducer from './reducers'
 ...
-const history = createBrowserHistory()
+export const history = createBrowserHistory()
 
-const store = createStore(
-  createRootReducer(history), // root reducer with router state
-  initialState,
-  compose(
-    applyMiddleware(
-      routerMiddleware(history), // for dispatching history actions
-      // ... other middlewares ...
+export default function configureStore(preloadedState) {
+  const store = createStore(
+    createRootReducer(history), // root reducer with router state
+    preloadedState,
+    compose(
+      applyMiddleware(
+        routerMiddleware(history), // for dispatching history actions
+        // ... other middlewares ...
+      ),
     ),
-  ),
-)
+  )
+
+  return store
+}
 ```
 
 ### Step 2
@@ -89,21 +93,26 @@ const store = createStore(
 import { Provider } from 'react-redux'
 import { Route, Switch } from 'react-router' // react-router v4
 import { ConnectedRouter } from 'connected-react-router'
+import configureStore, { history } from './configureStore'
 ...
+const store = configureStore(/* provide initial state if any */)
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
-      <div> { /* your usual react-router v4 routing */ }
+      <> { /* your usual react-router v4 routing */ }
         <Switch>
           <Route exact path="/" render={() => (<div>Match</div>)} />
           <Route render={() => (<div>Miss</div>)} />
         </Switch>
-      </div>
+      </>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('react-root')
 )
 ```
+Note: the `history` object provided to `router` reducer, `routerMiddleware`, and `ConnectedRouter` component must be the same object.
+
 Now, it's ready to work!
 
 
