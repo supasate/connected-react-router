@@ -23,7 +23,7 @@ const createConnectRouter = (structure) => {
         // to prevent the double-rendering issue on initilization
         return isFirstRendering
           ? state
-          : merge(state, { location, action })
+          : merge(state, { location: fromJS(location), action })
       }
 
       return state
