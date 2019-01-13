@@ -42,10 +42,10 @@ declare module 'connected-react-router' {
   export function go(n: number): CallHistoryMethodAction;
   export function goBack(): CallHistoryMethodAction;
   export function goForward(): CallHistoryMethodAction;
-  export function getAction(state): RouterActionType;
-  export function getHash(state): string;
-  export function getLocation(state): Location;
-  export function getSearch(state): string;
+  export function getAction(state: LocationState): RouterActionType;
+  export function getHash(state: LocationState): string;
+  export function getLocation(state: LocationState): Location;
+  export function getSearch(state: LocationState): string;
 
   export type Push = typeof push;
   export type Replace = typeof replace;
