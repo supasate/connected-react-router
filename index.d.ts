@@ -1,6 +1,7 @@
 declare module 'connected-react-router' {
   import * as React from 'react';
   import { Middleware, Reducer } from 'redux';
+  import { match } from 'react-router';
   import {
     History,
     Path,
@@ -33,6 +34,14 @@ declare module 'connected-react-router' {
     payload: LocationActionPayload;
   }
 
+  export interface RouterRootState {
+    router: RouterState;
+  }
+
+  export type matchSelectorFn<
+    S extends RouterRootState, Params extends { [K in keyof Params]?: string }
+  > = (state: S) => match<Params> | null;
+
   export type RouterAction = LocationChangeAction | CallHistoryMethodAction;
 
   export function push(path: Path, state?: LocationState): CallHistoryMethodAction;
@@ -42,10 +51,14 @@ declare module 'connected-react-router' {
   export function go(n: number): CallHistoryMethodAction;
   export function goBack(): CallHistoryMethodAction;
   export function goForward(): CallHistoryMethodAction;
-  export function getAction(state: LocationState): RouterActionType;
-  export function getHash(state: LocationState): string;
-  export function getLocation(state: LocationState): Location;
-  export function getSearch(state: LocationState): string;
+  export function getRouter<S extends RouterRootState>(state: S): RouterState;
+  export function getAction<S extends RouterRootState>(state: S): RouterActionType;
+  export function getHash<S extends RouterRootState>(state: S): string;
+  export function getLocation<S extends RouterRootState>(state: S): Location;
+  export function getSearch<S extends RouterRootState>(state: S): string;
+  export function createMatchSelector<
+    S extends RouterRootState, Params extends { [K in keyof Params]?: string }
+  >(path: string): matchSelectorFn<S, Params>;
 
   export type Push = typeof push;
   export type Replace = typeof replace;
