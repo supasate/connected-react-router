@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import configureStore, { history } from './configureStore'
 
+const store = configureStore()
 const render = () => {
   ReactDOM.render(
     <AppContainer>
