@@ -31,9 +31,9 @@ declare module 'connected-react-router' {
     payload: RouterState;
   }
 
-  export interface CallHistoryMethodAction {
+  export interface CallHistoryMethodAction<A> {
     type: typeof CALL_HISTORY_METHOD;
-    payload: LocationActionPayload;
+    payload: LocationActionPayload<A>;
   }
 
   export interface RouterRootState {
@@ -46,13 +46,13 @@ declare module 'connected-react-router' {
 
   export type RouterAction = LocationChangeAction | CallHistoryMethodAction;
 
-  export function push(path: Path, state?: LocationState): CallHistoryMethodAction;
-  export function push(location: LocationDescriptorObject): CallHistoryMethodAction;
-  export function replace(path: Path, state?: LocationState): CallHistoryMethodAction;
-  export function replace(location: LocationDescriptorObject): CallHistoryMethodAction;
-  export function go(n: number): CallHistoryMethodAction;
-  export function goBack(): CallHistoryMethodAction;
-  export function goForward(): CallHistoryMethodAction;
+  export function push(path: Path, state?: LocationState): CallHistoryMethodAction<[ Path, LocationState? ]>;
+  export function push<S = LocationState>(location: LocationDescriptorObject<S>): CallHistoryMethodAction<[ LocationDescriptorObject<S> ]>;
+  export function replace(path: Path, state?: LocationState): CallHistoryMethodAction<[ Path, LocationState? ]>;
+  export function replace<S = LocationState>(location: LocationDescriptorObject<S>): CallHistoryMethodAction<[ LocationDescriptorObject<S> ]>;
+  export function go(n: number): CallHistoryMethodAction<[ number ]>;
+  export function goBack(): CallHistoryMethodAction<[]>;
+  export function goForward(): CallHistoryMethodAction<[]>;
   export function getRouter<S extends RouterRootState>(state: S): RouterState;
   export function getAction<S extends RouterRootState>(state: S): RouterActionType;
   export function getHash<S extends RouterRootState>(state: S): string;
@@ -78,9 +78,9 @@ declare module 'connected-react-router' {
     goForward: GoForward;
   };
 
-  export interface LocationActionPayload {
+  export interface LocationActionPayload<A> {
     method: string;
-    args?: any[];
+    args?: A;
   }
 
   export class ConnectedRouter extends React.Component<
