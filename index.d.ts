@@ -1,6 +1,7 @@
 declare module 'connected-react-router' {
   import * as React from 'react';
   import { Middleware, Reducer } from 'redux';
+  import { ReactReduxContextValue } from 'react-redux';
   import { match } from 'react-router';
   import {
     History,
@@ -12,6 +13,7 @@ declare module 'connected-react-router' {
 
   interface ConnectedRouterProps {
     history: History;
+    context?: React.Context<ReactReduxContextValue>;
   }
 
   export type RouterActionType = 'POP' | 'PUSH' | 'REPLACE';
