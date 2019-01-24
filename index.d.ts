@@ -59,6 +59,8 @@ declare module 'connected-react-router' {
   export function createMatchSelector<
     S extends RouterRootState, Params extends { [K in keyof Params]?: string }
   >(path: string): matchSelectorFn<S, Params>;
+  export function onLocationChange(location: Location, action: RouterActionType, isFirstRendering: boolean = false)
+    : LocationChangeAction
 
   export type Push = typeof push;
   export type Replace = typeof replace;
