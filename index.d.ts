@@ -29,7 +29,7 @@ declare module 'connected-react-router' {
     payload: RouterState;
   }
 
-  export interface CallHistoryMethodAction<A> {
+  export interface CallHistoryMethodAction<A = any[]> {
     type: typeof CALL_HISTORY_METHOD;
     payload: LocationActionPayload<A>;
   }
@@ -74,7 +74,7 @@ declare module 'connected-react-router' {
     goForward: GoForward;
   };
 
-  export interface LocationActionPayload<A> {
+  export interface LocationActionPayload<A = any[]> {
     method: string;
     args?: A;
   }
