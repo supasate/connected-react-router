@@ -1,4 +1,5 @@
 import { createBrowserHistory } from 'history'
+import { updateStatus } from './actions/status'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
 import createRootReducer from './reducers'
@@ -16,6 +17,14 @@ export default function configureStore(preloadedState) {
       ),
     ),
   )
+
+  history.listen((location, action) => {
+    console.log(location, action);
+  });
+
+  history.listen(() => {
+    store.dispatch(updateStatus(200));
+  });
 
   // Hot reloading
   if (module.hot) {
