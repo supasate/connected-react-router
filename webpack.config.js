@@ -1,5 +1,3 @@
-var webpack = require('webpack')
-
 var config = {
   entry: './src/index',
   module: {
@@ -19,4 +17,4 @@ if (process.env.NODE_ENV === 'production') {
   };
 }
 
-module.exports = config
+module.exports = config;
