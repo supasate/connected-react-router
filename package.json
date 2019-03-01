@@ -33,6 +33,7 @@
   },
   "peerDependencies": {
     "history": "^4.7.2",
+    "prop-types": "^15.0.0 || ^16.0.0",
     "react": "^16.4.0",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
