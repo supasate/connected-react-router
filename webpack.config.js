@@ -1,5 +1,3 @@
-var webpack = require('webpack')
-
 var config = {
   entry: './src/index',
   module: {
@@ -14,10 +12,9 @@ var config = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  config.plugins = [
-    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-    new webpack.LoaderOptionsPlugin({ minimize: true })
-  ]
+  config.optimization = {
+    minimize: true
+  }
 }
 
 module.exports = config
