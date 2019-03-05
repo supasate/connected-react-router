@@ -99,7 +99,7 @@ const createConnectedRouter = (structure) => {
   }
 
   const mapDispatchToProps = dispatch => ({
-    onLocationChanged: (location, action) => dispatch(onLocationChanged(location, action))
+    onLocationChanged: (location, action, isFirstRendering) => dispatch(onLocationChanged(location, action, isFirstRendering))
   })
 
   const ConnectedRouterWithContext = props => {
