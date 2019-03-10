@@ -74,7 +74,8 @@
     "redux-mock-store": "^1.2.1",
     "redux-seamless-immutable": "^0.4.0",
     "rewire": "^2.5.2",
-    "webpack": "^2.2.1"
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   },
   "repository": {
     "type": "git",

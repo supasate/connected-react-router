@@ -1,5 +1,6 @@
 var config = {
   entry: './src/index',
+  mode: 'production',
   module: {
     rules: [
       { test: /\.js$/, use: [ 'babel-loader' ], exclude: /node_modules/ }
