@@ -90,7 +90,7 @@ export default function configureStore(preloadedState) {
 
 ### Step 3
 
-- Wrap your react-router v4 routing with `ConnectedRouter` and pass the `history` object as a prop.
+- Wrap your react-router v4 routing with `ConnectedRouter` and pass the `history` object as a prop.  Remember to delete any usage of `BrowserRouter` or `NativeRouter` as leaving this in will [cause](https://github.com/supasate/connected-react-router/issues/230#issuecomment-461628073) [problems](https://github.com/supasate/connected-react-router/issues/230#issuecomment-476164384) synchronising the state.
 - Place `ConnectedRouter` as a child of `react-redux`'s `Provider`.
 
 ```js
