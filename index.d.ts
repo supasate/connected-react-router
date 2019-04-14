@@ -28,7 +28,11 @@ declare module 'connected-react-router' {
 
   export interface LocationChangeAction {
     type: typeof LOCATION_CHANGE;
-    payload: RouterState;
+    payload: LocationChangePayload;
+  }
+
+  export interface LocationChangePayload extends RouterState{
+    isFirstRendering: boolean;
   }
 
   export interface CallHistoryMethodAction<A = any[]> {
