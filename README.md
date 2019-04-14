@@ -4,13 +4,13 @@
 
 Connected React Router [![Build Status](https://travis-ci.org/supasate/connected-react-router.svg?branch=master)](https://travis-ci.org/supasate/connected-react-router) [![Open Source Helpers](https://www.codetriage.com/supasate/connected-react-router/badges/users.svg)](https://www.codetriage.com/supasate/connected-react-router)
 ======================
-A Redux binding for React Router v4
+A Redux binding for React Router v4 and v5
 
 Main features
 -------------
 :sparkles: Synchronize router state with redux store through uni-directional flow (i.e. history -> store -> router -> components).
 
-:gift: Support [React Router v4](https://github.com/ReactTraining/react-router).
+:gift: Support [React Router v4 and v5](https://github.com/ReactTraining/react-router).
 
 :sunny: Support functional component hot reloading while preserving state (with [react-hot-reload](https://github.com/gaearon/react-hot-loader)).
 
@@ -90,14 +90,14 @@ export default function configureStore(preloadedState) {
 
 ### Step 3
 
-- Wrap your react-router v4 routing with `ConnectedRouter` and pass the `history` object as a prop.  Remember to delete any usage of `BrowserRouter` or `NativeRouter` as leaving this in will [cause](https://github.com/supasate/connected-react-router/issues/230#issuecomment-461628073) [problems](https://github.com/supasate/connected-react-router/issues/230#issuecomment-476164384) synchronising the state.
+- Wrap your react-router v4/v5 routing with `ConnectedRouter` and pass the `history` object as a prop.  Remember to delete any usage of `BrowserRouter` or `NativeRouter` as leaving this in will [cause](https://github.com/supasate/connected-react-router/issues/230#issuecomment-461628073) [problems](https://github.com/supasate/connected-react-router/issues/230#issuecomment-476164384) synchronising the state.
 - Place `ConnectedRouter` as a child of `react-redux`'s `Provider`.
 
 ```js
 // index.js
 ...
 import { Provider } from 'react-redux'
-import { Route, Switch } from 'react-router' // react-router v4
+import { Route, Switch } from 'react-router' // react-router v4/v5
 import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './configureStore'
 ...
@@ -106,7 +106,7 @@ const store = configureStore(/* provide initial state if any */)
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */ }
-      <> { /* your usual react-router v4 routing */ }
+      <> { /* your usual react-router v4/v5 routing */ }
         <Switch>
           <Route exact path="/" render={() => (<div>Match</div>)} />
           <Route render={() => (<div>Miss</div>)} />
