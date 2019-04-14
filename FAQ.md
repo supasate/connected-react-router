@@ -123,7 +123,7 @@ const history = createMemoryHistory({
 `App.js`
 ``` js
 import React from 'react'
-import { Route, Switch } from 'react-router' /* react-router v4 */
+import { Route, Switch } from 'react-router' /* react-router v4/v5 */
 import { ConnectedRouter } from 'connected-react-router'
 
 const App = ({ history }) => ( /* receive history object via props */
