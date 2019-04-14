@@ -6,7 +6,7 @@
 - [How to hot reload functional components](#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
 - [How to support Immutable.js](#how-to-support-immutablejs)
-- [How to migrate from v4 to v5](#how-to-migrate-from-v4-to-v5)
+- [How to migrate from v4 to v5/v6](#how-to-migrate-from-v4-to-v5v6)
 - [How to use your own context with react-redux](#how-to-use-your-own-context-with-react-redux)
 
 ### How to navigate with Redux action
@@ -254,8 +254,8 @@ const store = createStore(
 )
 ```
 
-### How to migrate from v4 to v5
-It's easy to migrate from v4 to v5.
+### How to migrate from v4 to v5/v6
+It's easy to migrate from v4 to v5/v6.
 1. In your root reducer file, instead of exporting a root reducer, you need to export a function accepting a `history` object and returning a root reducer with `router` key. The value of the `router` key is `connectedRouter(history)`.
 
 ```diff
