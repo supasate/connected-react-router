@@ -123,6 +123,19 @@ describe('ConnectedRouter', () => {
       expect(onLocationChangedSpy.mock.calls).toHaveLength(3)
     })
 
+    it('supports location state and key', () => {
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter {...props}>
+            <Route path="/" render={() => <div>Home</div>} />
+          </ConnectedRouter>
+        </Provider>
+      )
+      props.history.push({ pathname: '/new-location', state: { foo: 'bar' } })
+
+      expect(onLocationChangedSpy.mock.calls[1][0].state).toEqual({ foo: 'bar'})
+    })
+
     it('only renders one time when mounted', () => {
       let renderCount = 0
 
