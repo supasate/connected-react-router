@@ -1,6 +1,6 @@
 > Breaking change in v5.0.0! Please read [How to migrate from v4 to v5/v6](https://github.com/supasate/connected-react-router/blob/master/FAQ.md#how-to-migrate-from-v4-to-v5v6).
 
-> v6.0.0 requires React v16.4.0 and React Redux v6.0. (It does not support React Redux v7.0 yet. We're looking into the compability issue.)
+> v6.0.0 requires React v16.4.0 and React Redux v6.0 / v7.0.
 
 Connected React Router [![Build Status](https://travis-ci.org/supasate/connected-react-router.svg?branch=master)](https://travis-ci.org/supasate/connected-react-router) [![Open Source Helpers](https://www.codetriage.com/supasate/connected-react-router/badges/users.svg)](https://www.codetriage.com/supasate/connected-react-router)
 ======================
