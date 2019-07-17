@@ -49,10 +49,11 @@ In your root reducer file,
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 
-export default (history) => combineReducers({
+const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
   ... // rest of your reducers
 })
+export default createRootReducer
 ```
 
 ### Step 2
