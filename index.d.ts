@@ -4,34 +4,37 @@ declare module 'connected-react-router' {
   import { ReactReduxContextValue } from 'react-redux';
   import { match } from 'react-router';
   import {
+    Action,
+    Hash,
     History,
     Path,
     Location,
     LocationState,
-    LocationDescriptorObject
+    LocationDescriptorObject,
+    Search
   } from 'history';
 
-  interface ConnectedRouterProps {
-    history: History;
+  interface ConnectedRouterProps<S = LocationState> {
+    history: History<S>;
     context?: React.Context<ReactReduxContextValue>;
   }
 
-  export type RouterActionType = 'POP' | 'PUSH' | 'REPLACE';
+  export type RouterActionType = Action;
 
-  export interface RouterState {
-    location: Location
+  export interface RouterState<S = LocationState> {
+    location: Location<S>
     action: RouterActionType
   }
 
   export const LOCATION_CHANGE: '@@router/LOCATION_CHANGE';
   export const CALL_HISTORY_METHOD: '@@router/CALL_HISTORY_METHOD';
 
-  export interface LocationChangeAction {
+  export interface LocationChangeAction<S = LocationState> {
     type: typeof LOCATION_CHANGE;
-    payload: LocationChangePayload;
+    payload: LocationChangePayload<S>;
   }
 
-  export interface LocationChangePayload extends RouterState{
+  export interface LocationChangePayload<S = LocationState> extends RouterState<S> {
     isFirstRendering: boolean;
   }
 
@@ -40,33 +43,33 @@ declare module 'connected-react-router' {
     payload: LocationActionPayload<A>;
   }
 
-  export interface RouterRootState {
-    router: RouterState;
+  export interface RouterRootState<S = LocationState> {
+    router: RouterState<S>;
   }
 
   export type matchSelectorFn<
     S extends RouterRootState, Params extends { [K in keyof Params]?: string }
   > = (state: S) => match<Params> | null;
 
-  export type RouterAction = LocationChangeAction | CallHistoryMethodAction;
+  export type RouterAction<S = LocationState> = LocationChangeAction<S> | CallHistoryMethodAction;
 
-  export function push(path: Path, state?: LocationState): CallHistoryMethodAction<[ Path, LocationState? ]>;
+  export function push<S = LocationState>(path: Path, state?: S): CallHistoryMethodAction<[ Path, S? ]>;
   export function push<S = LocationState>(location: LocationDescriptorObject<S>): CallHistoryMethodAction<[ LocationDescriptorObject<S> ]>;
-  export function replace(path: Path, state?: LocationState): CallHistoryMethodAction<[ Path, LocationState? ]>;
+  export function replace<S = LocationState>(path: Path, state?: S): CallHistoryMethodAction<[ Path, S? ]>;
   export function replace<S = LocationState>(location: LocationDescriptorObject<S>): CallHistoryMethodAction<[ LocationDescriptorObject<S> ]>;
   export function go(n: number): CallHistoryMethodAction<[ number ]>;
   export function goBack(): CallHistoryMethodAction<[]>;
   export function goForward(): CallHistoryMethodAction<[]>;
-  export function getRouter<S extends RouterRootState>(state: S): RouterState;
+  export function getRouter<S extends RouterRootState<LS>, LS = LocationState>(state: S): RouterState<LS>;
   export function getAction<S extends RouterRootState>(state: S): RouterActionType;
-  export function getHash<S extends RouterRootState>(state: S): string;
-  export function getLocation<S extends RouterRootState>(state: S): Location;
-  export function getSearch<S extends RouterRootState>(state: S): string;
+  export function getHash<S extends RouterRootState>(state: S): Hash;
+  export function getLocation<S extends RouterRootState<LS>, LS = LocationState>(state: S): Location<LS>;
+  export function getSearch<S extends RouterRootState>(state: S): Search;
   export function createMatchSelector<
     S extends RouterRootState, Params extends { [K in keyof Params]?: string }
   >(path: string): matchSelectorFn<S, Params>;
-  export function onLocationChanged(location: Location, action: RouterActionType, isFirstRendering?: boolean)
-    : LocationChangeAction;
+  export function onLocationChanged<S = LocationState>(location: Location<S>, action: RouterActionType, isFirstRendering?: boolean)
+    : LocationChangeAction<S>;
 
   export type Push = typeof push;
   export type Replace = typeof replace;
@@ -87,13 +90,13 @@ declare module 'connected-react-router' {
     args?: A;
   }
 
-  export class ConnectedRouter extends React.Component<
-    ConnectedRouterProps,
+  export class ConnectedRouter<S = LocationState> extends React.Component<
+    ConnectedRouterProps<S>,
     {}
   > {}
 
-  export function connectRouter(history: History)
-    : Reducer<RouterState, LocationChangeAction>
+  export function connectRouter<S = LocationState>(history: History<S>)
+    : Reducer<RouterState<S>, LocationChangeAction<S>>
 
-  export function routerMiddleware(history: History): Middleware;
+  export function routerMiddleware<S = LocationState>(history: History<S>): Middleware;
 }
