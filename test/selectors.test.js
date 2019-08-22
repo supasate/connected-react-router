@@ -126,11 +126,14 @@ describe("selectors", () => {
 
     it("does not update if the match is the same", () => {
       const matchSelector = createMatchSelector("/")
-      store.dispatch(push('test1'))
-      const match = matchSelector(store.getState())
-      store.dispatch(push('test2'))
-      const expectedMatch = matchSelector(store.getState())
-      expect(match).toBe(expectedMatch)
+      const match1 = matchSelector(store.getState())
+      store.dispatch(push('/test1'))
+      const match2 = matchSelector(store.getState())
+      store.dispatch(push('/test2'))
+      const match3 = matchSelector(store.getState())
+      expect(match1).not.toBe(match2)
+      expect(match1).not.toBe(match3)
+      expect(match2).toEqual(match3)
     })
 
     it("updates if the match is different", () => {

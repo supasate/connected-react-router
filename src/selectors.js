@@ -32,7 +32,7 @@ const createSelectors = (structure) => {
       }
       lastPathname = pathname
       const match = matchPath(pathname, path)
-      if (!match || !lastMatch || match.url !== lastMatch.url) {
+      if (!match || !lastMatch || match.url !== lastMatch.url || match.isExact !== lastMatch.isExact) {
         lastMatch = match
       }
 
