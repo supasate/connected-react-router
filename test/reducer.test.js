@@ -63,6 +63,7 @@ describe('connectRouter', () => {
             pathname: '/path/to/somewhere',
             search: '?query=test',
             hash: '',
+            query: { query: 'test' }
           },
           action: 'PUSH',
         },
@@ -167,6 +168,7 @@ describe('connectRouter', () => {
             pathname: '/path/to/somewhere',
             search: '?query=test',
             hash: '',
+            query: { query: 'test' }
           },
           action: 'PUSH',
         },
@@ -248,6 +250,7 @@ describe('connectRouter', () => {
             pathname: '/path/to/somewhere',
             search: '?query=test',
             hash: '',
+            query: { query: 'test' }
           },
           action: 'PUSH',
         },
