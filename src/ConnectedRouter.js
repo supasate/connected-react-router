@@ -38,7 +38,7 @@ const createConnectedRouter = (structure) => {
         } = history.location
 
         // If we do time travelling, the location in store is changed but location in history is not changed
-        if (pathnameInHistory !== pathnameInStore || searchInHistory !== searchInStore || hashInHistory !== hashInStore) {
+        if (props.history.action === 'PUSH' && (pathnameInHistory !== pathnameInStore || searchInHistory !== searchInStore || hashInHistory !== hashInStore)) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
           history.push({
@@ -92,6 +92,7 @@ const createConnectedRouter = (structure) => {
       listen: PropTypes.func.isRequired,
       location: PropTypes.object.isRequired,
       push: PropTypes.func.isRequired,
+      action: PropTypes.string.isRequired,
     }).isRequired,
     basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
