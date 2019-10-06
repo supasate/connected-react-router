@@ -44,7 +44,7 @@
     "@babel/core": "^7.1.5",
     "@babel/preset-env": "^7.1.5",
     "@babel/preset-react": "^7.0.0",
-    "@types/history": "^4.5.0",
+    "@types/history": "^4.7.3",
     "@types/react": "*",
     "@types/react-redux": "^7.0.0",
     "@types/react-router": "^4.4.3",
