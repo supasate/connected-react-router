@@ -1,10 +1,18 @@
 {
   "presets": [
-    "es2015",
-    "react",
-    "stage-1"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
-  "plugins": [
-    "rewire"
-  ]
+  "env": {
+    "esm": {
+      "presets": [
+        ["@babel/preset-env", { "modules": false }]
+      ]
+    },
+    "test": {
+      "plugins": [
+        "rewire"
+      ]
+    }
+  }
 }

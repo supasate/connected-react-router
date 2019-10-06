@@ -1,11 +1,13 @@
 # Frequently Asked Questions
 ----------------------------
 - [How to navigate with Redux action](#how-to-navigate-with-redux-action)
-- [How to get current browser location (URL)](#how-to-get-current-browser-location-url)
+- [How to get the current browser location (URL)](#how-to-get-the-current-browser-location-url)
 - [How to set Router props e.g. basename, initialEntries, etc.](#how-to-set-router-props-eg-basename-initialentries-etc)
 - [How to hot reload functional components](#how-to-hot-reload-functional-components)
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
 - [How to support Immutable.js](#how-to-support-immutablejs)
+- [How to migrate from v4 to v5/v6](#how-to-migrate-from-v4-to-v5v6)
+- [How to use your own context with react-redux](#how-to-use-your-own-context-with-react-redux)
 
 ### How to navigate with Redux action
 #### with store.dispatch
@@ -13,6 +15,22 @@
 import { push } from 'connected-react-router'
 
 store.dispatch(push('/path/to/somewhere'))
+```
+
+#### with react-redux
+```js
+import { push } from 'connected-react-router'
+
+// in component render:
+<div onClick={() => {
+
+  /** do something before redirection */
+  props.push('/home');
+
+}}>login</div>
+
+// connect the action:
+export default connect(null, { push })(Component);
 ```
 
 #### in redux thunk
@@ -40,9 +58,9 @@ export function* login(username, password) {
 }
 ```
 
-### How to get current browser location (URL)
-The current browser location can be accessed directry from the router state with `react-redux`'s `connect`.
-The location object composes of pathname, search (query string), and hash.
+### How to get the current browser location (URL)
+The current browser location can be accessed directly from the router state with `react-redux`'s `connect`.
+The location object is comprised of pathname, search (query string), and hash.
 ```js
 import { connect } from 'react-redux'
 
@@ -70,8 +88,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Child)
 ```
 
-### How to set Router props e.g. basename, initialEntries, etc.
-You can pass props to `create*History` functions of your choice (`createBrowserHistory`, `createHashHistory`, `createMemoryHistory`)
+### How to set Router props (e.g. basename, initialEntries, etc.)
+You can pass props to the `create*History` functions of your choice (`createBrowserHistory`, `createHashHistory`, `createMemoryHistory`)
 
 ```js
 import { createBrowserHistory } from 'history'
@@ -100,12 +118,12 @@ const history = createMemoryHistory({
 ```
 
 ### How to hot reload functional components
-1) Separate main app component to another file.
+1) Save the main app component in its own file.
 
 `App.js`
 ``` js
 import React from 'react'
-import { Route, Switch } from 'react-router' /* react-router v4 */
+import { Route, Switch } from 'react-router' /* react-router v4/v5 */
 import { ConnectedRouter } from 'connected-react-router'
 
 const App = ({ history }) => ( /* receive history object via props */
@@ -184,41 +202,123 @@ if (module.hot) {
          ["es2015", { "modules": false }]
        ]
     */
-    store.replaceReducer(connectRouter(history)(rootReducer))
+    store.replaceReducer(rootReducer(history))
 
     /* For Webpack 1.x
     const nextRootReducer = require('./reducers').default
-    store.replaceReducer(connectRouter(history)(nextRootReducer))
+    store.replaceReducer(nextRootReducer(history))
     */
   })
 }
 ```
 
 ### How to support Immutable.js
-1) Use `combineReducers` from `redux-immutable` to create the root reducer.
+1) Create your root reducer as a function that takes `history` and returns reducer. Use `combineReducers` from `redux-immutable` to return the root reducer.
+
+2) Import `connectRouter` from `connected-react-router/immutable` and add router reducer to root reducer
 ```js
 import { combineReducers } from 'redux-immutable'
+import { connectRouter } from 'connected-react-router/immutable'
 ...
-const rootReducer = combineReducers({
+const rootReducer = (history) => combineReducers({
+  router: connectRouter(history),
   ...
 })
 ...
 ```
 
-2) Import `ConnectedRouter`, `routerMiddleware`, and `connectRouter` from `connected-react-router/immutable` instead of `connected-react-router`.
+2) Import `ConnectedRouter` and `routerMiddleware` from `connected-react-router/immutable` instead of `connected-react-router`.
 ```js
-import { ConnectedRouter, routerMiddleware, connectRouter } from 'connected-react-router/immutable'
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router/immutable'
 ```
 
-3) (Optional) Initialize state with `Immutabel.Map()`
+3) Create your root reducer with router reducer by passing `history` to `rootReducer` function
+```js
+const store = createStore(
+  rootReducer(history),
+  initialState,
+  ...
+)
+```
+
+4) (Optional) Initialize state with `Immutable.Map()`
 ```js
 import Immutable from 'immutable'
 ...
 const initialState = Immutable.Map()
 ...
 const store = createStore(
-  connectRouter(history)(rootReducer),
+  rootReducer(history),
   initialState,
   ...
+)
+```
+
+### How to migrate from v4 to v5/v6
+It's easy to migrate from v4 to v5/v6.
+1. In your root reducer file, instead of exporting a root reducer, you need to export a function accepting a `history` object and returning a root reducer with `router` key. The value of the `router` key is `connectedRouter(history)`.
+
+```diff
+  // reducers.js
+
+  import { combineReducers } from 'redux'
++ import { connectRouter } from 'connected-react-router'
+
+- export default combineReducers({
++ export default (history) => combineReducers({
++   router: connectRouter(history),
+    ...
+  })
+```
+
+2. In `createStore` function, change to use the new function creating a root reducer.
+```diff
+  // configureStore.js
+  ...
+  import { createBrowserHistory } from 'history'
+  import { applyMiddleware, compose, createStore } from 'redux'
+- import { connectRouter, routerMiddleware } from 'connected-react-router'
++ import { routerMiddleware } from 'connected-react-router'
+- import rootReducer from './reducers'
++ import createRootReducer from './reducers'
+
+  const history = createBrowserHistory()
+
+  const store = createStore(
+-   connectRouter(history)(rootReducer),
++   createRootReducer(history),
+    initialState,
+    compose(
+      applyMiddleware(
+        routerMiddleware(history),
+      ),
+    ),
+  )
+```
+
+3. For reducers hot reloading, similarly, change to use the new function creating a root reducer.
+```diff
+  // For Webpack 2.x
+- store.replaceReducer(connectRouter(history)(rootReducer))
++ store.replaceReducer(createRootReducer(history))
+
+  // For Webpack 1.x
+- const nextRootReducer = require('./reducers').default
+- store.replaceReducer(connectRouter(history)(nextRootReducer))
++ const nextCreateRootReducer = require('./reducers').default
++ store.replaceReducer(nextCreateRootReducer(history))
+```
+
+### How to Use Your Own Context with react-redux
+With react-redux v6.0.0, you can pass your own context to `<Provider>` component. So, you need to pass the same context as props to `<ConnectedRouter>` component.
+```js
+const customContext = React.createContext(null) // your own context
+
+ReactDOM.render(
+  <Provider store={store} context={customContext}>
+    <ConnectedRouter history={history} context={customContext}>
+      ...
+    </ConnectedRouter>
+  </Provider>
 )
 ```

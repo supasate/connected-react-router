@@ -1,7 +1,6 @@
-var webpack = require('webpack')
-
 var config = {
   entry: './src/index',
+  mode: 'production',
   module: {
     rules: [
       { test: /\.js$/, use: [ 'babel-loader' ], exclude: /node_modules/ }
@@ -14,10 +13,9 @@ var config = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  config.plugins = [
-    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-    new webpack.LoaderOptionsPlugin({ minimize: true })
-  ]
+  config.optimization = {
+    minimize: true
+  }
 }
 
 module.exports = config
