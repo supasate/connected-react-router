@@ -55,7 +55,7 @@ describe("selectors", () => {
 
   describe("getLocation", () => {
     it("gets the location from the state", () => {
-      const location = { pathname: "/", hash: '', search: '' }
+      const location = { pathname: "/", hash: '', query: {}, search: '', }
       store.dispatch(push('/'))
       const state = store.getState()
       expect(getLocation(state)).toEqual(location)
