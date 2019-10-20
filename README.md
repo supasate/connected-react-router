@@ -10,19 +10,19 @@ Main features
 -------------
 :sparkles: Synchronize router state with redux store through uni-directional flow (i.e. history -> store -> router -> components).
 
-:gift: Support [React Router v4 and v5](https://github.com/ReactTraining/react-router).
+:gift: Supports [React Router v4 and v5](https://github.com/ReactTraining/react-router).
 
-:sunny: Support functional component hot reloading while preserving state (with [react-hot-reload](https://github.com/gaearon/react-hot-loader)).
+:sunny: Supports functional component hot reloading while preserving state (with [react-hot-reload](https://github.com/gaearon/react-hot-loader)).
 
 :tada: Dispatching of history methods (`push`, `replace`, `go`, `goBack`, `goForward`) works for both [redux-thunk](https://github.com/gaearon/redux-thunk) and [redux-saga](https://github.com/yelouafi/redux-saga).
 
 :snowman: Nested children can access routing state such as the current location directly with `react-redux`'s `connect`.
 
-:clock9: Support time traveling in Redux DevTools.
+:clock9: Supports time traveling in Redux DevTools.
 
-:gem: Support [Immutable.js](https://facebook.github.io/immutable-js/)
+:gem: Supports [Immutable.js](https://facebook.github.io/immutable-js/)
 
-:muscle: Support TypeScript
+:muscle: Supports TypeScript
 
 
 Installation
