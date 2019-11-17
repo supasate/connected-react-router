@@ -7,6 +7,7 @@
 - [How to hot reload reducers](#how-to-hot-reload-reducers)
 - [How to support Immutable.js](#how-to-support-immutablejs)
 - [How to migrate from v4 to v5/v6](#how-to-migrate-from-v4-to-v5v6)
+- [How to use connected-react-router with react native](#how-to-use-connected-react-router-with-react-native)
 - [How to use your own context with react-redux](#how-to-use-your-own-context-with-react-redux)
 
 ### How to navigate with Redux action
@@ -308,6 +309,36 @@ It's easy to migrate from v4 to v5/v6.
 + const nextCreateRootReducer = require('./reducers').default
 + store.replaceReducer(nextCreateRootReducer(history))
 ```
+
+### How to use connected-react-router with react native
+#### History does not exist, how can I configure my redux store?
+As you know react native does not support natively the HTML5 history API, it's supposed to be available only for web browsers. This issue can be solved by using [`createMemoryHistory`](https://github.com/ReactTraining/history/blob/master/docs/GettingStarted.md#intro).
+
+Here is an example with react-redux v6.0.0.
+
+```js
+const history = createMemoryHistory()
+
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Route path="/" component={myComponent} exact={true} />
+    </ConnectedRouter>
+  </Provider>
+)
+```
+
+[Example available here](./examples/react-native/src/configureStore.js)
+
+#### Get location from a screen
+You can access at your location interface with `history.location`.
+
+[Example available here](./examples/react-native/src/screens/Account.js)
+
+#### Go to a screen with parameter
+You can use `history` and navigate between screens.
+
+[Example available here](./examples/react-native/src/screens/Home.js)
 
 ### How to Use Your Own Context with react-redux
 With react-redux v6.0.0, you can pass your own context to `<Provider>` component. So, you need to pass the same context as props to `<ConnectedRouter>` component.
