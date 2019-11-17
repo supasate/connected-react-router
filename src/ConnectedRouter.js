@@ -92,7 +92,6 @@ const createConnectedRouter = (structure) => {
       listen: PropTypes.func.isRequired,
       location: PropTypes.object.isRequired,
       push: PropTypes.func.isRequired,
-      action: PropTypes.string.isRequired,
     }).isRequired,
     basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
