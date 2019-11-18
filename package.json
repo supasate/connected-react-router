@@ -17,10 +17,10 @@
     "umd"
   ],
   "scripts": {
-    "build:esm": "BABEL_ENV=esm babel src --out-dir esm",
-    "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
-    "build:umd": "NODE_ENV=development webpack src/index.js --output umd/ConnectedReactRouter.js",
-    "build:umd:min": "NODE_ENV=production webpack -p src/index.js --output umd/ConnectedReactRouter.min.js",
+    "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir esm",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:umd": "cross-env NODE_ENV=development webpack src/index.js --output umd/ConnectedReactRouter.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack -p src/index.js --output umd/ConnectedReactRouter.min.js",
     "build": "npm run build:esm & npm run build:commonjs & npm run build:umd & npm run build:umd:min",
     "lint": "eslint .",
     "test": "jest --config ./.jestrc.json",
@@ -55,6 +55,7 @@
     "babel-plugin-rewire": "^1.2.0",
     "babel-template": "^6.2.0",
     "babel-types": "^6.2.0",
+    "cross-env": "^6.0.3",
     "enzyme": "3.1.1",
     "enzyme-adapter-react-16": "^1.0.4",
     "eslint": "^5.9.0",
