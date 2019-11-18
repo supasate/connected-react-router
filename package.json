@@ -17,10 +17,10 @@
     "umd"
   ],
   "scripts": {
-    "build:esm": "./node_modules/.bin/cross-env BABEL_ENV=esm babel src --out-dir esm",
-    "build:commonjs": "./node_modules/.bin/cross-env BABEL_ENV=commonjs babel src --out-dir lib",
-    "build:umd": "./node_modules/.bin/cross-env NODE_ENV=development webpack src/index.js --output umd/ConnectedReactRouter.js",
-    "build:umd:min": "./node_modules/.bin/cross-env NODE_ENV=production webpack -p src/index.js --output umd/ConnectedReactRouter.min.js",
+    "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir esm",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:umd": "cross-env NODE_ENV=development webpack src/index.js --output umd/ConnectedReactRouter.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack -p src/index.js --output umd/ConnectedReactRouter.min.js",
     "build": "npm run build:esm & npm run build:commonjs & npm run build:umd & npm run build:umd:min",
     "lint": "eslint .",
     "test": "jest --config ./.jestrc.json",
