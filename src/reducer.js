@@ -1,4 +1,3 @@
-import isBrowser from 'is-browser'
 import { LOCATION_CHANGE } from './actions'
 
 /**
@@ -6,11 +5,11 @@ import { LOCATION_CHANGE } from './actions'
  * Utilises the search prop of location to construct query.
  */
 const injectQuery = (location) => {
-  if (!location) {
+  if (!location || typeof window === 'undefined' || typeof window.location === 'undefined') {
     return location
   }
 
-  const searchQuery = location.search || (isBrowser && window.location.search)
+  const searchQuery = location.search || window.location.search
 
   if (typeof searchQuery !== 'string' || searchQuery.length === 0) {
     return {

@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "immutable": "^3.8.1",
-    "is-browser": "^2.1.0",
     "prop-types": "^15.7.2",
     "seamless-immutable": "^7.1.3"
   },
