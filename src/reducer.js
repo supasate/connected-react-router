@@ -5,7 +5,7 @@ const getSearchQuery = (location) => {
     return location.search
   }
 
-  if (window && window.location && window.location.search) {
+  if (typeof window !== 'undefined' && window.location && window.location.search) {
     return window.location.search
   }
 
