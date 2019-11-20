@@ -1,6 +1,6 @@
 import { LOCATION_CHANGE } from './actions'
 
-const getSearchValue = (location) => {
+const getSearchQuery = (location) => {
   if (location && location.search) {
     return location.search
   }
@@ -16,7 +16,7 @@ const getSearchValue = (location) => {
  * Utilises the search prop of location to construct query.
  */
 const injectQuery = (location) => {
-  const searchQuery = getSearchValue(location)
+  const searchQuery = getSearchQuery(location)
 
   if (typeof searchQuery !== 'string' || searchQuery.length === 0) {
     return {
