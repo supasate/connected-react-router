@@ -1,22 +1,11 @@
 import { LOCATION_CHANGE } from './actions'
 
-const getSearchQuery = (location) => {
-  if (location && location.search) {
-    return location.search
-  }
-
-  if (typeof window !== 'undefined' && window.location && window.location.search) {
-    return window.location.search
-  }
-
-  return ''
-}
 /**
  * Adds query to location.
  * Utilises the search prop of location to construct query.
  */
 const injectQuery = (location) => {
-  const searchQuery = getSearchQuery(location)
+  const searchQuery = location && location.search
 
   if (typeof searchQuery !== 'string' || searchQuery.length === 0) {
     return {
