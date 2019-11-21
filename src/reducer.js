@@ -9,7 +9,7 @@ const injectQuery = (location) => {
     return location
   }
 
-  const searchQuery = location.search || window.location.search
+  const searchQuery = location.search || (window.location && window.location.search)
 
   if (typeof searchQuery !== 'string' || searchQuery.length === 0) {
     return {
