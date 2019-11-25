@@ -5,11 +5,7 @@ import { LOCATION_CHANGE } from './actions'
  * Utilises the search prop of location to construct query.
  */
 const injectQuery = (location) => {
-  if (!location) {
-    return location
-  }
-
-  const searchQuery = location.search || window.location.search
+  const searchQuery = location && location.search
 
   if (typeof searchQuery !== 'string' || searchQuery.length === 0) {
     return {
