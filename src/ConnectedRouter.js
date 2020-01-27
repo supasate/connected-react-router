@@ -30,7 +30,6 @@ const createConnectedRouter = (structure) => {
           search: searchInStore,
           hash: hashInStore,
           state: stateInStore,
-          key: keyInStore,
         } = getLocation(store.getState())
         // Extract history's location
         const {
@@ -38,7 +37,6 @@ const createConnectedRouter = (structure) => {
           search: searchInHistory,
           hash: hashInHistory,
           state: stateInHistory,
-          key: keyInHistory,
         } = history.location
 
         // If we do time travelling, the location in store is changed but location in history is not changed
@@ -47,8 +45,7 @@ const createConnectedRouter = (structure) => {
           (pathnameInHistory !== pathnameInStore ||
             searchInHistory !== searchInStore ||
             hashInHistory !== hashInStore ||
-            stateInStore !== stateInHistory ||
-            keyInStore !== keyInHistory)
+            stateInStore !== stateInHistory)
         ) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
@@ -57,7 +54,6 @@ const createConnectedRouter = (structure) => {
             search: searchInStore,
             hash: hashInStore,
             state: stateInStore,
-            key: keyInStore,
           })
         }
       })
