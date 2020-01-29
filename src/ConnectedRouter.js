@@ -29,22 +29,31 @@ const createConnectedRouter = (structure) => {
           pathname: pathnameInStore,
           search: searchInStore,
           hash: hashInStore,
+          state: stateInStore,
         } = getLocation(store.getState())
         // Extract history's location
         const {
           pathname: pathnameInHistory,
           search: searchInHistory,
           hash: hashInHistory,
+          state: stateInHistory,
         } = history.location
 
         // If we do time travelling, the location in store is changed but location in history is not changed
-        if (props.history.action === 'PUSH' && (pathnameInHistory !== pathnameInStore || searchInHistory !== searchInStore || hashInHistory !== hashInStore)) {
+        if (
+          props.history.action === 'PUSH' &&
+          (pathnameInHistory !== pathnameInStore ||
+            searchInHistory !== searchInStore ||
+            hashInHistory !== hashInStore ||
+            stateInStore !== stateInHistory)
+        ) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
           history.push({
             pathname: pathnameInStore,
             search: searchInStore,
             hash: hashInStore,
+            state: stateInStore,
           })
         }
       })
