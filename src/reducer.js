@@ -24,7 +24,7 @@ const injectQuery = (location) => {
     const [queryKey, queryValue] = currentQuery.split('=')
     return {
       ...acc,
-      [queryKey]: queryValue
+      [queryKey]: decodeURIComponent(queryValue)
     }
   }, {})
 
