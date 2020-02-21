@@ -123,6 +123,49 @@ describe('connectRouter', () => {
       const nextState = rootReducer(currentState, action)
       expect(nextState).toBe(currentState)
     })
+
+    it('does not replace query if it already exists in location', () => {
+      const mockReducer = (state = {}, action) => {
+        switch (action.type) {
+          default:
+            return state
+        }
+      }
+      const rootReducer = combineReducers({
+        mock: mockReducer,
+        router: connectRouter(mockHistory)
+      })
+
+      const currentState = {
+        mock: {},
+        router: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: ''
+          },
+          action: 'POP'
+        }
+      }
+      const action = {
+        type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/path/to/somewhere',
+            search: '?query=%7Bvalue%3A%20%27foobar%27%7D',
+            hash: '',
+            query: { query: { value: 'foobar' } }
+          },
+          action: 'PUSH'
+        }
+      }
+      const nextState = rootReducer(currentState, action)
+      const expectedState = {
+        mock: {},
+        router: action.payload
+      }
+      expect(nextState).toEqual(expectedState)
+    })
   })
 
   describe('with immutable structure', () => {

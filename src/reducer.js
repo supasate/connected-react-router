@@ -5,6 +5,11 @@ import { LOCATION_CHANGE } from './actions'
  * Utilises the search prop of location to construct query.
  */
 const injectQuery = (location) => {
+  if (location && location.query) {
+    // Don't inject query if it already exists in history
+    return location
+  }
+
   const searchQuery = location && location.search
 
   if (typeof searchQuery !== 'string' || searchQuery.length === 0) {
