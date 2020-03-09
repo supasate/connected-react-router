@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect, ReactReduxContext } from 'react-redux'
 import { Router } from 'react-router'
+import { isEqual } from 'lodash'
 import { onLocationChanged } from './actions'
 import createSelectors from './selectors'
 
@@ -45,7 +46,7 @@ const createConnectedRouter = (structure) => {
           (pathnameInHistory !== pathnameInStore ||
             searchInHistory !== searchInStore ||
             hashInHistory !== hashInStore ||
-            stateInStore !== stateInHistory)
+            !isEqual(stateInStore, stateInHistory))
         ) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
