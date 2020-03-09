@@ -191,6 +191,18 @@ describe('ConnectedRouter', () => {
       history.push('/new-location')
       expect(renderCount).toBe(2)
     })
+
+    it('does not call `props.onLocationChanged()` on intial location when `noInitialPop` prop is passed ', () => {
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter {...props} noInitialPop>
+            <Route path="/" render={() => <div>Home</div>} />
+          </ConnectedRouter>
+        </Provider>
+      )
+
+      expect(onLocationChangedSpy.mock.calls).toHaveLength(0)
+    })
   })
 
   describe('with immutable structure', () => {

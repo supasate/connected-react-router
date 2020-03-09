@@ -353,3 +353,15 @@ ReactDOM.render(
   </Provider>
 )
 ```
+
+### How to stop initial location change
+In order to make this package more compatible with react-router-redux, a LOCATION_CHANGE action is dispatched for the initial location. This can however be disabled via the `noInitialPop` prop.
+```js
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRouter history={history} noInitialPop>
+      <Route path="/" component={myComponent} exact={true} />
+    </ConnectedRouter>
+  </Provider>
+)
+```
