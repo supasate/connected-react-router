@@ -16,7 +16,7 @@ declare module 'connected-react-router' {
 
   interface ConnectedRouterProps<S = LocationState> {
     history: History<S>;
-    context?: React.Context<ReactReduxContextValue>;
+    context?: React.Context<ReactReduxContextValue> | React.Context<{ store: any }>;
   }
 
   export type RouterActionType = Action;
