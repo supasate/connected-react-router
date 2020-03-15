@@ -69,7 +69,7 @@ const createConnectedRouter = (structure) => {
 
       // Listen to history changes
       this.unlisten = history.listen(handleLocationChange)
-    
+
       if (!props.noInitialPop) {
         // Dispatch a location change action for the initial location.
         // This makes it backward-compatible with react-router-redux.

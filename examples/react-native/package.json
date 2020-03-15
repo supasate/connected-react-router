@@ -12,7 +12,7 @@
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-redux": "^7.1.1",
-    "react-router-native": "^5.0.1",
+    "react-router-native": "^5.1.0",
     "redux": "^4.0.4"
   },
   "devDependencies": {

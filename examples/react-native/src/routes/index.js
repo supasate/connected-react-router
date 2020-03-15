@@ -7,8 +7,12 @@ import Account from '../screens/Account';
 const Router = ({history}) => (
   <NativeRouter>
     <ConnectedRouter history={history}>
-      <Route path="/" component={Home} exact={true} />
-      <Route path="/account" component={Account} />
+      <Route path="/" exact={true}>
+        <Home />
+      </Route>
+      <Route path="/account">
+        <Account />
+      </Route>
     </ConnectedRouter>
   </NativeRouter>
 );

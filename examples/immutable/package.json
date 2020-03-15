@@ -26,11 +26,11 @@
     "history": "^4.7.2",
     "immutable": "^4.0.0-rc.12",
     "prop-types": "^15.6.2",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
-    "react-redux": "^6.0.0",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.1.0",
+    "react-router-dom": "^5.1.0",
     "redux": "^4.0.1",
     "redux-immutable": "^4.0.0"
   }

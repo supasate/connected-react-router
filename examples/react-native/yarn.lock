@@ -5305,7 +5305,7 @@ react-refresh@^0.4.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.4.2.tgz#54a277a6caaac2803d88f1d6f13c1dcfbd81e334"
   integrity sha512-kv5QlFFSZWo7OlJFNYbxRtY66JImuP2LcrFgyJfQaf85gSP+byzG21UbDQEYjU7f//ny8rwiEkO6py2Y+fEgAQ==
 
-react-router-native@^5.0.1:
+react-router-native@^5.1.0:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/react-router-native/-/react-router-native-5.1.2.tgz#1ef02785cb396f2b4234b85ab32e551c191ff41b"
   integrity sha512-0dOsu3qe6CRqLVjgoYvjQrOLzDwS3Z6oWiiKFswEohQ/fLXx/w9168ay7b/q855SrOZdk1ZwcvT3Xdc2Ki29Xg==
