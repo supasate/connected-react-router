@@ -32,7 +32,13 @@ const createSelectors = (structure) => {
       }
       lastPathname = pathname
       const match = matchPath(pathname, path)
-      if (!match || !lastMatch || match.url !== lastMatch.url || match.isExact !== lastMatch.isExact) {
+      if (
+        !match
+        || !lastMatch
+        || match.url !== lastMatch.url
+        // When URL matched for nested routes, URL is the same but isExact is not.
+        || match.isExact !== lastMatch.isExact
+      ) {
         lastMatch = match
       }
 
