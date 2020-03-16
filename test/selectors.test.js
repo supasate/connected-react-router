@@ -107,71 +107,81 @@ describe("selectors", () => {
 
   describe("createMatchSelector", () => {
     it("matches correctly if the router is initialized", () => {
-      const matchSelector = createMatchSelector("/")
+      const matchSelector = createMatchSelector([{ path: '/test' }])
       store.dispatch(push('/test'))
       const state = store.getState()
-      expect(matchSelector(state)).toEqual({
-        isExact: false,
-        params: {},
-        path: "/",
-        url: "/"
-      })
+      expect(matchSelector(state)).toEqual([
+        {
+          params: {},
+          pathname: '/test',
+          route: { path: '/test' },
+        }
+      ])
     })
 
     it("does not throw error if router has not yet initialized", () => {
-      const matchSelector = createMatchSelector("/")
+      const matchSelector = createMatchSelector([{ path: '/' }])
       const state = store.getState()
       expect(() => matchSelector(state)).not.toThrow()
     })
 
     it("does not update if the match is the same", () => {
-      const matchSelector = createMatchSelector("/")
+      const matchSelector = createMatchSelector([{ path: '/' }])
       const match1 = matchSelector(store.getState())
+
       store.dispatch(push('/test1'))
       const match2 = matchSelector(store.getState())
+
       store.dispatch(push('/test2'))
       const match3 = matchSelector(store.getState())
+
       expect(match1).not.toBe(match2)
       expect(match1).not.toBe(match3)
       expect(match2).toEqual(match3)
     })
 
     it("updates if the match is different", () => {
-      const matchSelector = createMatchSelector("/sushi/:type")
+      const matchSelector = createMatchSelector([{ path: '/sushi/:type' }])
+
       store.dispatch(push('/sushi/california'))
       const californiaMatch = matchSelector(store.getState())
+
       store.dispatch(push('/sushi/dynamite'))
       const dynamiteMatch = matchSelector(store.getState())
+
       expect(californiaMatch).not.toBe(dynamiteMatch)
-      expect(californiaMatch).toEqual({
-        isExact: true,
-        params: {type: 'california'},
-        path: '/sushi/:type',
-        url: '/sushi/california',
-      })
-      expect(dynamiteMatch).toEqual({
-        isExact: true,
-        params: {type: 'dynamite'},
-        path: '/sushi/:type',
-        url: '/sushi/dynamite',
-      })
+      expect(californiaMatch).toEqual([
+        {
+          params: { type: 'california' },
+          pathname: '/sushi/california',
+          route: { path: '/sushi/:type' },
+        },
+      ])
+      expect(dynamiteMatch).toEqual([
+        {
+          params: { type: 'dynamite' },
+          pathname: '/sushi/dynamite',
+          route: { path: '/sushi/:type' },
+        },
+      ])
     })
 
     it("updates if the exact match is different", () => {
-      const matchSelector = createMatchSelector({
-        path: "/sushi",
-        exact: true
-      })
+      const matchSelector = createMatchSelector([{ path: '/sushi' }])
+
       store.dispatch(push('/sushi'))
       const okMatch = matchSelector(store.getState())
+
       store.dispatch(push('/sushi/dynamite'))
       const koMatch = matchSelector(store.getState())
-      expect(okMatch).toEqual({
-        isExact: true,
-        params: {},
-        path: '/sushi',
-        url: '/sushi',
-      })
+
+      expect(okMatch).toEqual([
+        {
+          params: {},
+          pathname: '/sushi',
+          route: { path: '/sushi' },
+        },
+      ])
       expect(koMatch).toBe(null)
     })
   })

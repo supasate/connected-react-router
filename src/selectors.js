@@ -1,4 +1,4 @@
-import { matchPath } from "react-router"
+import { matchRoutes } from "react-router"
 
 const createSelectors = (structure) => {
   const { getIn, toJS } = structure
@@ -18,10 +18,10 @@ const createSelectors = (structure) => {
   const getSearch = state => toJS(getIn(getRouter(state), ['location', 'search']))
   const getHash = state => toJS(getIn(getRouter(state), ['location', 'hash']))
 
-  // It only makes sense to recalculate the `matchPath` whenever the pathname
+  // It only makes sense to recalculate the `matchRoutes` whenever the pathname
   // of the location changes. That's why `createMatchSelector` memoizes
   // the latest result based on the location's pathname.
-  const createMatchSelector = path => {
+  const createMatchSelector = routes => {
     let lastPathname = null
     let lastMatch = null
 
@@ -31,16 +31,9 @@ const createSelectors = (structure) => {
         return lastMatch
       }
       lastPathname = pathname
-      const match = matchPath(pathname, path)
-      if (
-        !match
-        || !lastMatch
-        || match.url !== lastMatch.url
-        // When URL matched for nested routes, URL is the same but isExact is not.
-        || match.isExact !== lastMatch.isExact
-      ) {
-        lastMatch = match
-      }
+
+      const match = matchRoutes(routes, pathname)
+      lastMatch = match
 
       return lastMatch
     }

@@ -70,9 +70,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -89,9 +87,7 @@ describe('ConnectedRouter', () => {
       const wrapper = mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -114,9 +110,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store} context={context}>
           <ConnectedRouter {...props} context={context}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -133,14 +127,11 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
-      props.history.push({ pathname: '/new-location', state: { foo: 'bar' } })
-
+      props.history.push('/new-location', { foo: 'bar' })
       expect(onLocationChangedSpy.mock.calls[1][0].state).toEqual({ foo: 'bar'})
     })
 
@@ -155,9 +146,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <RenderCounter />
-            </Route>
+            <Route path="/" element={<RenderCounter />} />
           </ConnectedRouter>
         </Provider>
       )
@@ -192,9 +181,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <RenderCounter />
-            </Route>
+            <Route path="/" element={<RenderCounter />} />
           </ConnectedRouter>
         </Provider>
       )
@@ -210,9 +197,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props} noInitialPop>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -232,9 +217,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -251,9 +234,7 @@ describe('ConnectedRouter', () => {
       const wrapper = mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -276,9 +257,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store} context={context}>
           <ConnectedRouter {...props} context={context}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -302,9 +281,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <RenderCounter />
-            </Route>
+            <Route path="/" element={<RenderCounter />} />
           </ConnectedRouter>
         </Provider>
       )
@@ -339,9 +316,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <RenderCounter />
-            </Route>
+            <Route path="/" element={<RenderCounter />} />
           </ConnectedRouter>
         </Provider>
       )
@@ -366,9 +341,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -385,9 +358,7 @@ describe('ConnectedRouter', () => {
       const wrapper = mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <div>Home</div>
-            </Route>
+            <Route path="/" element={<div>Home</div>} />
           </ConnectedRouter>
         </Provider>
       )
@@ -416,9 +387,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <RenderCounter />
-            </Route>
+            <Route path="/" element={<RenderCounter />} />
           </ConnectedRouter>
         </Provider>
       )
@@ -453,9 +422,7 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/">
-              <RenderCounter />
-            </Route>
+            <Route path="/" element={<RenderCounter />} />
           </ConnectedRouter>
         </Provider>
       )
@@ -494,7 +461,7 @@ describe('ConnectedRouter', () => {
       )
 
       let currentPath
-      const historyUnsubscribe = history.listen(location => {
+      const historyUnsubscribe = history.listen(({location}) => {
         currentPath = location.pathname
       })
 
@@ -516,7 +483,7 @@ describe('ConnectedRouter', () => {
       )
 
       let currentPath
-      const historyUnsubscribe = history.listen(location => {
+      const historyUnsubscribe = history.listen(({location}) => {
         currentPath = location.pathname
       })
 
