@@ -166,7 +166,9 @@ describe('ConnectedRouter', () => {
           },
           action: 'PUSH',
         }
-      })
+			})
+			
+			expect(props.history.entries).toHaveLength(3)
 
       store.dispatch({
         type: LOCATION_CHANGE,
@@ -179,8 +181,10 @@ describe('ConnectedRouter', () => {
           },
           action: 'PUSH',
         }
-      })
-
+			})
+			
+			expect(props.history.entries).toHaveLength(3)
+			
       store.dispatch({
         type: LOCATION_CHANGE,
         payload: {
@@ -208,8 +212,11 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter
-            stateCompareFunction={() => true}
-            {...props} >
+            stateCompareFunction={(a, b) => {
+							return a === undefined  || (a.foo === "baz" && b.foo === 'bar') ? true : false
+            }}
+            {...props}
+					>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
         </Provider>
@@ -229,7 +236,9 @@ describe('ConnectedRouter', () => {
           },
           action: 'PUSH',
         }
-      })
+			})
+			
+      expect(props.history.entries).toHaveLength(3)
 
       store.dispatch({
         type: LOCATION_CHANGE,
@@ -244,7 +253,7 @@ describe('ConnectedRouter', () => {
         }
       })
 
-      expect(props.history.entries).toHaveLength(2)
+      expect(props.history.entries).toHaveLength(3)
     })
 
     it('only renders one time when mounted', () => {
