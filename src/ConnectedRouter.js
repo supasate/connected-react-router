@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect, ReactReduxContext } from 'react-redux'
 import { Router } from 'react-router'
-import { isEqual } from 'lodash'
+import isEqualWith from 'lodash.isequalwith'
 import { onLocationChanged } from './actions'
 import createSelectors from './selectors'
 
@@ -19,7 +19,7 @@ const createConnectedRouter = (structure) => {
     constructor(props) {
       super(props)
 
-      const { store, history, onLocationChanged } = props
+      const { store, history, onLocationChanged, stateCompareFunction} = props
 
       this.inTimeTravelling = false
 
@@ -38,7 +38,7 @@ const createConnectedRouter = (structure) => {
           search: searchInHistory,
           hash: hashInHistory,
           state: stateInHistory,
-        } = history.location
+				} = history.location
 
         // If we do time travelling, the location in store is changed but location in history is not changed
         if (
@@ -46,7 +46,7 @@ const createConnectedRouter = (structure) => {
           (pathnameInHistory !== pathnameInStore ||
             searchInHistory !== searchInStore ||
             hashInHistory !== hashInStore ||
-            !isEqual(stateInStore, stateInHistory))
+            !isEqualWith(stateInStore, stateInHistory, stateCompareFunction))
         ) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
@@ -109,7 +109,8 @@ const createConnectedRouter = (structure) => {
     basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
     onLocationChanged: PropTypes.func.isRequired,
-    noInitialPop: PropTypes.bool,
+		noInitialPop: PropTypes.bool,
+    stateCompareFunction: PropTypes.func,
   }
 
   const mapDispatchToProps = dispatch => ({
