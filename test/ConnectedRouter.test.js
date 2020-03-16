@@ -9,7 +9,7 @@ import { createMemoryHistory } from 'history'
 import { Route } from 'react-router'
 import { Provider } from 'react-redux'
 import createConnectedRouter from '../src/ConnectedRouter'
-import { onLocationChanged } from '../src/actions'
+import { onLocationChanged, LOCATION_CHANGE } from '../src/actions'
 import plainStructure from '../src/structure/plain'
 import immutableStructure from '../src/structure/immutable'
 import seamlessImmutableStructure from '../src/structure/seamless-immutable'
@@ -134,6 +134,117 @@ describe('ConnectedRouter', () => {
       props.history.push({ pathname: '/new-location', state: { foo: 'bar' } })
 
       expect(onLocationChangedSpy.mock.calls[1][0].state).toEqual({ foo: 'bar'})
+		})
+		
+		it('changing store location updates history', () => {
+			store = createStore(
+        combineReducers({
+					router: connectRouter(props.history)
+        }),
+        compose(applyMiddleware(routerMiddleware(props.history)))
+			)
+			
+      mount(
+        <Provider store={store}>
+					<ConnectedRouter {...props}>
+            <Route path="/" render={() => <div>Home</div>} />
+          </ConnectedRouter>
+        </Provider>
+			)
+
+			// Need to add PUSH action to history because initial POP action prevents history updates
+			props.history.push({ pathname: "/" })
+
+			store.dispatch({
+				type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+						hash: '',
+						state: {foo: 'bar'}
+          },
+          action: 'PUSH',
+        }
+			})
+
+			store.dispatch({
+				type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+						hash: '',
+						state: {foo: 'bar'}
+          },
+          action: 'PUSH',
+        }
+			})
+
+			store.dispatch({
+				type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+						hash: '',
+						state: {foo: 'baz'}
+          },
+          action: 'PUSH',
+        }
+			})
+
+			expect(props.history.entries).toHaveLength(4)
+		})
+		
+		it('supports custom state compare function', () => {
+			store = createStore(
+        combineReducers({
+					router: connectRouter(props.history)
+        }),
+        compose(applyMiddleware(routerMiddleware(props.history)))
+			)
+			
+      mount(
+        <Provider store={store}>
+					<ConnectedRouter
+						stateCompareFunction={() => true}
+						{...props} >
+            <Route path="/" render={() => <div>Home</div>} />
+          </ConnectedRouter>
+        </Provider>
+			)
+
+			// Need to add PUSH action to history because initial POP action prevents history updates
+			props.history.push({ pathname: "/" })
+
+			store.dispatch({
+				type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+						hash: '',
+						state: {foo: 'bar'}
+          },
+          action: 'PUSH',
+        }
+			})
+
+			store.dispatch({
+				type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+						hash: '',
+						state: {foo: 'baz'}
+          },
+          action: 'PUSH',
+        }
+			})
+
+			expect(props.history.entries).toHaveLength(2)
     })
 
     it('only renders one time when mounted', () => {
