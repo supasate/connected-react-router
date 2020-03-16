@@ -10,8 +10,12 @@
       ]
     },
     "test": {
+      "presets": [
+        ["@babel/preset-env", { targets: { node: "current" }}]
+      ],
       "plugins": [
-        "rewire"
+        "rewire",
+        "@babel/plugin-transform-runtime"
       ]
     }
   }

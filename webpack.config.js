@@ -3,7 +3,16 @@ var config = {
   mode: 'production',
   module: {
     rules: [
-      { test: /\.js$/, use: [ 'babel-loader' ], exclude: /node_modules/ }
+      { 
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['@babel/plugin-transform-runtime']
+          }
+        }
+      }
     ]
   },
   output: {
