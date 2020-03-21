@@ -109,10 +109,7 @@ const createConnectedRouter = (structure) => {
     basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
     onLocationChanged: PropTypes.func.isRequired,
-<<<<<<< HEAD
-		noInitialPop: PropTypes.bool,
-=======
->>>>>>> Split store update test into two + updated custom state compare function test + spacing
+    noInitialPop: PropTypes.bool,
     stateCompareFunction: PropTypes.func,
   }
 
