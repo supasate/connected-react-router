@@ -135,8 +135,8 @@ describe('ConnectedRouter', () => {
 
       expect(onLocationChangedSpy.mock.calls[1][0].state).toEqual({ foo: 'bar'})
     })
-    
-    it('changing store location updates history', () => {
+
+    it('updates history when store location state changes', () => {
       store = createStore(
         combineReducers({
           router: connectRouter(props.history)
@@ -166,25 +166,10 @@ describe('ConnectedRouter', () => {
           },
           action: 'PUSH',
         }
-			})
-			
-			expect(props.history.entries).toHaveLength(3)
+      })
 
-      store.dispatch({
-        type: LOCATION_CHANGE,
-        payload: {
-          location: {
-            pathname: '/',
-            search: '',
-            hash: '',
-            state: { foo: 'bar' }
-          },
-          action: 'PUSH',
-        }
-			})
-			
-			expect(props.history.entries).toHaveLength(3)
-			
+      expect(props.history.entries).toHaveLength(3)
+
       store.dispatch({
         type: LOCATION_CHANGE,
         payload: {
@@ -200,8 +185,8 @@ describe('ConnectedRouter', () => {
 
       expect(props.history.entries).toHaveLength(4)
     })
-    
-    it('supports custom state compare function', () => {
+
+    it('does not update history when store location state is unchanged', () => {
       store = createStore(
         combineReducers({
           router: connectRouter(props.history)
@@ -211,12 +196,7 @@ describe('ConnectedRouter', () => {
       
       mount(
         <Provider store={store}>
-          <ConnectedRouter
-            stateCompareFunction={(a, b) => {
-							return a === undefined  || (a.foo === "baz" && b.foo === 'bar') ? true : false
-            }}
-            {...props}
-					>
+          <ConnectedRouter {...props}>
             <Route path="/" render={() => <div>Home</div>} />
           </ConnectedRouter>
         </Provider>
@@ -236,7 +216,71 @@ describe('ConnectedRouter', () => {
           },
           action: 'PUSH',
         }
-			})
+      })
+
+      expect(props.history.entries).toHaveLength(3)
+
+      store.dispatch({
+        type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+            state: { foo: 'bar' }
+          },
+          action: 'PUSH',
+        }
+      })
+
+      expect(props.history.entries).toHaveLength(3)
+    })
+
+    it('supports custom location state compare function', () => {
+      store = createStore(
+        combineReducers({
+          router: connectRouter(props.history)
+        }),
+        compose(applyMiddleware(routerMiddleware(props.history)))
+      )
+      
+      mount(
+        <Provider store={store}>
+          <ConnectedRouter
+            stateCompareFunction={(storeState, historyState) => {
+              // If the store and history states are not undefined,
+              // prevent history from updating when 'baz' is added to the store after 'bar'
+              if (storeState !== undefined && historyState !== undefined) {
+                if (storeState.foo === "baz" && historyState.foo === 'bar') {
+                  return true
+                }
+              }
+
+              // Otherwise return a normal object comparison result
+              return JSON.stringify(storeState) === JSON.stringify(historyState)
+            }}
+            {...props}
+          >
+            <Route path="/" render={() => <div>Home</div>} />
+          </ConnectedRouter>
+        </Provider>
+      )
+
+      // Need to add PUSH action to history because initial POP action prevents history updates
+      props.history.push({ pathname: "/" })
+
+      store.dispatch({
+        type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/',
+            search: '',
+            hash: '',
+            state: { foo: 'bar' }
+          },
+          action: 'PUSH',
+        }
+      })
 			
       expect(props.history.entries).toHaveLength(3)
 

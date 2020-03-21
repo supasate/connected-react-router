@@ -19,7 +19,7 @@ const createConnectedRouter = (structure) => {
     constructor(props) {
       super(props)
 
-      const { store, history, onLocationChanged, stateCompareFunction} = props
+      const { store, history, onLocationChanged, stateCompareFunction } = props
 
       this.inTimeTravelling = false
 
@@ -38,7 +38,7 @@ const createConnectedRouter = (structure) => {
           search: searchInHistory,
           hash: hashInHistory,
           state: stateInHistory,
-				} = history.location
+        } = history.location
 
         // If we do time travelling, the location in store is changed but location in history is not changed
         if (
@@ -109,7 +109,10 @@ const createConnectedRouter = (structure) => {
     basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
     onLocationChanged: PropTypes.func.isRequired,
+<<<<<<< HEAD
 		noInitialPop: PropTypes.bool,
+=======
+>>>>>>> Split store update test into two + updated custom state compare function test + spacing
     stateCompareFunction: PropTypes.func,
   }
 
