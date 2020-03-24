@@ -71,17 +71,15 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
 import createRootReducer from './reducers'
 ...
-const history = createBrowserHistory()
-
-export const history;
+const historyLocal = createBrowserHistory()
 
 export default function configureStore(preloadedState) {
   const store = createStore(
-    createRootReducer(history), // root reducer with router state
+    createRootReducer(historyLocal), // root reducer with router state
     preloadedState,
     compose(
       applyMiddleware(
-        routerMiddleware(history), // for dispatching history actions
+        routerMiddleware(historyLocal), // for dispatching history actions
         // ... other middlewares ...
       ),
     ),
@@ -89,6 +87,8 @@ export default function configureStore(preloadedState) {
 
   return store
 }
+
+export const history = historyLocal;
 ```
 
 ### Step 3
