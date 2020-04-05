@@ -22,8 +22,12 @@ declare module 'connected-react-router' {
 
   export type RouterActionType = Action;
 
+  export interface RouterLocation<S> extends Location<S> {
+    query: Record<string, string>
+  }
+
   export interface RouterState<S = LocationState> {
-    location: Location<S>
+    location: RouterLocation<S>
     action: RouterActionType
   }
 
@@ -64,7 +68,7 @@ declare module 'connected-react-router' {
   export function getRouter<S extends RouterRootState<LS>, LS = LocationState>(state: S): RouterState<LS>;
   export function getAction<S extends RouterRootState>(state: S): RouterActionType;
   export function getHash<S extends RouterRootState>(state: S): Hash;
-  export function getLocation<S extends RouterRootState<LS>, LS = LocationState>(state: S): Location<LS>;
+  export function getLocation<S extends RouterRootState<LS>, LS = LocationState>(state: S): RouterLocation<LS>;
   export function getSearch<S extends RouterRootState>(state: S): Search;
   export function createMatchSelector<
     S extends RouterRootState, Params extends { [K in keyof Params]?: string }
