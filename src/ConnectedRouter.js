@@ -85,7 +85,11 @@ const createConnectedRouter = (structure) => {
     }
 
     render() {
-      const { history, children } = this.props
+      const { omitRouter, history, children } = this.props
+
+      if (omitRouter) {
+        return <>{ children }</>
+      }
 
       return (
         <Router history={history}>
@@ -111,6 +115,7 @@ const createConnectedRouter = (structure) => {
     onLocationChanged: PropTypes.func.isRequired,
     noInitialPop: PropTypes.bool,
     stateCompareFunction: PropTypes.func,
+    omitRouter: PropTypes.bool,
   }
 
   const mapDispatchToProps = dispatch => ({
