@@ -2,8 +2,8 @@
 *.log
 *.swp
 node_modules
-esm
-lib
-umd
+#esm
+#lib
+#umd
 .idea
 dist
