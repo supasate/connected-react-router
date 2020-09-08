@@ -86,6 +86,10 @@ const createConnectedRouter = (structure) => {
 
     render() {
       const { omitRouter, history, children } = this.props
+      
+      // The `omitRouter` option is available for applications that must
+      // have a Router instance higher in the component tree but still desire
+      // to use connected-react-router for its Redux integration.
 
       if (omitRouter) {
         return <>{ children }</>
