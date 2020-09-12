@@ -18,6 +18,7 @@ declare module 'connected-react-router' {
     history: History<S>;
     context?: React.Context<ReactReduxContextValue>;
     noInitialPop?: boolean;
+    omitRouter?: boolean;
   }
 
   export type RouterActionType = Action;
