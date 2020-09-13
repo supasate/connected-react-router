@@ -32,12 +32,14 @@
   },
   "peerDependencies": {
     "history": "^4.7.2",
-    "immutable": "^3.8.1 || ^4.0.0-rc.1",
     "lodash.isequalwith": "^4.4.0",
     "react": "^16.4.0",
     "react-redux": "^6.0.0 || ^7.1.0",
     "react-router": "^4.3.1 || ^5.0.0",
-    "redux": "^3.6.0 || ^4.0.0",
+    "redux": "^3.6.0 || ^4.0.0"
+  },
+  "optionalDependencies": {
+    "immutable": "^3.8.1 || ^4.0.0-rc.1",
     "seamless-immutable": "^7.1.3"
   },
   "devDependencies": {
