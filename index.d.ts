@@ -2,7 +2,7 @@ declare module 'connected-react-router' {
   import * as React from 'react';
   import { Middleware, Reducer } from 'redux';
   import { ReactReduxContextValue } from 'react-redux';
-  import { match } from 'react-router';
+  import { match, matchPath } from 'react-router';
   import {
     Action,
     Hash,
@@ -13,6 +13,8 @@ declare module 'connected-react-router' {
     LocationDescriptorObject,
     Search
   } from 'history';
+
+  type PathParam = Parameters<typeof matchPath>[1];
 
   interface ConnectedRouterProps<S = LocationState> {
     history: History<S>;
@@ -73,7 +75,7 @@ declare module 'connected-react-router' {
   export function getSearch<S extends RouterRootState>(state: S): Search;
   export function createMatchSelector<
     S extends RouterRootState, Params extends { [K in keyof Params]?: string }
-  >(path: string): matchSelectorFn<S, Params>;
+  >(path: PathParam): matchSelectorFn<S, Params>;
   export function onLocationChanged<S = LocationState>(location: Location<S>, action: RouterActionType, isFirstRendering?: boolean)
     : LocationChangeAction<S>;
 
