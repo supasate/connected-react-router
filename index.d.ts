@@ -20,6 +20,7 @@ declare module 'connected-react-router' {
     history: History<S>;
     context?: React.Context<ReactReduxContextValue>;
     noInitialPop?: boolean;
+    noTimeTravelDebugging?: boolean;
     omitRouter?: boolean;
   }
 
