@@ -19,12 +19,53 @@ const createConnectedRouter = (structure) => {
     constructor(props) {
       super(props)
 
-      const { store, history, onLocationChanged, stateCompareFunction } = props
+      const { history } = props
 
       this.inTimeTravelling = false
 
+      this.storeSubscribe()
+
+      const handleLocationChange = (location, action, isFirstRendering = false) => {
+        // Dispatch onLocationChanged except when we're in time travelling
+        if (!this.inTimeTravelling) {
+          this.props.onLocationChanged(location, action, isFirstRendering)
+        } else {
+          this.inTimeTravelling = false
+        }
+      }
+
+      // Listen to history changes
+      this.unlisten = history.listen(handleLocationChange)
+    
+      if (!props.noInitialPop) {
+        // Dispatch a location change action for the initial location.
+        // This makes it backward-compatible with react-router-redux.
+        // But, we add `isFirstRendering` to `true` to prevent double-rendering.
+        handleLocationChange(history.location, history.action, true)
+      }
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.store === prevProps.store) {
+        return
+      }
+
+      this.storeUnsubscribe()
+      this.storeSubscribe()
+    }
+
+    componentWillUnmount() {
+      this.unlisten()
+      this.storeUnsubscribe()
+    }
+
+    storeSubscribe() {
+      const { store } = this.props
+
       // Subscribe to store changes to check if we are in time travelling
-      this.unsubscribe = store.subscribe(() => {
+      this.storeUnsubscribe = store.subscribe(() => {
+        const { history, stateCompareFunction } = this.props
+
         // Extract store's location
         const {
           pathname: pathnameInStore,
@@ -42,7 +83,7 @@ const createConnectedRouter = (structure) => {
 
         // If we do time travelling, the location in store is changed but location in history is not changed
         if (
-          props.history.action === 'PUSH' &&
+          history.action === 'PUSH' &&
           (pathnameInHistory !== pathnameInStore ||
             searchInHistory !== searchInStore ||
             hashInHistory !== hashInStore ||
@@ -58,30 +99,6 @@ const createConnectedRouter = (structure) => {
           })
         }
       })
-
-      const handleLocationChange = (location, action, isFirstRendering = false) => {
-        // Dispatch onLocationChanged except when we're in time travelling
-        if (!this.inTimeTravelling) {
-          onLocationChanged(location, action, isFirstRendering)
-        } else {
-          this.inTimeTravelling = false
-        }
-      }
-
-      // Listen to history changes
-      this.unlisten = history.listen(handleLocationChange)
-    
-      if (!props.noInitialPop) {
-        // Dispatch a location change action for the initial location.
-        // This makes it backward-compatible with react-router-redux.
-        // But, we add `isFirstRendering` to `true` to prevent double-rendering.
-        handleLocationChange(history.location, history.action, true)
-      }
-    }
-
-    componentWillUnmount() {
-      this.unlisten()
-      this.unsubscribe()
     }
 
     render() {
