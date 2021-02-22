@@ -25,6 +25,13 @@ const createConnectedRouter = (structure) => {
 
       // Subscribe to store changes to check if we are in time travelling
       this.unsubscribe = store.subscribe(() => {
+        // Allow time travel debugging compatibility to be turned off
+        // as the detection for this (below) is error prone in apps where the
+        // store may be unmounted, a navigation occurs, and then the store is re-mounted
+        // during the app's lifetime. Detection could be much improved if Redux DevTools
+        // simply set a global variable like `REDUX_DEVTOOLS_IS_TIME_TRAVELLING=true`.
+        const isTimeTravelDebuggingAllowed = !props.noTimeTravelDebugging
+
         // Extract store's location
         const {
           pathname: pathnameInStore,
@@ -42,6 +49,7 @@ const createConnectedRouter = (structure) => {
 
         // If we do time travelling, the location in store is changed but location in history is not changed
         if (
+          isTimeTravelDebuggingAllowed &&
           props.history.action === 'PUSH' &&
           (pathnameInHistory !== pathnameInStore ||
             searchInHistory !== searchInStore ||
@@ -118,6 +126,7 @@ const createConnectedRouter = (structure) => {
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
     onLocationChanged: PropTypes.func.isRequired,
     noInitialPop: PropTypes.bool,
+    noTimeTravelDebugging: PropTypes.bool,
     stateCompareFunction: PropTypes.func,
     omitRouter: PropTypes.bool,
   }
