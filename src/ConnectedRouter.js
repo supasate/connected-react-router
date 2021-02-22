@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { connect, ReactReduxContext } from 'react-redux'
+import { ReactReduxContext } from 'react-redux'
 import { Router } from 'react-router'
 import isEqualWith from 'lodash.isequalwith'
 import { onLocationChanged } from './actions'
@@ -19,7 +19,7 @@ const createConnectedRouter = (structure) => {
     constructor(props) {
       super(props)
 
-      const { store, history, onLocationChanged, stateCompareFunction } = props
+      const { store, history, stateCompareFunction } = props
 
       this.inTimeTravelling = false
 
@@ -68,9 +68,11 @@ const createConnectedRouter = (structure) => {
       })
 
       const handleLocationChange = (location, action, isFirstRendering = false) => {
+        const { store } = props
+
         // Dispatch onLocationChanged except when we're in time travelling
         if (!this.inTimeTravelling) {
-          onLocationChanged(location, action, isFirstRendering)
+          store.dispatch(onLocationChanged(location, action, isFirstRendering))
         } else {
           this.inTimeTravelling = false
         }
@@ -115,6 +117,7 @@ const createConnectedRouter = (structure) => {
     store: PropTypes.shape({
       getState: PropTypes.func.isRequired,
       subscribe: PropTypes.func.isRequired,
+      dispatch: PropTypes.func.isRequired,
     }).isRequired,
     history: PropTypes.shape({
       action: PropTypes.string.isRequired,
@@ -122,24 +125,18 @@ const createConnectedRouter = (structure) => {
       location: PropTypes.object.isRequired,
       push: PropTypes.func.isRequired,
     }).isRequired,
-    basename: PropTypes.string,
     children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
-    onLocationChanged: PropTypes.func.isRequired,
     noInitialPop: PropTypes.bool,
     noTimeTravelDebugging: PropTypes.bool,
     stateCompareFunction: PropTypes.func,
     omitRouter: PropTypes.bool,
   }
 
-  const mapDispatchToProps = dispatch => ({
-    onLocationChanged: (location, action, isFirstRendering) => dispatch(onLocationChanged(location, action, isFirstRendering))
-  })
-
   const ConnectedRouterWithContext = props => {
     const Context = props.context || ReactReduxContext
 
     if (Context == null) {
-      throw 'Please upgrade to react-redux v6'
+      throw 'Please install react-redux v6 or higher'
     }
 
     return (
@@ -153,7 +150,7 @@ const createConnectedRouter = (structure) => {
     context: PropTypes.object,
   }
 
-  return connect(null, mapDispatchToProps)(ConnectedRouterWithContext)
+  return ConnectedRouterWithContext
 }
 
 export default createConnectedRouter
