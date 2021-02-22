@@ -1,6 +1,6 @@
 {
   "name": "connected-react-router",
-  "version": "6.9.0",
+  "version": "6.9.1",
   "description": "A Redux binding for React Router v4 and v5",
   "main": "lib/index.js",
   "module": "esm/index.js",
