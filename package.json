@@ -28,8 +28,8 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "lodash.isequalwith": "^4.4.0"
   },
   "peerDependencies": {
     "history": "^4.7.2",
