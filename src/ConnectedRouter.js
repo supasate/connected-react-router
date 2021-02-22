@@ -1,10 +1,10 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
-import { connect, ReactReduxContext } from "react-redux"
-import { Router } from "react-router"
-import { isEqualWith } from "lodash"
-import { onLocationChanged } from "./actions"
-import createSelectors from "./selectors"
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import { connect, ReactReduxContext } from 'react-redux'
+import { Router } from 'react-router'
+import isEqualWith from 'lodash.isequalwith'
+import { onLocationChanged } from './actions'
+import createSelectors from './selectors'
 
 const createConnectedRouter = (structure) => {
   const { getLocation } = createSelectors(structure)
@@ -33,12 +33,29 @@ const createConnectedRouter = (structure) => {
         const isTimeTravelDebuggingAllowed = !props.noTimeTravelDebugging
 
         // Extract store's location
-        const { pathname: pathnameInStore, search: searchInStore, hash: hashInStore, state: stateInStore } = getLocation(store.getState())
+        const {
+          pathname: pathnameInStore,
+          search: searchInStore,
+          hash: hashInStore,
+          state: stateInStore,
+        } = getLocation(store.getState())
         // Extract history's location
-        const { pathname: pathnameInHistory, search: searchInHistory, hash: hashInHistory, state: stateInHistory } = history.location
+        const {
+          pathname: pathnameInHistory,
+          search: searchInHistory,
+          hash: hashInHistory,
+          state: stateInHistory,
+        } = history.location
 
         // If we do time travelling, the location in store is changed but location in history is not changed
-        if (isTimeTravelDebuggingAllowed && props.history.action === "PUSH" && (pathnameInHistory !== pathnameInStore || searchInHistory !== searchInStore || hashInHistory !== hashInStore || !isEqualWith(stateInStore, stateInHistory, stateCompareFunction))) {
+        if (
+          isTimeTravelDebuggingAllowed &&
+          props.history.action === 'PUSH' &&
+          (pathnameInHistory !== pathnameInStore ||
+            searchInHistory !== searchInStore ||
+            hashInHistory !== hashInStore ||
+            !isEqualWith(stateInStore, stateInHistory, stateCompareFunction))
+        ) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
           history.push({
@@ -61,7 +78,7 @@ const createConnectedRouter = (structure) => {
 
       // Listen to history changes
       this.unlisten = history.listen(handleLocationChange)
-
+    
       if (!props.noInitialPop) {
         // Dispatch a location change action for the initial location.
         // This makes it backward-compatible with react-router-redux.
@@ -77,16 +94,20 @@ const createConnectedRouter = (structure) => {
 
     render() {
       const { omitRouter, history, children } = this.props
-
+      
       // The `omitRouter` option is available for applications that must
       // have a Router instance higher in the component tree but still desire
       // to use connected-react-router for its Redux integration.
 
       if (omitRouter) {
-        return <>{children}</>
+        return <>{ children }</>
       }
 
-      return <Router history={history}>{children}</Router>
+      return (
+        <Router history={history}>
+          { children }
+        </Router>
+      )
     }
   }
 
@@ -102,7 +123,7 @@ const createConnectedRouter = (structure) => {
       push: PropTypes.func.isRequired,
     }).isRequired,
     basename: PropTypes.string,
-    children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+    children: PropTypes.oneOfType([ PropTypes.func, PropTypes.node ]),
     onLocationChanged: PropTypes.func.isRequired,
     noInitialPop: PropTypes.bool,
     noTimeTravelDebugging: PropTypes.bool,
@@ -110,18 +131,22 @@ const createConnectedRouter = (structure) => {
     omitRouter: PropTypes.bool,
   }
 
-  const mapDispatchToProps = (dispatch) => ({
-    onLocationChanged: (location, action, isFirstRendering) => dispatch(onLocationChanged(location, action, isFirstRendering)),
+  const mapDispatchToProps = dispatch => ({
+    onLocationChanged: (location, action, isFirstRendering) => dispatch(onLocationChanged(location, action, isFirstRendering))
   })
 
-  const ConnectedRouterWithContext = (props) => {
+  const ConnectedRouterWithContext = props => {
     const Context = props.context || ReactReduxContext
 
     if (Context == null) {
-      throw "Please upgrade to react-redux v6"
+      throw 'Please upgrade to react-redux v6'
     }
 
-    return <Context.Consumer>{({ store }) => <ConnectedRouter store={store} {...props} />}</Context.Consumer>
+    return (
+      <Context.Consumer>
+        {({ store }) => <ConnectedRouter store={store} {...props} />}
+      </Context.Consumer>
+    )
   }
 
   ConnectedRouterWithContext.propTypes = {
