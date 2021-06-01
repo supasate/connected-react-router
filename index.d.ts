@@ -27,7 +27,7 @@ declare module 'connected-react-router' {
   export type RouterActionType = Action;
 
   export interface RouterLocation<S> extends Location<S> {
-    query: Record<string, string>
+    query: Partial<Record<string, string>>
   }
 
   export interface RouterState<S = LocationState> {
