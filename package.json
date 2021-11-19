@@ -28,8 +28,9 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "lodash.isequalwith": "^4.4.0"
+    "immer": "^9.0.6",
+    "lodash.isequalwith": "^4.4.0",
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "history": "^4.7.2",
