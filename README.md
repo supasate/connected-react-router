@@ -30,11 +30,11 @@ Installation
 Connected React Router requires **React 16.4 and React Redux 6.0 or later**.
 
 
-    $ npm install --save connected-react-router
+    npm install --save connected-react-router
 
 Or
 
-    $ yarn add connected-react-router
+    yarn add connected-react-router
 
 Usage
 -----
