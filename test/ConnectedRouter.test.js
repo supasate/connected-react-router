@@ -2,7 +2,7 @@ import 'raf/polyfill'
 import React from 'react'
 import configureStore from 'redux-mock-store'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
-import { ActionCreators, instrument } from 'redux-devtools'
+import { ActionCreators, instrument } from '@redux-devtools/core'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { createMemoryHistory } from 'history'
@@ -70,7 +70,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -87,7 +89,9 @@ describe('ConnectedRouter', () => {
       const wrapper = mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -110,7 +114,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store} context={context}>
           <ConnectedRouter {...props} context={context}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -127,7 +133,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -143,11 +151,13 @@ describe('ConnectedRouter', () => {
         }),
         compose(applyMiddleware(routerMiddleware(props.history)))
       )
-      
+
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -193,11 +203,13 @@ describe('ConnectedRouter', () => {
         }),
         compose(applyMiddleware(routerMiddleware(props.history)))
       )
-      
+
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -243,7 +255,7 @@ describe('ConnectedRouter', () => {
         }),
         compose(applyMiddleware(routerMiddleware(props.history)))
       )
-      
+
       mount(
         <Provider store={store}>
           <ConnectedRouter
@@ -281,7 +293,7 @@ describe('ConnectedRouter', () => {
           action: 'PUSH',
         }
       })
-			
+
       expect(props.history.entries).toHaveLength(3)
 
       store.dispatch({
@@ -311,7 +323,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-              <Route path="/" component={RenderCounter} />
+              <Route path="/">
+                <RenderCounter />
+              </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -346,21 +360,28 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-              <Route path="/" component={RenderCounter} />
+              <Route path="/">
+                <RenderCounter />
+              </Route>
           </ConnectedRouter>
         </Provider>
       )
 
+      // Non-related action does not cause re-rendering
       store.dispatch({ type: 'testAction' })
+      // By using children under Route, it doesn't re-render the same component.
       history.push('/new-location')
-      expect(renderCount).toBe(2)
+      // The only rendering is when being mounted.
+      expect(renderCount).toBe(1)
     })
 
     it('does not call `props.onLocationChanged()` on intial location when `noInitialPop` prop is passed ', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props} noInitialPop>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -380,7 +401,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -397,7 +420,9 @@ describe('ConnectedRouter', () => {
       const wrapper = mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -420,7 +445,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store} context={context}>
           <ConnectedRouter {...props} context={context}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -444,7 +471,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-              <Route path="/" component={RenderCounter} />
+            <Route path="/">
+              <RenderCounter />
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -479,14 +508,19 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-              <Route path="/" component={RenderCounter} />
+            <Route path="/">
+              <RenderCounter />
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
 
+      // Non-related action does not cause re-rendering
       store.dispatch({ type: 'testAction' })
+      // By using children under Route, it doesn't re-render the same component.
       history.push('/new-location')
-      expect(renderCount).toBe(2)
+      // The only rendering is when being mounted.
+      expect(renderCount).toBe(1)
     })
   })
 
@@ -501,7 +535,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home </div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -518,7 +554,9 @@ describe('ConnectedRouter', () => {
       const wrapper = mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-            <Route path="/" render={() => <div>Home</div>} />
+            <Route path="/">
+              <div>Home</div>
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -547,7 +585,9 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-              <Route path="/" component={RenderCounter} />
+            <Route path="/">
+              <RenderCounter />
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
@@ -582,14 +622,19 @@ describe('ConnectedRouter', () => {
       mount(
         <Provider store={store}>
           <ConnectedRouter {...props}>
-              <Route path="/" component={RenderCounter} />
+            <Route path="/">
+              <RenderCounter />
+            </Route>
           </ConnectedRouter>
         </Provider>
       )
 
+      // Non-related action does not cause re-rendering
       store.dispatch({ type: 'testAction' })
+      // By using children under Route, it doesn't re-render the same component.
       history.push('/new-location')
-      expect(renderCount).toBe(2)
+      // The only rendering is when being mounted.
+      expect(renderCount).toBe(1)
     })
   })
 
