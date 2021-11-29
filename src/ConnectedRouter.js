@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect, ReactReduxContext } from 'react-redux'
-import { Router } from 'react-router'
+import { Router } from 'react-router-dom'
 import isEqualWith from 'lodash.isequalwith'
 import { onLocationChanged } from './actions'
 import createSelectors from './selectors'
@@ -58,16 +58,24 @@ const createConnectedRouter = (structure) => {
         ) {
           this.inTimeTravelling = true
           // Update history's location to match store's location
-          history.push({
-            pathname: pathnameInStore,
-            search: searchInStore,
-            hash: hashInStore,
-            state: stateInStore,
-          })
+          history.push(
+            {
+              pathname: pathnameInStore,
+              search: searchInStore,
+              hash: hashInStore,
+            },
+            {
+              // state
+              ...stateInStore,
+            },
+          )
         }
       })
 
-      const handleLocationChange = (location, action, isFirstRendering = false) => {
+      const handleLocationChange = (
+        { location, action },
+        isFirstRendering = false,
+       ) => {
         // Dispatch onLocationChanged except when we're in time travelling
         if (!this.inTimeTravelling) {
           onLocationChanged(location, action, isFirstRendering)
@@ -78,12 +86,18 @@ const createConnectedRouter = (structure) => {
 
       // Listen to history changes
       this.unlisten = history.listen(handleLocationChange)
-    
+
       if (!props.noInitialPop) {
         // Dispatch a location change action for the initial location.
         // This makes it backward-compatible with react-router-redux.
         // But, we add `isFirstRendering` to `true` to prevent double-rendering.
-        handleLocationChange(history.location, history.action, true)
+        handleLocationChange(
+          {
+            location: history.location,
+            action: history.action,
+          },
+          true,
+        )
       }
     }
 
@@ -94,7 +108,7 @@ const createConnectedRouter = (structure) => {
 
     render() {
       const { omitRouter, history, children } = this.props
-      
+
       // The `omitRouter` option is available for applications that must
       // have a Router instance higher in the component tree but still desire
       // to use connected-react-router for its Redux integration.
@@ -102,12 +116,12 @@ const createConnectedRouter = (structure) => {
       if (omitRouter) {
         return <>{ children }</>
       }
-
       return (
-        <Router history={history}>
+        <Router location={history.location} navigator={history}>
           { children }
         </Router>
       )
+
     }
   }
 

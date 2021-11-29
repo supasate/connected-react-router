@@ -28,15 +28,15 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "lodash.isequalwith": "^4.4.0"
+    "lodash.isequalwith": "^4.4.0",
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "history": "^4.7.2",
+    "history": "^5.0.0",
     "react": "^16.8.3 || ^17.0.0",
     "react-redux": "^6.0.0 || ^7.1.0",
-    "react-router": "^5.1.0",
-    "react-router-dom": "^5.1.0",
+    "react-router": "^6.0.0",
+    "react-router-dom": "^6.0.0",
     "redux": "^3.6.0 || ^4.0.0"
   },
   "optionalDependencies": {
@@ -61,19 +61,17 @@
     "babel-template": "^6.2.0",
     "babel-types": "^6.2.0",
     "cross-env": "^6.0.3",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^5.9.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
     "immutable": "^4.0.0",
     "jest": "^24.3.1",
     "raf": "^3.4.0",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "react": "^16.8.3 || ^17.0.0",
+    "react-dom": "^16.8.3 || ^17.0.0",
     "react-redux": "^6.0.0 || ^7.1.0",
-    "react-router": "^5.1.0",
-    "react-router-dom": "^5.1.0",
+    "react-router": "^6.0.0",
+    "react-router-dom": "^6.0.0",
     "react-test-renderer": "^16.4.0",
     "redux": "^4.0.0",
     "redux-immutable": "^3.0.11",
