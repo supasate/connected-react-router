@@ -24,6 +24,8 @@ Main features
 
 :muscle: Supports TypeScript
 
+:gem: Supports [Immer.js](https://immerjs.github.io/immer/)
+
 
 Installation
 -----------
