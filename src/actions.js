@@ -4,7 +4,7 @@
  */
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE'
 
-export const onLocationChanged = (location, action, isFirstRendering = false) => ({
+export const onLocationChanged = ({location, action}, isFirstRendering = false) => ({
   type: LOCATION_CHANGE,
   payload: {
     location,
