@@ -8,6 +8,7 @@ import createSelectors from './selectors'
 
 const createConnectedRouter = (structure) => {
   const { getLocation } = createSelectors(structure)
+  const ConnectedReactRouter = connect(({router: {location, action}}) => ({location, action}))(Router)
   /*
    * ConnectedRouter listens to a history object passed from props.
    * When history is changed, it dispatches action to redux store.
@@ -104,9 +105,9 @@ const createConnectedRouter = (structure) => {
       }
 
       return (
-        <Router history={history}>
+        <ConnectedReactRouter navigator={history}>
           { children }
-        </Router>
+        </ConnectedReactRouter>
       )
     }
   }
